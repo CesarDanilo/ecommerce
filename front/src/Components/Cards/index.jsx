@@ -8,6 +8,16 @@ import { CardActionArea, Grid, Box } from '@mui/material';
 import Img from '../../img/MousePad/002.jpg';
 
 const Cards = ({ titulo }) => {
+
+    const imgs = [
+        { title: 'MousePad Speed', url: 'https://ae-pic-a1.aliexpress-media.com/kf/S2a0513a05487456ea2ba32dc6113cfefS.jpg_640x640.jpg_.webp', description: 'Mousepad 40x45', preco: '180,00' },
+        { title: 'MousePad Speed', url: 'https://ae-pic-a1.aliexpress-media.com/kf/Saa92b6d67ba9470b9fa9fa4b0a6f778a6.jpg_640x640.jpg_.webp', description: 'Mousepad 40x45', preco: '180,00' },
+        { title: 'MousePad Speed', url: 'https://ae-pic-a1.aliexpress-media.com/kf/Sfee60a210944451ab6a6c3913ccd9069x.jpg_640x640.jpg_.webp', description: 'Mousepad 40x45', preco: '180,00' },
+        { title: 'MousePad Speed', url: 'https://ae-pic-a1.aliexpress-media.com/kf/S6f1371e669d04edd845df2aa233f057da.jpg_640x640.jpg_.webp', description: 'Mousepad 40x45', preco: '180,00' },
+        { title: 'MousePad Speed', url: 'https://ae-pic-a1.aliexpress-media.com/kf/S701f9c0cae3d44fa9d68c6a86afcc483N.jpg_640x640.jpg_.webp', description: 'Mousepad 40x45', preco: '180,00' },
+        { title: 'MousePad Speed', url: 'https://ae-pic-a1.aliexpress-media.com/kf/S32fc521b993641eaaf6504a2f62dac92i.jpg_640x640.jpg_.webp', description: 'Mousepad 40x45', preco: '180,00' }
+    ];
+
     return (
         <Box
             sx={{
@@ -31,14 +41,14 @@ const Cards = ({ titulo }) => {
                 {titulo}
             </Typography>
             <Grid container spacing={3}>
-                {[...Array(6)].map((_, index) => (
+                {imgs.map((i, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
                         <Card sx={{ maxWidth: '100%', margin: 'auto' }}>
                             <CardActionArea>
                                 <CardMedia
                                     component="img"
                                     height="190"
-                                    image={Img}
+                                    image={i.url}
                                     alt="mouse pad"
                                 />
                                 <CardContent
@@ -50,13 +60,13 @@ const Cards = ({ titulo }) => {
                                     }}
                                 >
                                     <Typography gutterBottom component="div" fontWeight="bold" mt={'2px'}>
-                                        Mouse Pad Speed
+                                        {i.title}
                                     </Typography>
                                     <Typography variant="body3" color="text.secondary" mt={'1px'}>
-                                        Body Text of third Product
+                                        {i.description}
                                     </Typography>
                                     <Typography variant="body3" color="text.primary" fontWeight="bold" mt={'2px'}>
-                                        R$ 180,00
+                                        {`R$ ${i.preco}`}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
