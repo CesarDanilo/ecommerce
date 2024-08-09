@@ -3,6 +3,7 @@ import NavBar from "../../Components/NavBar";
 import Main from "../../Components/Main";
 import Cards from "../../Components/Cards";
 import Article from "../../Components/Article";
+import Footer from "../../Components/Footer";
 
 const Home = () => {
     return (
@@ -12,6 +13,7 @@ const Home = () => {
             <Main />
             <Cards titulo={'MOUSE PAD SPEED'} />
             <Article />
+            <Footer />
         </div>
     );
 }
