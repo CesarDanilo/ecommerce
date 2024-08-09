@@ -18,14 +18,14 @@ const Main = () => {
                 height: '400px',      // Altura do Container
                 maxWidth: '100%',     // Garante que o Container ocupe 100% da largura disponível
                 p: 0,                 // Remove o padding do Container
-                m: 0                  // Remove a margem do Container
+                m: 10                  // Remove a margem do Container
             }}
         >
             <Box
                 sx={{
                     position: 'relative',
                     width: '100%',
-                    maxWidth: '1380px',  // Limita a largura máxima para 1300px
+                    maxWidth: '1300px',  // Limita a largura máxima para 1300px
                     height: '500px',
                     overflow: 'hidden',  // Garante que o conteúdo fique dentro dos limites
                     borderRadius: '10px'

@@ -39,7 +39,7 @@ const NavBar = () => {
                     <img src={Logo} alt="Logo" style={{ maxWidth: '100%', height: '80px' }} />
                 </Box>
             </Grid>
-            <Grid item xs={12} sm={8} md={10}>
+            <Grid item xs={12} sm={8} md={9.5}>
                 <Box
                     sx={{
                         display: 'flex',

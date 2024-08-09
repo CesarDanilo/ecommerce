@@ -11,7 +11,7 @@ const Cards = ({ titulo }) => {
     return (
         <Box
             sx={{
-                maxWidth: 1200,
+                maxWidth: 1000,
                 margin: '0 auto',  // Centraliza o conteúdo
                 padding: '0 16px', // Adiciona um pequeno preenchimento nas laterais
                 width: '100%',     // Garante que o Box ocupe 100% da largura disponível
@@ -25,7 +25,7 @@ const Cards = ({ titulo }) => {
                     fontWeight: "bold",
                     marginTop: 5,
                     marginBottom: 3,
-                    textAlign: "left"
+                    textAlign: 'center',
                 }}
             >
                 {titulo}
