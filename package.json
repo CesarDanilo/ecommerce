@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^5.16.6",
+    "nodemon": "^3.1.4"
+  }
+}
