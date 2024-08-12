@@ -28,16 +28,18 @@ const NavBar = () => {
     return (
         <Grid container spacing={2} sx={{ padding: '0 16px', margin: '10px 0px' }}>
             <Grid item xs={12} sm={4} md={2}>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        padding: "10px",
-                    }}
-                >
-                    <img src={Logo} alt="Logo" style={{ maxWidth: '100%', height: '80px' }} />
-                </Box>
+                <Link href="/" underline="none" color="black" fontWeight="bold">
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            padding: "10px",
+                        }}
+                    >
+                        <img src={Logo} alt="Logo" style={{ maxWidth: '100%', height: '80px' }} />
+                    </Box>
+                </Link>
             </Grid>
             <Grid item xs={12} sm={8} md={9.5}>
                 <Box
@@ -52,7 +54,7 @@ const NavBar = () => {
                 >
                     <Stack direction="row" spacing={2} alignItems="center">
                         <Button>
-                            <Link href="#" underline="none" color="black" fontWeight="bold">
+                            <Link href="/" underline="none" color="black" fontWeight="bold">
                                 {'HOME'}
                             </Link>
                         </Button>

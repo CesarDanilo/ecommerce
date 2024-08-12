@@ -4,6 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, Grid, Box } from '@mui/material';
+import Link from '@mui/material/Link';
 
 const ProdutosRelacionados = () => {
     const imgs = [
@@ -36,34 +37,36 @@ const ProdutosRelacionados = () => {
             <Grid container spacing={3}>
                 {imgs.map((i, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
-                        <Card sx={{ maxWidth: '100%', margin: 'auto' }}>
-                            <CardActionArea>
-                                <CardMedia
-                                    component="img"
-                                    height="190"
-                                    image={i.url}
-                                    alt="mouse pad"
-                                />
-                                <CardContent
-                                    sx={{
-                                        textAlign: 'left',
-                                        padding: '15px',
-                                        display: 'flex',
-                                        flexDirection: 'column'
-                                    }}
-                                >
-                                    <Typography gutterBottom component="div" fontWeight="bold" mt={'2px'}>
-                                        {i.title}
-                                    </Typography>
-                                    <Typography variant="body3" color="text.secondary" mt={'1px'}>
-                                        {i.description}
-                                    </Typography>
-                                    <Typography variant="body3" color="text.primary" fontWeight="bold" mt={'2px'}>
-                                        {`R$ ${i.preco}`}
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
+                        <Link href="/produto" underline="none" color="black" fontWeight="bold">
+                            <Card sx={{ maxWidth: '100%', margin: 'auto' }}>
+                                <CardActionArea>
+                                    <CardMedia
+                                        component="img"
+                                        height="190"
+                                        image={i.url}
+                                        alt="mouse pad"
+                                    />
+                                    <CardContent
+                                        sx={{
+                                            textAlign: 'left',
+                                            padding: '15px',
+                                            display: 'flex',
+                                            flexDirection: 'column'
+                                        }}
+                                    >
+                                        <Typography gutterBottom component="div" fontWeight="bold" mt={'2px'}>
+                                            {i.title}
+                                        </Typography>
+                                        <Typography variant="body3" color="text.secondary" mt={'1px'}>
+                                            {i.description}
+                                        </Typography>
+                                        <Typography variant="body3" color="text.primary" fontWeight="bold" mt={'2px'}>
+                                            {`R$ ${i.preco}`}
+                                        </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
+                        </Link>
                     </Grid>
                 ))}
             </Grid>
