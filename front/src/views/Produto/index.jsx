@@ -1,10 +1,13 @@
 import React from "react";
+import NavBar from "../../Components/NavBar"
+import MainProduto from "../../Components/Produto/MainProduto"
 
 const Produto = () => {
     return (
-        <>
-        <h1>Produto</h1>
-        </>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} >
+            <NavBar />
+            <MainProduto />
+        </div>
     )
 }
 
