@@ -63,11 +63,13 @@ const NavBar = () => {
                                 {'CONTATO'}
                             </Link>
                         </Button>
-                        <IconButton aria-label="cart">
-                            <StyledBadge badgeContent={4} color="secondary">
-                                <ShoppingCartIcon />
-                            </StyledBadge>
-                        </IconButton>
+                        <Link href="/carrinho" underline="none" color="black" fontWeight="bold">
+                            <IconButton aria-label="cart">
+                                <StyledBadge badgeContent={4} color="secondary">
+                                    <ShoppingCartIcon />
+                                </StyledBadge>
+                            </IconButton>
+                        </Link>
                         <Button>
                             <Link href="#" underline="none" color="black" fontWeight="bold">
                                 <Avatar sx={{ bgcolor: deepPurple[500] }}>C</Avatar>

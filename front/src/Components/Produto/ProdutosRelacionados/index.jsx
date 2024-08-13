@@ -48,7 +48,7 @@ const ProdutosRelacionados = () => {
                                     />
                                     <CardContent
                                         sx={{
-                                            textAlign: 'left',
+                                            textAlign: 'left',  
                                             padding: '15px',
                                             display: 'flex',
                                             flexDirection: 'column'
