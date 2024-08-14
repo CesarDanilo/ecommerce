@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Box, Typography } from '@mui/material';
+import { Grid, Box, Typography, Stack } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import Button from '@mui/material/Button';
@@ -53,9 +53,8 @@ const MainCarrinho = () => {
                         justifyContent: "flex-start",
                         alignItems: 'flex-start',
                         padding: 20
-
-                        // backgroundColor: 'MenuText'
                     }}>
+                        {/* TITULO */}
                         <Typography
                             gutterBottom
                             variant="h6"
@@ -70,6 +69,7 @@ const MainCarrinho = () => {
                         >
                             MousePad Controll
                         </Typography>
+                        {/* DECRIÇÃO */}
                         <Typography
                             gutterBottom
                             variant="p"
@@ -85,6 +85,7 @@ const MainCarrinho = () => {
                         >
                             Tamanho 40x45
                         </Typography>
+                        {/* PREÇO */}
                         <Typography
                             gutterBottom
                             variant="p"
@@ -100,15 +101,16 @@ const MainCarrinho = () => {
                         >
                             R$ 180,00
                         </Typography>
+                        {/* bottons de adicionar e remover itens */}
                         <div style={
                             {
                                 display: 'flex',
                                 justifyContent: "flex-start",
                                 alignItems: 'flex-start',
-                                marginTop: 10   
+                                marginTop: 10
                             }
                         }>
-                            <Button style={{ width: '25px', height: '25px', minWidth: '20px', minHeight: '20px' }}>
+                            <Button style={{ width: '25px', height: '25px', minWidth: '20px', minHeight: '20px', color: 'black' }}>
                                 <RemoveIcon style={{ fontSize: '20px' }} />
                             </Button>
                             <Typography
@@ -121,7 +123,8 @@ const MainCarrinho = () => {
                                     marginTop: 0,
                                     marginBottom: 0,
                                     textAlign: 'center',
-                                    marginLeft: 2
+                                    marginLeft: 2,
+                                    color: 'black'
 
                                 }}
                             >
@@ -129,23 +132,98 @@ const MainCarrinho = () => {
                             </Typography>
 
                             <Button style={{ width: '25px', height: '25px', minWidth: '20px', minHeight: '20px' }}>
-                                <AddIcon style={{ fontSize: '20px', marginLeft: '25' }} />
+                                <AddIcon style={{ fontSize: '20px', marginLeft: '25', color: 'black' }} />
                             </Button>
                         </div>
-
-
-
                     </Grid>
 
 
                 </Grid>
-                {/* <Grid item xs={12} sm={6} style={{
+                <Grid item xs={12} sm={6} style={{
                     maxWidth: '1300px',
-                    padding: 10,
-                    backgroundColor: 'brown'
+                    padding: 10
                 }}>
+                    <div
+                        style={
+                            {
+                                padding: 20
+                            }
+                        }>
+                        <div >
 
-                </Grid> */}
+                            {/* TITULO */}
+                            <Typography
+                                gutterBottom
+                                variant="h4"
+                                component="div"
+                                sx={{
+                                    fontWeight: "bold",
+                                    display: 'flex',
+                                    marginTop: 0,
+                                    marginBottom: 0,
+                                    textAlign: 'start',
+                                    marginLeft: -1
+                                }}
+                            >
+                                Total
+                            </Typography>
+                            {/* SUBTOTAL */}
+                            <Typography
+                                gutterBottom
+                                variant="p"
+                                component="div"
+                                sx={{
+                                    fontWeight: "bold",
+                                    display: 'flex',
+                                    marginTop: 2,
+                                    marginBottom: 0,
+                                    textAlign: 'start',
+                                    // color: 'darkgrey'
+                                }}
+                            >
+                                Subtotal
+                            </Typography>
+                            {/* FRETE */}
+                            <Typography
+                                gutterBottom
+                                variant="p"
+                                component="div"
+                                sx={{
+                                    fontWeight: "bold",
+                                    display: 'flex',
+                                    marginTop: 1,
+                                    marginBottom: 0,
+                                    textAlign: 'start',
+                                    // color: 'darkgrey'
+                                }}
+                            >
+                                Frete
+                            </Typography>
+                            {/* TOTAL ESTIMADO */}
+                            <Typography
+                                gutterBottom
+                                variant="p"
+                                component="div"
+                                sx={{
+                                    fontWeight: "bold",
+                                    display: 'flex',
+                                    marginTop: 1,
+                                    marginBottom: 0,
+                                    textAlign: 'start',
+                                    // color: 'darkgrey'
+                                }}
+                            >
+                                Total Estimado
+                            </Typography>
+
+                        </div>
+                        {/* BUTTOM FINALIZAR */}
+                        <Stack spacing={2} direction="row">
+                            <Button variant="contained" style={{ backgroundColor: 'black', width: '100%', marginTop: '25px' }}>Finalizar</Button>
+                        </Stack>
+                    </div>
+
+                </Grid>
             </Grid>
         </Box>
     )
