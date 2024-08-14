@@ -13,7 +13,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import Logo from '../../img/Logo/padpalace.png';
 
-const NavBar = () => {
+const NavBar = ({ qntProd }) => {
 
     // ICONE CARRINHO 
     const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -65,7 +65,7 @@ const NavBar = () => {
                         </Button>
                         <Link href="/carrinho" underline="none" color="black" fontWeight="bold">
                             <IconButton aria-label="cart">
-                                <StyledBadge badgeContent={4} color="secondary">
+                                <StyledBadge badgeContent={qntProd} color="secondary">
                                     <ShoppingCartIcon />
                                 </StyledBadge>
                             </IconButton>

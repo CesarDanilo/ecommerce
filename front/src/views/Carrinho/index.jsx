@@ -5,7 +5,7 @@ import ProdutosRelacionados from "../../Components/Produto/ProdutosRelacionados"
 const Carrinho = () => {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <NavBar />
+            <NavBar qntProd={2} />
             <MainCarrinho />
             <ProdutosRelacionados />
             <Footer />

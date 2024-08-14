@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Box, Typography, Stack, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
 const MainCarrinho = () => {
+    const [subtotal, setSubtotal] = useState(0);
+    const [frete, setFrete] = useState(50);
+    const [totalEstimado, setTotalEstimado] = useState();
 
     const imgs = [
         { title: 'MousePad Speed', url: 'https://ae-pic-a1.aliexpress-media.com/kf/S2a0513a05487456ea2ba32dc6113cfefS.jpg_640x640.jpg_.webp', description: 'Mousepad 40x45', preco: '180,00' },
         { title: 'MousePad Speed', url: 'https://ae-pic-a1.aliexpress-media.com/kf/Saa92b6d67ba9470b9fa9fa4b0a6f778a6.jpg_640x640.jpg_.webp', description: 'Mousepad 40x45', preco: '180,00' },
+        { title: 'MousePad Speed', url: 'https://ae-pic-a1.aliexpress-media.com/kf/Saa92b6d67ba9470b9fa9fa4b0a6f778a6.jpg_640x640.jpg_.webp', description: 'Mousepad 40x45', preco: '180,00' },
     ];
+
+    function BuscarDados() {
+        let tempSubtotal = 0;
+        imgs.forEach((i) => {
+            tempSubtotal += parseFloat(i.preco.replace(',', '.'));
+        });
+        setSubtotal(tempSubtotal);
+        setTotalEstimado(subtotal + frete)
+    }
+
+    useEffect(() => {
+        BuscarDados();
+    }, [subtotal, setSubtotal])
 
     return (
         <Box sx={{
@@ -82,30 +99,30 @@ const MainCarrinho = () => {
                             marginTop: 2
                         }}>
                             <Box>
-                                <Typography variant="body1" sx={{ fontWeight: "bold", marginTop: 2 }}>
+                                <Typography variant="body1" sx={{ fontWeight: "bold", marginTop: 2, textAlign: 'start' }}>
                                     Subtotal
                                 </Typography>
 
-                                <Typography variant="body1" sx={{ fontWeight: "bold", marginTop: 1 }}>
+                                <Typography variant="body1" sx={{ fontWeight: "bold", marginTop: 1, textAlign: 'start' }}>
                                     Frete
                                 </Typography>
 
-                                <Typography variant="body1" sx={{ fontWeight: "bold", marginTop: 1 }}>
+                                <Typography variant="body1" sx={{ fontWeight: "bold", marginTop: 1, textAlign: 'start' }}>
                                     Total Estimado
                                 </Typography>
                             </Box>
 
                             <Box>
                                 <Typography variant="body1" sx={{ fontWeight: "bold", marginTop: 2, textAlign: 'right' }}>
-                                    R$ 00,00
+                                    R$ {subtotal}
                                 </Typography>
 
                                 <Typography variant="body1" sx={{ fontWeight: "bold", marginTop: 1, textAlign: 'right' }}>
-                                    R$ 00,00
+                                    R$ {frete}
                                 </Typography>
 
                                 <Typography variant="body1" sx={{ fontWeight: "bold", marginTop: 1, textAlign: 'right' }}>
-                                    R$ 00,00
+                                    R$ {totalEstimado}
                                 </Typography>
                             </Box>
                         </Box>
