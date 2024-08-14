@@ -26,123 +26,131 @@ const MainCarrinho = () => {
                 <Grid xs={12} sm={6} style={{
                     maxWidth: '1000px',
                     display: 'flex',
+                    flexDirection: 'column',
                     padding: 10
                 }}>
-                    {/* ABAIXO O GRID DA IMG */}
-                    <Grid xs={12} sm={6} style={{
-                        maxWidth: '200px',
-                        padding: 10
-                    }}>
-                        <div >
-                            <img src={imgs[0].url} alt="" srcset="" style={
-                                {
-                                    width: '100%',
-                                    borderRadius: 10
-                                }
-                            } />
-                        </div>
+                    {/* PRODUTO */}
+                    <div style={
+                        {
+                            display: 'flex'
+                        }
+                    }>
 
-                    </Grid>
+                        {/* ABAIXO O GRID DA IMG */}
+                        <Grid xs={12} sm={5} style={{
+                            maxWidth: '200px',
+                            padding: 10
+                        }}>
+                            <div >
+                                <img src={imgs[0].url} alt="" srcset="" style={
+                                    {
+                                        width: '100%',
+                                        borderRadius: 10
+                                    }
+                                } />
+                            </div>
 
-                    {/* Abaixo para o texto do produto */}
-                    <Grid xs={12} sm={6} style={{
-                        maxWidth: '500px',
-                        padding: 10,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: "flex-start",
-                        alignItems: 'flex-start',
-                        padding: 20
-                    }}>
-                        {/* TITULO */}
-                        <Typography
-                            gutterBottom
-                            variant="h6"
-                            component="div"
-                            sx={{
-                                fontWeight: "bold",
-                                display: 'flex',
-                                marginTop: 0,
-                                marginBottom: 0,
-                                textAlign: 'start'
-                            }}
-                        >
-                            MousePad Controll
-                        </Typography>
-                        {/* DECRIÇÃO */}
-                        <Typography
-                            gutterBottom
-                            variant="p"
-                            component="div"
-                            sx={{
-                                // fontWeight: "bold",
-                                display: 'flex',
-                                marginTop: 1,
-                                marginBottom: 0,
-                                textAlign: 'start',
-                                color: 'darkgrey'
-                            }}
-                        >
-                            Tamanho 40x45
-                        </Typography>
-                        {/* PREÇO */}
-                        <Typography
-                            gutterBottom
-                            variant="p"
-                            component="div"
-                            sx={{
-                                // fontWeight: "bold",
-                                display: 'flex',
-                                marginTop: 1,
-                                marginBottom: 0,
-                                textAlign: 'start',
-                                // color: 'darkgrey'
-                            }}
-                        >
-                            R$ 180,00
-                        </Typography>
-                        {/* bottons de adicionar e remover itens */}
-                        <div style={
-                            {
-                                display: 'flex',
-                                justifyContent: "flex-start",
-                                alignItems: 'flex-start',
-                                marginTop: 10
-                            }
-                        }>
-                            <Button style={{ width: '25px', height: '25px', minWidth: '20px', minHeight: '20px', color: 'black' }}>
-                                <RemoveIcon style={{ fontSize: '20px' }} />
-                            </Button>
+                        </Grid>
+
+                        {/* Abaixo para o texto do produto */}
+                        <Grid xs={12} sm={6} style={{
+                            maxWidth: '500px',
+                            padding: 10,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: "flex-start",
+                            alignItems: 'flex-start',
+                            padding: 20
+                        }}>
+                            {/* TITULO */}
+                            <Typography
+                                gutterBottom
+                                variant="h6"
+                                component="div"
+                                sx={{
+                                    fontWeight: "bold",
+                                    display: 'flex',
+                                    marginTop: 0,
+                                    marginBottom: 0,
+                                    textAlign: 'start'
+                                }}
+                            >
+                                MousePad Controll
+                            </Typography>
+                            {/* DECRIÇÃO */}
                             <Typography
                                 gutterBottom
                                 variant="p"
                                 component="div"
                                 sx={{
-
+                                    // fontWeight: "bold",
                                     display: 'flex',
-                                    marginTop: 0,
+                                    marginTop: 1,
                                     marginBottom: 0,
-                                    textAlign: 'center',
-                                    marginLeft: 2,
-                                    color: 'black'
-
+                                    textAlign: 'start',
+                                    color: 'darkgrey'
                                 }}
                             >
-                                2
+                                Tamanho 40x45
                             </Typography>
+                            {/* PREÇO */}
+                            <Typography
+                                gutterBottom
+                                variant="p"
+                                component="div"
+                                sx={{
+                                    // fontWeight: "bold",
+                                    display: 'flex',
+                                    marginTop: 1,
+                                    marginBottom: 0,
+                                    textAlign: 'start',
+                                    // color: 'darkgrey'
+                                }}
+                            >
+                                R$ 180,00
+                            </Typography>
+                            {/* bottons de adicionar e remover itens */}
+                            <div style={
+                                {
+                                    display: 'flex',
+                                    justifyContent: "flex-start",
+                                    alignItems: 'flex-start',
+                                    marginTop: 10
+                                }
+                            }>
+                                <Button style={{ width: '25px', height: '25px', minWidth: '20px', minHeight: '20px', color: 'black' }}>
+                                    <RemoveIcon style={{ fontSize: '20px' }} />
+                                </Button>
+                                <Typography
+                                    gutterBottom
+                                    variant="p"
+                                    component="div"
+                                    sx={{
 
-                            <Button style={{ width: '25px', height: '25px', minWidth: '20px', minHeight: '20px' }}>
-                                <AddIcon style={{ fontSize: '20px', marginLeft: '25', color: 'black' }} />
-                            </Button>
-                        </div>
-                    </Grid>
+                                        display: 'flex',
+                                        marginTop: 0,
+                                        marginBottom: 0,
+                                        textAlign: 'center',
+                                        marginLeft: 2,
+                                        color: 'black'
 
+                                    }}
+                                >
+                                    2
+                                </Typography>
 
+                                <Button style={{ width: '25px', height: '25px', minWidth: '20px', minHeight: '20px' }}>
+                                    <AddIcon style={{ fontSize: '20px', marginLeft: '25', color: 'black' }} />
+                                </Button>
+                            </div>
+                        </Grid>
+                    </div>
                 </Grid>
                 <Grid item xs={12} sm={6} style={{
                     maxWidth: '1300px',
                     padding: 10
                 }}>
+                    {/* TOTALIZADORES */}
                     <div
                         style={
                             {
@@ -286,7 +294,6 @@ const MainCarrinho = () => {
                             <Button variant="contained" style={{ backgroundColor: 'black', width: '100%', marginTop: '25px' }}>Finalizar</Button>
                         </Stack>
                     </div>
-
                 </Grid>
             </Grid>
         </Box>
