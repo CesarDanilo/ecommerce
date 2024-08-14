@@ -1,5 +1,8 @@
 import React from "react";
 import { Grid, Box, Typography } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import Button from '@mui/material/Button';
 
 const MainCarrinho = () => {
 
@@ -23,8 +26,7 @@ const MainCarrinho = () => {
                 <Grid xs={12} sm={6} style={{
                     maxWidth: '1000px',
                     display: 'flex',
-                    padding: 10,
-                    backgroundColor: 'brown'
+                    padding: 10
                 }}>
                     {/* ABAIXO O GRID DA IMG */}
                     <Grid xs={12} sm={6} style={{
@@ -34,7 +36,8 @@ const MainCarrinho = () => {
                         <div >
                             <img src={imgs[0].url} alt="" srcset="" style={
                                 {
-                                    width: '100%'
+                                    width: '100%',
+                                    borderRadius: 10
                                 }
                             } />
                         </div>
@@ -46,23 +49,90 @@ const MainCarrinho = () => {
                         maxWidth: '500px',
                         padding: 10,
                         display: 'flex',
-                        justifyContent: 'start',
-                        textAlign: 'start'
+                        flexDirection: 'column',
+                        justifyContent: "flex-start",
+                        alignItems: 'flex-start',
+                        padding: 20
+
                         // backgroundColor: 'MenuText'
                     }}>
+                        <Typography
+                            gutterBottom
+                            variant="h6"
+                            component="div"
+                            sx={{
+                                fontWeight: "bold",
+                                display: 'flex',
+                                marginTop: 0,
+                                marginBottom: 0,
+                                textAlign: 'start'
+                            }}
+                        >
+                            MousePad Controll
+                        </Typography>
                         <Typography
                             gutterBottom
                             variant="p"
                             component="div"
                             sx={{
-                                fontWeight: "bold",
-                                marginTop: 5,
-                                marginBottom: 3,
-                                textAlign: 'center',
+                                // fontWeight: "bold",
+                                display: 'flex',
+                                marginTop: 1,
+                                marginBottom: 0,
+                                textAlign: 'start',
+                                color: 'darkgrey'
                             }}
                         >
-                            titulo
+                            Tamanho 40x45
                         </Typography>
+                        <Typography
+                            gutterBottom
+                            variant="p"
+                            component="div"
+                            sx={{
+                                // fontWeight: "bold",
+                                display: 'flex',
+                                marginTop: 1,
+                                marginBottom: 0,
+                                textAlign: 'start',
+                                // color: 'darkgrey'
+                            }}
+                        >
+                            R$ 180,00
+                        </Typography>
+                        <div style={
+                            {
+                                display: 'flex',
+                                justifyContent: "flex-start",
+                                alignItems: 'flex-start',
+                                marginTop: 10   
+                            }
+                        }>
+                            <Button style={{ width: '25px', height: '25px', minWidth: '20px', minHeight: '20px' }}>
+                                <RemoveIcon style={{ fontSize: '20px' }} />
+                            </Button>
+                            <Typography
+                                gutterBottom
+                                variant="p"
+                                component="div"
+                                sx={{
+
+                                    display: 'flex',
+                                    marginTop: 0,
+                                    marginBottom: 0,
+                                    textAlign: 'center',
+                                    marginLeft: 2
+
+                                }}
+                            >
+                                2
+                            </Typography>
+
+                            <Button style={{ width: '25px', height: '25px', minWidth: '20px', minHeight: '20px' }}>
+                                <AddIcon style={{ fontSize: '20px', marginLeft: '25' }} />
+                            </Button>
+                        </div>
+
 
 
                     </Grid>
