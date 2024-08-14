@@ -149,73 +149,137 @@ const MainCarrinho = () => {
                                 padding: 20
                             }
                         }>
-                        <div >
+                        {/* TITULO */}
+                        <Typography
+                            gutterBottom
+                            variant="h4"
+                            component="div"
+                            sx={{
+                                fontWeight: "bold",
+                                textAlign: 'start',
+                                marginLeft: 1.5
+                            }}
+                        >
+                            Total
+                        </Typography>
+                        <div style={
+                            {
+                                display: 'flex',
+                                flexDirection: 'row',
+                                padding: 20,
+                                justifyContent: 'space-between'
+                                // backgroundColor: 'red'
+                            }
+                        }>
+                            {/* DESCRIÇÕES */}
+                            <div>
+                                {/* SUBTOTAL */}
+                                <Typography
+                                    gutterBottom
+                                    variant="p"
+                                    component="div"
+                                    sx={{
+                                        fontWeight: "bold",
+                                        display: 'flex',
+                                        marginTop: 2,
+                                        marginBottom: 0,
+                                        textAlign: 'start',
+                                        // color: 'darkgrey'
+                                    }}
+                                >
+                                    Subtotal
+                                </Typography>
+                                {/* FRETE */}
+                                <Typography
+                                    gutterBottom
+                                    variant="p"
+                                    component="div"
+                                    sx={{
+                                        fontWeight: "bold",
+                                        display: 'flex',
+                                        marginTop: 1,
+                                        marginBottom: 0,
+                                        textAlign: 'start',
+                                        // color: 'darkgrey'
+                                    }}
+                                >
+                                    Frete
+                                </Typography>
+                                {/* TOTAL ESTIMADO */}
+                                <Typography
+                                    gutterBottom
+                                    variant="p"
+                                    component="div"
+                                    sx={{
+                                        fontWeight: "bold",
+                                        display: 'flex',
+                                        marginTop: 1,
+                                        marginBottom: 0,
+                                        textAlign: 'start',
+                                        // color: 'darkgrey'
+                                    }}
+                                >
+                                    Total Estimado
+                                </Typography>
 
-                            {/* TITULO */}
-                            <Typography
-                                gutterBottom
-                                variant="h4"
-                                component="div"
-                                sx={{
-                                    fontWeight: "bold",
-                                    display: 'flex',
-                                    marginTop: 0,
-                                    marginBottom: 0,
-                                    textAlign: 'start',
-                                    marginLeft: -1
-                                }}
-                            >
-                                Total
-                            </Typography>
-                            {/* SUBTOTAL */}
-                            <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                                sx={{
-                                    fontWeight: "bold",
-                                    display: 'flex',
-                                    marginTop: 2,
-                                    marginBottom: 0,
-                                    textAlign: 'start',
-                                    // color: 'darkgrey'
-                                }}
-                            >
-                                Subtotal
-                            </Typography>
-                            {/* FRETE */}
-                            <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                                sx={{
-                                    fontWeight: "bold",
-                                    display: 'flex',
-                                    marginTop: 1,
-                                    marginBottom: 0,
-                                    textAlign: 'start',
-                                    // color: 'darkgrey'
-                                }}
-                            >
-                                Frete
-                            </Typography>
-                            {/* TOTAL ESTIMADO */}
-                            <Typography
-                                gutterBottom
-                                variant="p"
-                                component="div"
-                                sx={{
-                                    fontWeight: "bold",
-                                    display: 'flex',
-                                    marginTop: 1,
-                                    marginBottom: 0,
-                                    textAlign: 'start',
-                                    // color: 'darkgrey'
-                                }}
-                            >
-                                Total Estimado
-                            </Typography>
+                            </div>
+                            {/* VALORES */}
+                            <div>
+                                <div>
+                                    {/* SUBTOTAL */}
+                                    <Typography
+                                        gutterBottom
+                                        variant="p"
+                                        component="div"
+                                        sx={{
+                                            fontWeight: "bold",
+                                            display: 'flex',
+                                            marginTop: 2,
+                                            marginBottom: 0,
+                                            justifyContent: 'flex-end',
+                                            textAlign: 'start',
+                                            // color: 'darkgrey'
+                                        }}
+                                    >
+                                        R$ 00,00
+                                    </Typography>
+                                    {/* FRETE */}
+                                    <Typography
+                                        gutterBottom
+                                        variant="p"
+                                        component="div"
+                                        sx={{
+                                            fontWeight: "bold",
+                                            display: 'flex',
+                                            marginTop: 1,
+                                            marginBottom: 0,
+                                            justifyContent: 'flex-end',
+                                            textAlign: 'start',
+                                            // color: 'darkgrey'
+                                        }}
+                                    >
+                                        R$ 00,00
+                                    </Typography>
+                                    {/* TOTAL ESTIMADO */}
+                                    <Typography
+                                        gutterBottom
+                                        variant="p"
+                                        component="div"
+                                        sx={{
+                                            fontWeight: "bold",
+                                            display: 'flex',
+                                            marginTop: 1,
+                                            marginBottom: 0,
+                                            justifyContent: 'flex-end',
+                                            textAlign: 'start'
+                                            // color: 'darkgrey'
+                                        }}
+                                    >
+                                        R$ 00,00
+                                    </Typography>
 
+                                </div>
+                            </div>
                         </div>
                         {/* BUTTOM FINALIZAR */}
                         <Stack spacing={2} direction="row">
