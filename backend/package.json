@@ -4,14 +4,30 @@
   "description": "1 - CRIAR TABELA",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon npm run app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "cross-env NODE_ENV=development nodemon ./src/server.js",
+    "createdb": "cross-env NODE_ENV=development npx sequelize db:create",
+    "createmigrate": "npx sequelize-cli migration:generate --name ",
+    "migrate": " cross-env NODE_ENV=development npx sequelize-cli db:migrate ",
+    "migrateundo": "cross-env NODE_ENV=development npx sequelize db:migrate:undo",
+    "migrateundoall": "cross-env NODE_ENV=development npx sequelize db:migrate:undo:all",
+    "createseeddev": "cross-env NODE_ENV=development npx sequelize seed:generate --name",
+    "seedersdev": "cross-env NODE_ENV=development npx sequelize-cli db:seed:all",
+    "seedersundodev": "cross-env NODE_ENV=development npx sequelize db:seed:undo",
+    "seedersundoalldev": "cross-env NODE_ENV=development npx sequelize db:seed:undo:all"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.4",
+    "pg": "^8.12.0",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.2"
   }
 }
