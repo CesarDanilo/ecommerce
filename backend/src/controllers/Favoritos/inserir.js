@@ -1,6 +1,6 @@
-const { PedidoProduto } = require('../../database/models');
+const { Favoritos } = require('../../database/models');
 
-const inserirPedidoProduto = async (req, resp, next) => {
+const inserirFavoritos = async (req, resp, next) => {
 
     try {
 
@@ -8,7 +8,7 @@ const inserirPedidoProduto = async (req, resp, next) => {
         let result;
 
         try {
-            result = await PedidoProduto.create(dados);
+            result = await Favoritos.create(dados);
         }
         catch (error) {
             const msg = 'Erro ao tentar gravar!';
@@ -25,4 +25,4 @@ const inserirPedidoProduto = async (req, resp, next) => {
     }
 }
 
-module.exports = inserirPedidoProduto;
+module.exports = inserirFavoritos;

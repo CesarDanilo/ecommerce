@@ -1,17 +1,17 @@
-const { Pedido } = require('../../database/models');
+const { Favoritos } = require('../../database/models');
 
-const excluirPedido = async (req, resp, next) => {
+const excluirFavoritos = async (req, resp, next) => {
 
     const { id } = req.params;
     try {
 
-        let result = await Pedido.findByPk(id);
+        let result = await Favoritos.findByPk(id);
 
         if (!result)
-            return resp.status(404).json({ msg: `Pedido ID ${id} não encontrado` });
+            return resp.status(404).json({ msg: `Favoritos ID ${id} não encontrado` });
 
         try {
-            result = await Pedido.destroy({ where: { id } });
+            result = await Favoritos.destroy({ where: { id } });
         }
         catch (error) {
             const msg = 'Erro ao tentar Excluir!';
@@ -23,11 +23,11 @@ const excluirPedido = async (req, resp, next) => {
     }
     catch (error) {
 
-        const msg = 'Pedido. Erro ao tentar Excluir (generic).';
+        const msg = 'Favoritos. Erro ao tentar Excluir (generic).';
         const erro = error?.message;
         return resp.status(400).json({ msg, erro });
     }
 }
 
 
-module.exports = excluirPedido;
+module.exports = excluirFavoritos;

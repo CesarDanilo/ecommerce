@@ -1,7 +1,7 @@
-const { PedidoProduto } = require('../../database/models');
+const { Favoritos } = require('../../database/models');
 const { Op } = require('sequelize');
 
-const listarPedidoProduto = async (req, resp) => {
+const listarFavoritos = async (req, resp) => {
     const { offset, order, direction, nome, id } = req.query; // Adicionado 'id'
     let { limit } = req.query;
     limit = limit ? parseInt(limit) : 15; // Convertendo limit para inteiro
@@ -33,30 +33,30 @@ const listarPedidoProduto = async (req, resp) => {
 
 
         if (nome) {
-            where['$PedidoProduto.nome$'] = { // Usando a sintaxe correta para incluir a condição no modelo relacionado
+            where['$Favoritos.nome$'] = { // Usando a sintaxe correta para incluir a condição no modelo relacionado
                 [Op.iLike]: `%${nome}%`
             };
         }
 
         // Contando sem o limit e offset para poder criar a paginação
-        const countAll = await PedidoProduto.count({
+        const countAll = await Favoritos.count({
             where,
             include: [
                 {
-                    model: PedidoProduto,
+                    model: Favoritos,
                     attributes: [] // Não incluir atributos, apenas contar
                 }
             ]
         });
 
         // Chamada find com where e os parâmetros de offset e limit
-        const result = await PedidoProduto.findAll({
+        const result = await Favoritos.findAll({
             ...options,
             order: orderOptions,
             where,
             include: [
                 {
-                    model: PedidoProduto,
+                    model: Favoritos,
                     attributes: ['id', 'nome'] // Incluindo apenas os atributos necessários
                 }
             ]
@@ -70,10 +70,10 @@ const listarPedidoProduto = async (req, resp) => {
         });
     }
     catch (error) {
-        const msg = 'PedidoProduto. Erro ao tentar listar (PedidoProduto)';
+        const msg = 'Favoritos. Erro ao tentar listar (Favoritos)';
         console.error(error); // Adicionando log detalhado do erro
         return resp.status(400).json({ msg, erro: error.message });
     }
 }
 
-module.exports = listarPedidoProduto;
+module.exports = listarFavoritos;
