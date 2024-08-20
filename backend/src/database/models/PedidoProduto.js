@@ -1,22 +1,25 @@
 'use strict';
-const { Model } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
     class PedidoProduto extends Model {
         static associate(models) {
-            // PedidoProduto.hasMany(models.PedidoProdutoProduto, { foreignKey: 'pedidoProduto_id' });
+            // Se houver associações, defina-as aqui
+            // Exemplo:
+            // PedidoProduto.belongsTo(models.Pedido, { foreignKey: 'pedido_id' });
+            // PedidoProduto.belongsTo(models.Produto, { foreignKey: 'produto_id' });
         }
-    };
+    }
 
     PedidoProduto.init({
         id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,
             primaryKey: true
         },
         pedido_id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false,
             references: {
                 model: 'Pedido',
@@ -26,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
             onDelete: 'SET NULL'
         },
         produto_id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false,
             references: {
                 model: 'Produto',
@@ -36,23 +39,26 @@ module.exports = (sequelize, DataTypes) => {
             onDelete: 'SET NULL'
         },
         quantidade: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         precoUnitario: {
-            type: Sequelize.FLOAT,
+            type: DataTypes.FLOAT,
             allowNull: false
         },
         createdAt: {
-            type: Sequelize.DATE
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW
         },
         updatedAt: {
-            type: Sequelize.DATE
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW
         }
     }, {
         sequelize,
         modelName: 'PedidoProduto',
-        tableName: 'PedidoProduto'
+        tableName: 'PedidoProduto',
+        timestamps: true // Habilita o gerenciamento automático de createdAt e updatedAt
     });
 
     return PedidoProduto;

@@ -1,4 +1,4 @@
-const { Users } = require('../../database/models');
+const { Users } = require('../../database/models/');
 
 const editarUsers = async (req, resp, next) => {
 

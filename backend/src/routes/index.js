@@ -1,19 +1,17 @@
-const express = require('express')
-const rotas = express.Router()
+const express = require('express');
+const rotas = express.Router();
 
-const rotasFavoritos = require('../api/Favoritos_api');
-const rotasPedidoProduto = require('../api/PedidoProduto_api');
-const rotasPedido = require('../api/Pedido_api');
-const rotasProduto = require('../api/Produto_api');
-const rotasUsers = require('../api/Users_api');
+const favoritosRoutes = require('../api/Favoritos_api');
+const pedidoProdutoRoutes = require('../api/PedidoProduto');
+const pedidoRoutes = require('../api/Pedido');
+const produtoRoutes = require('../api/Produto');
+const usersRoutes = require('../api/Users');
 
-rotas.use('/favoritos', rotasFavoritos)
+// Definindo as rotas
+rotas.use('/favoritos', favoritosRoutes);
+rotas.use('/pedidoProduto', pedidoProdutoRoutes);
+rotas.use('/pedido', pedidoRoutes);
+rotas.use('/produto', produtoRoutes);
+rotas.use('/users', usersRoutes);
 
-rotas.use('/pedidoProduto', rotasPedidoProduto);
-
-rotas.use('/pedido', rotasPedido);
-
-rotas.use('/produto', rotasProduto);
-
-rotas.use('/users', rotasUsers);
-
+module.exports = rotas;

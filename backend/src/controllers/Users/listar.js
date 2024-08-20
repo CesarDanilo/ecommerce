@@ -1,4 +1,4 @@
-const { Users } = require('../../database/models');
+const { Users } = require('../../database/models/');
 const { Op } = require('sequelize');
 
 const listarUsers = async (req, resp) => {

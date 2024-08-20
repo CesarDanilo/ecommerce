@@ -1,7 +1,7 @@
 'use strict';
-const { Model } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
     class Pedido extends Model {
         static associate(models) {
             Pedido.hasMany(models.PedidoProduto, { foreignKey: 'pedido_id' });
@@ -10,13 +10,13 @@ module.exports = (sequelize, DataTypes) => {
 
     Pedido.init({
         id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,
             primaryKey: true
         },
         usuario_id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false,
             references: {
                 model: 'Users',
@@ -26,23 +26,26 @@ module.exports = (sequelize, DataTypes) => {
             onDelete: 'SET NULL'
         },
         status: {
-            type: Sequelize.BOOLEAN,
+            type: DataTypes.BOOLEAN,
             allowNull: false
         },
         valorTotal: {
-            type: Sequelize.FLOAT,
+            type: DataTypes.FLOAT,
             allowNull: false
         },
         createdAt: {
-            type: Sequelize.DATE
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW
         },
         updatedAt: {
-            type: Sequelize.DATE
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW
         }
     }, {
         sequelize,
         modelName: 'Pedido',
-        tableName: 'Pedido'
+        tableName: 'Pedido',
+        timestamps: true
     });
 
     return Pedido;

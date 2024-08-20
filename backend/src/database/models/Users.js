@@ -1,12 +1,12 @@
 'use strict';
-const { Model } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
     class Users extends Model {
         static associate(models) {
             Users.hasMany(models.Pedido, { foreignKey: 'usuario_id' });
         }
-    };
+    }
 
     Users.init({
         id: {
@@ -19,19 +19,23 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                notEmpty: true,
+                notEmpty: true
             }
         },
         email: {
-            type: Sequelize.STRING(255),
-            allowNull: false
+            type: DataTypes.STRING(255),
+            allowNull: false,
+            unique: true, // Adiciona unicidade para o campo de email
+            validate: {
+                isEmail: true // Valida o formato do email
+            }
         },
         senha: {
-            type: Sequelize.STRING(255),
+            type: DataTypes.STRING(255),
             allowNull: false
         },
         admin: {
-            type: Sequelize.BOOLEAN,
+            type: DataTypes.BOOLEAN,
             allowNull: false
         },
         createdAt: {
@@ -47,7 +51,8 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         sequelize,
         modelName: 'Users',
-        tableName: 'Users'
+        tableName: 'Users',
+        timestamps: true // Habilita o gerenciamento automático de createdAt e updatedAt
     });
 
     return Users;

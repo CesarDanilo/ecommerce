@@ -7,5 +7,5 @@ module.exports = {
     inserirFavoritos,
     editarFavoritos,
     excluirFavoritos,
-    listarFavoritos
-}
+    listarFavoritos,
+};

@@ -1,12 +1,12 @@
 'use strict';
-const { Model } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
     class Produto extends Model {
         static associate(models) {
             Produto.hasMany(models.PedidoProduto, { foreignKey: 'produto_id' });
         }
-    };
+    }
 
     Produto.init({
         id: {
@@ -16,39 +16,40 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true
         },
         nome: {
-            type: Sequelize.STRING(255),
+            type: DataTypes.STRING(255),
             allowNull: false
         },
         descricao: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             allowNull: false
         },
         preco: {
-            type: Sequelize.FLOAT,
+            type: DataTypes.FLOAT,
             allowNull: false
         },
         estoque: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         imagem: {
-            type: Sequelize.BLOB('long'), // Usa o tipo BLOB para armazenar grandes quantidades de dados binários
+            type: DataTypes.BLOB('long'), // Usa o tipo BLOB para armazenar grandes quantidades de dados binários
             allowNull: true // Permitindo valores nulos caso a imagem não seja obrigatória
         },
         createdAt: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             allowNull: false,
-            defaultValue: Sequelize.NOW
+            defaultValue: DataTypes.NOW
         },
         updatedAt: {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             allowNull: false,
-            defaultValue: Sequelize.NOW
+            defaultValue: DataTypes.NOW
         }
     }, {
         sequelize,
         modelName: 'Produto',
-        tableName: 'Produto'
+        tableName: 'Produto',
+        timestamps: true // Habilita o gerenciamento automático de createdAt e updatedAt
     });
 
     return Produto;
