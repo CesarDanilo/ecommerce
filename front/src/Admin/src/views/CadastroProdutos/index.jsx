@@ -12,8 +12,42 @@ import {
     Row,
     Col,
 } from "reactstrap";
+import { useState } from "react";
 
 const CadastroMaterial = () => {
+
+    const [nome, setNome] = useState();
+    const [preco, setPreco] = useState();
+    const [estoque, setEstoque] = useState();
+    const [descricao, setDescricao] = useState();
+    const [img, setImg] = useState();
+
+    const baseUrl = "http://localhost:3001/produto";
+
+    const SalvarDados = async () => {
+
+        let dados = {
+            nome: nome,
+            preco: preco,
+            descricao: descricao,
+            estoque: estoque,
+            img: img
+        }
+
+        try {
+            let url = baseUrl
+            const res = await axios.post(url, dados, {
+                headers: {
+                    'Content-Type': 'aplication/json'
+                }
+            }); // Aguarda a resposta da requisição
+            console.log("Dados gravado com sucesso", res.data);
+
+        } catch (error) {
+            console.log("Erro ao buscar dados:", error); // Exibe o erro no console
+        }
+    }
+
     return (
         <>
             <Header />
@@ -58,6 +92,7 @@ const CadastroMaterial = () => {
                                                         id="input-nome"
                                                         placeholder="Nome do material"
                                                         type="text"
+                                                        onChange={(e) => { setNome(e.target.value) }}
                                                     />
                                                 </FormGroup>
                                             </Col>
@@ -75,6 +110,7 @@ const CadastroMaterial = () => {
                                                         placeholder="Preço"
                                                         type="number"
                                                         step="0.01"
+                                                        onChange={(e) => { setPreco(e.target.value) }}
                                                     />
                                                 </FormGroup>
                                             </Col>
@@ -93,6 +129,7 @@ const CadastroMaterial = () => {
                                                         id="input-estoque"
                                                         placeholder="Quantidade em estoque"
                                                         type="number"
+                                                        onChange={(e) => { setEstoque(e.target.value) }}
                                                     />
                                                 </FormGroup>
                                             </Col>
@@ -108,6 +145,7 @@ const CadastroMaterial = () => {
                                                         className="form-control-alternative"
                                                         id="input-imagem"
                                                         type="file"
+                                                        onChange={(e) => { setImg(e.target.value) }}
                                                     />
                                                 </FormGroup>
                                             </Col>
@@ -127,12 +165,13 @@ const CadastroMaterial = () => {
                                                         placeholder="Descrição do material"
                                                         type="textarea"
                                                         rows="4"
+                                                        onChange={(e) => { setDescricao(e.target.value) }}
                                                     />
                                                 </FormGroup>
                                             </Col>
                                         </Row>
                                     </div>
-                                    <Button color="primary" type="submit">
+                                    <Button color="primary" type="submit" onClick={() => { SalvarDados() }}>
                                         Salvar Material
                                     </Button>
                                 </Form>
