@@ -869,7 +869,7 @@ const Tables = () => {
           </div>
         </Row>
         {/* Dark table */}
-        <Row className="mt-5">
+        {/* <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
               <CardHeader className="bg-transparent border-0">
@@ -1639,7 +1639,7 @@ const Tables = () => {
               </Table>
             </Card>
           </div>
-        </Row>
+        </Row> */}
       </Container>
     </>
   );
