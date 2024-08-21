@@ -23,6 +23,7 @@ import Login from "./views/examples/Login.js";
 import Tables from "./views/examples/Tables.js";
 import Icons from "./views/examples/Icons";
 import Produtos from "./views/Produtos/index.jsx";
+import CadastroProdutos from "./views/CadastroProdutos/index.jsx";
 
 var routes = [
   {
@@ -44,6 +45,13 @@ var routes = [
     name: "Produtos",
     icon: "ni ni-planet text-blue",
     component: <Produtos />,
+    layout: "/admin",
+  },
+  {
+    path: "/CadastroProdutos",
+    name: "Cadastro Produtos",
+    icon: "ni ni-planet text-blue",
+    component: <CadastroProdutos />,
     layout: "/admin",
   },
   {
