@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 });
 
 app.use(cors({
-    origin: 'http://localhost:3002' // Permite apenas a origem específica
+    origin: 'http://localhost:3000' // Permite apenas a origem específica
 }));
 
 // Usando as rotas importadas

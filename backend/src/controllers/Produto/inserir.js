@@ -1,27 +1,24 @@
 const { Produto } = require('../../database/models/');
 
 const inserirProduto = async (req, resp, next) => {
-
     try {
-
         const dados = req.body;
-        let result;
 
-        try {
-            result = await Produto.create(dados);
-        }
-        catch (error) {
-            const msg = 'Erro ao tentar gravar!';
-            const erro = error?.message;
-            return resp.status(400).json({ msg, erro });
+        // Validações básicas (exemplo)
+        if (!dados.nome || !dados.preco || !dados.estoque) {
+            return resp.status(400).json({ msg: 'Dados incompletos! Verifique os campos obrigatórios.' });
         }
 
-        return resp.status(200).json({ msg: 'Gravado com Sucesso', data: result.dataValues });
-    }
-    catch (error) {
-        const msg = 'Teste. Erro ao tentar inserir (generic).';
+        // Inserir produto
+        const result = await Produto.create(dados);
+
+        // Retorna sucesso
+        return resp.status(201).json({ msg: 'Gravado com Sucesso', data: result.dataValues });
+    } catch (error) {
+        // Captura erros e responde com status 500 (erro no servidor)
+        const msg = 'Erro ao tentar gravar o produto.';
         const erro = error?.message;
-        return resp.status(400).json({ msg, erro });
+        return resp.status(500).json({ msg, erro });
     }
 }
 

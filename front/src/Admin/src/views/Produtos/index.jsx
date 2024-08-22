@@ -1,9 +1,8 @@
 import { Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle, Media, Pagination, PaginationItem, PaginationLink, Progress, Table, Container, Row, UncontrolledTooltip, } from "reactstrap";
 import axios from "axios";
 import Header from "../../components/Headers/Header.js";
-import { ConnectingAirportsOutlined } from "@mui/icons-material";
 import { useEffect, useState } from "react";
-
+import imagem from "../../../../img/Logo/padpalace.png"
 const Produtos = () => {
     const [data, setData] = useState([]);
 
@@ -12,8 +11,9 @@ const Produtos = () => {
     const BuscarDados = async () => {
         try {
             const res = await axios.get(url); // Aguarda a resposta da requisição
-            const { data, countAll } = res.data; // Acessa os dados retornados da resposta
-            setData(data)
+            const { data: produtos, countAll } = res.data; // Renomeia a variável para evitar conflito
+            setData(produtos);
+            console.log(produtos);
 
         } catch (error) {
             console.log("Erro ao buscar dados:", error); // Exibe o erro no console
@@ -23,7 +23,6 @@ const Produtos = () => {
     useEffect(() => {
         BuscarDados();
     }, []);
-
 
     return (
         <>
@@ -60,7 +59,7 @@ const Produtos = () => {
                                                     >
                                                         <img
                                                             alt={item.nome}
-                                                            src={item.imagem}
+                                                            src={imagem}
                                                             className="rounded-circle"
                                                             style={{ width: "50px", height: "50px", objectFit: "cover" }}
                                                         />
@@ -138,7 +137,7 @@ const Produtos = () => {
             </Container>
 
         </>
-    )
+    );
 }
 
 export default Produtos;

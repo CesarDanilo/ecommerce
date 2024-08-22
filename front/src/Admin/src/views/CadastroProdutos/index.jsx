@@ -13,40 +13,39 @@ import {
     Col,
 } from "reactstrap";
 import { useState } from "react";
+import imagem from "../../../../img/Logo/padpalace.png"
 
 const CadastroMaterial = () => {
-
-    const [nome, setNome] = useState();
-    const [preco, setPreco] = useState();
-    const [estoque, setEstoque] = useState();
-    const [descricao, setDescricao] = useState();
-    const [img, setImg] = useState();
-
+    const [nome, setNome] = useState("");
+    const [preco, setPreco] = useState("");
+    const [estoque, setEstoque] = useState("");
+    const [descricao, setDescricao] = useState("");
+    const [img, setImg] = useState(imagem);
     const baseUrl = "http://localhost:3001/produto";
 
-    const SalvarDados = async () => {
+    const SalvarDados = async (e) => {
+        e.preventDefault(); // Evita o recarregamento da página
 
-        let dados = {
-            nome: nome,
-            preco: preco,
-            descricao: descricao,
-            estoque: estoque,
-            img: img
-        }
+        let formData = new FormData(); // Cria um novo objeto FormData
+        formData.append("nome", nome);
+        formData.append("preco", preco);
+        formData.append("descricao", descricao);
+        formData.append("estoque", estoque);
+        formData.append("img", img); // Adiciona a imagem ao FormData
 
         try {
-            let url = baseUrl
-            const res = await axios.post(url, dados, {
+            const res = await axios.post(baseUrl, formData, {
                 headers: {
-                    'Content-Type': 'aplication/json'
+                    'Content-Type': 'application/json' // Corrigido para 'multipart/form-data'
                 }
-            }); // Aguarda a resposta da requisição
-            console.log("Dados gravado com sucesso", res.data);
-
+            });
+            console.log("Dados gravados com sucesso", res.data);
+            alert("Gravado com Sucesso!");
         } catch (error) {
-            console.log("Erro ao buscar dados:", error); // Exibe o erro no console
+            console.log("Erro ao salvar dados:", error); // Exibe o erro no console
+            alert("Erro ao salvar dados. Verifique o console para mais detalhes.");
         }
-    }
+    };
 
     return (
         <>
@@ -73,7 +72,7 @@ const CadastroMaterial = () => {
                                 </Row>
                             </CardHeader>
                             <CardBody>
-                                <Form>
+                                <Form onSubmit={SalvarDados}>
                                     <h6 className="heading-small text-muted mb-4">
                                         Informações do Material
                                     </h6>
@@ -92,7 +91,8 @@ const CadastroMaterial = () => {
                                                         id="input-nome"
                                                         placeholder="Nome do material"
                                                         type="text"
-                                                        onChange={(e) => { setNome(e.target.value) }}
+                                                        value={nome}
+                                                        onChange={(e) => setNome(e.target.value)}
                                                     />
                                                 </FormGroup>
                                             </Col>
@@ -110,7 +110,8 @@ const CadastroMaterial = () => {
                                                         placeholder="Preço"
                                                         type="number"
                                                         step="0.01"
-                                                        onChange={(e) => { setPreco(e.target.value) }}
+                                                        value={preco}
+                                                        onChange={(e) => setPreco(e.target.value)}
                                                     />
                                                 </FormGroup>
                                             </Col>
@@ -129,11 +130,12 @@ const CadastroMaterial = () => {
                                                         id="input-estoque"
                                                         placeholder="Quantidade em estoque"
                                                         type="number"
-                                                        onChange={(e) => { setEstoque(e.target.value) }}
+                                                        value={estoque}
+                                                        onChange={(e) => setEstoque(e.target.value)}
                                                     />
                                                 </FormGroup>
                                             </Col>
-                                            <Col lg="6">
+                                            {/* <Col lg="6">
                                                 <FormGroup>
                                                     <label
                                                         className="form-control-label"
@@ -145,10 +147,10 @@ const CadastroMaterial = () => {
                                                         className="form-control-alternative"
                                                         id="input-imagem"
                                                         type="file"
-                                                        onChange={(e) => { setImg(e.target.value) }}
+                                                        onChange={(e) => setImg(e.target.files[0])}
                                                     />
                                                 </FormGroup>
-                                            </Col>
+                                            </Col> */}
                                         </Row>
                                         <Row>
                                             <Col md="12">
@@ -165,13 +167,14 @@ const CadastroMaterial = () => {
                                                         placeholder="Descrição do material"
                                                         type="textarea"
                                                         rows="4"
-                                                        onChange={(e) => { setDescricao(e.target.value) }}
+                                                        value={descricao}
+                                                        onChange={(e) => setDescricao(e.target.value)}
                                                     />
                                                 </FormGroup>
                                             </Col>
                                         </Row>
                                     </div>
-                                    <Button color="primary" type="submit" onClick={() => { SalvarDados() }}>
+                                    <Button color="primary" type="submit">
                                         Salvar Material
                                     </Button>
                                 </Form>
@@ -182,6 +185,6 @@ const CadastroMaterial = () => {
             </Container>
         </>
     );
-}
+};
 
 export default CadastroMaterial;
