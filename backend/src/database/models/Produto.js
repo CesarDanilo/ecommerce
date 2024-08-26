@@ -32,7 +32,7 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         imagem: {
-            type: DataTypes.BLOB('long'), // Usa o tipo BLOB para armazenar grandes quantidades de dados binários
+            type: DataTypes.STRING, // Usa o tipo BLOB para armazenar grandes quantidades de dados binários
             allowNull: true // Permitindo valores nulos caso a imagem não seja obrigatória
         },
         createdAt: {

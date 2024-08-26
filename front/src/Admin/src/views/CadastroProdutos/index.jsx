@@ -33,6 +33,8 @@ const CadastroMaterial = () => {
         formData.append("estoque", estoque);
         formData.append("imagem", img); // Adiciona a imagem ao FormData
 
+        console.log("********************", img)
+
         try {
             const res = await axios.post(baseUrl, formData, {
                 headers: {

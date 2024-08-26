@@ -59,7 +59,7 @@ const Produtos = () => {
                                                     >
                                                         <img
                                                             alt={item.nome}
-                                                            src={""}
+                                                            src={`http://localhost:3001/uploads/${item.imagem}`}
                                                             className="rounded-circle"
                                                             style={{ width: "50px", height: "50px", objectFit: "cover" }}
                                                         />

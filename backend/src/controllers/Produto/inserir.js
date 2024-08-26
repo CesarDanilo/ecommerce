@@ -1,17 +1,20 @@
 const { Produto } = require('../../database/models/');
+const path = require('path');
 
 const inserirProduto = async (req, res, next) => {
     try {
         const { nome, preco, descricao, estoque } = req.body;
-        const imagemPath = req.file ? req.file.path.replace(/\\/g, "/") : null; // Corrigido para armazenar o caminho da imagem corretamente
-        console.log(imagemPath)
+        const imagem_name = req.file.path.replace(/\\/g, "/"); // Corrigido para armazenar o caminho da imagem corretamente
+        const imagem = path.basename(imagem_name)
+        console.log("nome da img",imagem)
+
         // Salve as informações no banco de dados, incluindo o caminho da imagem
         const produto = {
             nome,
             preco,
             descricao,
             estoque,
-            imagemPath,
+            imagem,
         };
 
         // Supondo que você esteja usando Sequelize ou qualquer outro ORM
