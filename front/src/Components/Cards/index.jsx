@@ -1,31 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react"; // Adicionei o useState
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, Grid, Box } from '@mui/material';
 import Link from '@mui/material/Link';
-
-import Img from '../../img/MousePad/002.jpg';
+import axios from "axios";
 
 const Cards = ({ titulo }) => {
+    const [data, setData] = useState([]);
 
-    const imgs = [
-        { title: 'MousePad Speed', url: 'https://ae-pic-a1.aliexpress-media.com/kf/S2a0513a05487456ea2ba32dc6113cfefS.jpg_640x640.jpg_.webp', description: 'Mousepad 40x45', preco: '180,00' },
-        { title: 'MousePad Speed', url: 'https://ae-pic-a1.aliexpress-media.com/kf/Saa92b6d67ba9470b9fa9fa4b0a6f778a6.jpg_640x640.jpg_.webp', description: 'Mousepad 40x45', preco: '180,00' },
-        { title: 'MousePad Speed', url: 'https://ae-pic-a1.aliexpress-media.com/kf/Sfee60a210944451ab6a6c3913ccd9069x.jpg_640x640.jpg_.webp', description: 'Mousepad 40x45', preco: '180,00' },
-        { title: 'MousePad Speed', url: 'https://ae-pic-a1.aliexpress-media.com/kf/S6f1371e669d04edd845df2aa233f057da.jpg_640x640.jpg_.webp', description: 'Mousepad 40x45', preco: '180,00' },
-        { title: 'MousePad Speed', url: 'https://ae-pic-a1.aliexpress-media.com/kf/S701f9c0cae3d44fa9d68c6a86afcc483N.jpg_640x640.jpg_.webp', description: 'Mousepad 40x45', preco: '180,00' },
-        { title: 'MousePad Speed', url: 'https://ae-pic-a1.aliexpress-media.com/kf/S32fc521b993641eaaf6504a2f62dac92i.jpg_640x640.jpg_.webp', description: 'Mousepad 40x45', preco: '180,00' }
-    ];
+    const baseURL = "http://localhost:3001/produto";
+
+    const BuscarDados = async () => {
+        try {
+            const res = await axios.get(baseURL); // Corrigido para usar baseURL
+            const { data: produtos } = res.data; // Renomeado para evitar conflito
+            setData(produtos);
+            console.log(produtos);
+        } catch (error) {
+            console.log("Erro ao buscar dados:", error);
+        }
+    };
+
+    useEffect(() => {
+        BuscarDados();
+    }, []);
 
     return (
         <Box
             sx={{
                 maxWidth: 1000,
-                margin: '0 auto',  // Centraliza o conteúdo
-                padding: '0 16px', // Adiciona um pequeno preenchimento nas laterais
-                width: '100%',     // Garante que o Box ocupe 100% da largura disponível
+                margin: '0 auto',
+                padding: '0 16px',
+                width: '100%',
             }}
         >
             <Typography
@@ -42,7 +50,7 @@ const Cards = ({ titulo }) => {
                 {titulo}
             </Typography>
             <Grid container spacing={3}>
-                {imgs.map((i, index) => (
+                {data.map((i, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
                         <Link href="/produto" underline="none" color="black" fontWeight="bold">
                             <Card sx={{ maxWidth: '100%', margin: 'auto' }}>
@@ -50,7 +58,7 @@ const Cards = ({ titulo }) => {
                                     <CardMedia
                                         component="img"
                                         height="190"
-                                        image={i.url}
+                                        image={`http://localhost:3001/uploads/${i.imagem}`}
                                         alt="mouse pad"
                                     />
                                     <CardContent
@@ -62,12 +70,12 @@ const Cards = ({ titulo }) => {
                                         }}
                                     >
                                         <Typography gutterBottom component="div" fontWeight="bold" mt={'2px'}>
-                                            {i.title}
+                                            {i.nome}
                                         </Typography>
-                                        <Typography variant="body3" color="text.secondary" mt={'1px'}>
-                                            {i.description}
+                                        <Typography variant="body2" color="text.secondary" mt={'1px'}>
+                                            {i.descricao}
                                         </Typography>
-                                        <Typography variant="body3" color="text.primary" fontWeight="bold" mt={'2px'}>
+                                        <Typography variant="body2" color="text.primary" fontWeight="bold" mt={'2px'}>
                                             {`R$ ${i.preco}`}
                                         </Typography>
                                     </CardContent>
