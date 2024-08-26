@@ -13,14 +13,14 @@ import {
     Col,
 } from "reactstrap";
 import { useState } from "react";
-import imagem from "../../../../img/Logo/padpalace.png"
 
 const CadastroMaterial = () => {
     const [nome, setNome] = useState("");
     const [preco, setPreco] = useState("");
     const [estoque, setEstoque] = useState("");
     const [descricao, setDescricao] = useState("");
-    const [img, setImg] = useState(imagem);
+    const [img, setImg] = useState(null); // Inicialize como null
+
     const baseUrl = "http://localhost:3001/produto";
 
     const SalvarDados = async (e) => {
@@ -31,12 +31,12 @@ const CadastroMaterial = () => {
         formData.append("preco", preco);
         formData.append("descricao", descricao);
         formData.append("estoque", estoque);
-        formData.append("img", img); // Adiciona a imagem ao FormData
+        formData.append("imagem", img); // Adiciona a imagem ao FormData
 
         try {
             const res = await axios.post(baseUrl, formData, {
                 headers: {
-                    'Content-Type': 'application/json' // Corrigido para 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data' // Definido corretamente para uploads de arquivo
                 }
             });
             console.log("Dados gravados com sucesso", res.data);
@@ -55,19 +55,9 @@ const CadastroMaterial = () => {
                     <Col className="order-xl-1" xl="8">
                         <Card className="bg-secondary shadow">
                             <CardHeader className="bg-white border-0">
-                                <Row className="align-items-center">
-                                    <Col xs="8">
-                                        <h3 className="mb-0">Cadastro de Material</h3>
-                                    </Col>
-                                    <Col className="text-right" xs="4">
-                                        <Button
-                                            color="primary"
-                                            href="#pablo"
-                                            onClick={(e) => e.preventDefault()}
-                                            size="sm"
-                                        >
-                                            Configurações
-                                        </Button>
+                                <Row className="align-items-center" >
+                                    <Col xs="12" >
+                                        <h3 className="mb-0" >Cadastro de Material</h3>
                                     </Col>
                                 </Row>
                             </CardHeader>
@@ -78,7 +68,7 @@ const CadastroMaterial = () => {
                                     </h6>
                                     <div className="pl-lg-4">
                                         <Row>
-                                            <Col lg="6">
+                                            <Col lg="8">
                                                 <FormGroup>
                                                     <label
                                                         className="form-control-label"
@@ -96,7 +86,7 @@ const CadastroMaterial = () => {
                                                     />
                                                 </FormGroup>
                                             </Col>
-                                            <Col lg="6">
+                                            <Col lg="2">
                                                 <FormGroup>
                                                     <label
                                                         className="form-control-label"
@@ -115,9 +105,8 @@ const CadastroMaterial = () => {
                                                     />
                                                 </FormGroup>
                                             </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col lg="6">
+
+                                            <Col lg="2">
                                                 <FormGroup>
                                                     <label
                                                         className="form-control-label"
@@ -135,25 +124,7 @@ const CadastroMaterial = () => {
                                                     />
                                                 </FormGroup>
                                             </Col>
-                                            {/* <Col lg="6">
-                                                <FormGroup>
-                                                    <label
-                                                        className="form-control-label"
-                                                        htmlFor="input-imagem"
-                                                    >
-                                                        Imagem
-                                                    </label>
-                                                    <Input
-                                                        className="form-control-alternative"
-                                                        id="input-imagem"
-                                                        type="file"
-                                                        onChange={(e) => setImg(e.target.files[0])}
-                                                    />
-                                                </FormGroup>
-                                            </Col> */}
-                                        </Row>
-                                        <Row>
-                                            <Col md="12">
+                                            <Col md="8">
                                                 <FormGroup>
                                                     <label
                                                         className="form-control-label"
@@ -172,7 +143,11 @@ const CadastroMaterial = () => {
                                                     />
                                                 </FormGroup>
                                             </Col>
+
+
                                         </Row>
+
+
                                     </div>
                                     <Button color="primary" type="submit">
                                         Salvar Material

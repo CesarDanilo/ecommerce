@@ -1,24 +1,26 @@
 const { Produto } = require('../../database/models/');
 
-const inserirProduto = async (req, resp, next) => {
+const inserirProduto = async (req, res, next) => {
     try {
-        const dados = req.body;
+        const { nome, preco, descricao, estoque } = req.body;
+        const imagemPath = req.file ? req.file.path.replace(/\\/g, "/") : null; // Corrigido para armazenar o caminho da imagem corretamente
 
-        // Validações básicas (exemplo)
-        if (!dados.nome || !dados.preco || !dados.estoque) {
-            return resp.status(400).json({ msg: 'Dados incompletos! Verifique os campos obrigatórios.' });
-        }
+        // Salve as informações no banco de dados, incluindo o caminho da imagem
+        const produto = {
+            nome,
+            preco,
+            descricao,
+            estoque,
+            imagemPath,
+        };
 
-        // Inserir produto
-        const result = await Produto.create(dados);
+        // Supondo que você esteja usando Sequelize ou qualquer outro ORM
+        const savedProduct = await Produto.create(produto); // ajuste de acordo com o seu ORM
 
-        // Retorna sucesso
-        return resp.status(201).json({ msg: 'Gravado com Sucesso', data: result.dataValues });
+        res.json(savedProduct);
     } catch (error) {
-        // Captura erros e responde com status 500 (erro no servidor)
-        const msg = 'Erro ao tentar gravar o produto.';
-        const erro = error?.message;
-        return resp.status(500).json({ msg, erro });
+        console.error("Erro ao salvar produto:", error);
+        res.status(500).json({ message: "Erro ao salvar produto" });
     }
 }
 

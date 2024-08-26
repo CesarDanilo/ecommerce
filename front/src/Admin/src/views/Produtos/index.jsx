@@ -39,7 +39,7 @@ const Produtos = () => {
                             <Table className="align-items-center table-flush" responsive>
                                 <thead className="thead-light">
                                     <tr>
-                                        <th scope="col">Imagem</th>
+                                        {/* <th scope="col">Imagem</th> */}
                                         <th scope="col">Produto</th>
                                         <th scope="col">Descrição</th>
                                         <th scope="col">Preço</th>
@@ -50,7 +50,7 @@ const Produtos = () => {
                                 <tbody>
                                     {data.map((item) => (
                                         <tr key={item.id}>
-                                            <th scope="row">
+                                            {/* <th scope="row">
                                                 <Media className="align-items-center">
                                                     <a
                                                         className="avatar rounded-circle mr-3"
@@ -65,7 +65,7 @@ const Produtos = () => {
                                                         />
                                                     </a>
                                                 </Media>
-                                            </th>
+                                            </th> */}
                                             <td>{item.nome}</td>
                                             <td>
                                                 <span className="text-truncate" style={{ maxWidth: "150px" }}>
