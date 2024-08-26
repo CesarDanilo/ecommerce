@@ -21,7 +21,7 @@ const CadastroMaterial = () => {
     const [descricao, setDescricao] = useState("");
     const [img, setImg] = useState(null); // Inicialize como null
 
-    const baseUrl = "http://localhost:3001/produto";
+    const baseUrl = "http://localhost:3001/produto/";
 
     const SalvarDados = async (e) => {
         e.preventDefault(); // Evita o recarregamento da página
@@ -36,22 +36,22 @@ const CadastroMaterial = () => {
         try {
             const res = await axios.post(baseUrl, formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data' // Definido corretamente para uploads de arquivo
+                    'Content-Type': 'application/json' // Definido corretamente para uploads de arquivo
                 }
             });
             console.log("Dados gravados com sucesso", res.data);
             alert("Gravado com Sucesso!");
         } catch (error) {
             console.log("Erro ao salvar dados:", error); // Exibe o erro no console
+            // Exibe o erro no console
             alert("Erro ao salvar dados. Verifique o console para mais detalhes.");
         }
     };
 
     return (
         <>
-            <Header />
-            <Container className="mt--7" fluid>
-                <Row>
+            <Container className="mt--7" fluid >
+                <Row style={{ marginTop: "20px"}}>
                     <Col className="order-xl-1" xl="8">
                         <Card className="bg-secondary shadow">
                             <CardHeader className="bg-white border-0">
@@ -143,7 +143,23 @@ const CadastroMaterial = () => {
                                                     />
                                                 </FormGroup>
                                             </Col>
-
+                                            {/* <Col lg="6">
+                                                <FormGroup>
+                                                    <label
+                                                        className="form-control-label"
+                                                        htmlFor="input-imagem"
+                                                    >
+                                                        Imagem
+                                                    </label>
+                                                    <Input
+                                                        className="form-control-alternative"
+                                                        id="input-imagem"
+                                                        type="file"
+                                                        onChange={(e) => setImg(e.target.value)}
+                                                        required
+                                                    />
+                                                </FormGroup>
+                                            </Col> */}
 
                                         </Row>
 

@@ -3,7 +3,8 @@ const path = require("path");
 
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
-        callback(null, path.resolve(__dirname, "src", "uploads")); // Caminho atualizado para garantir que a imagem seja salva na pasta correta
+        callback(null, path.resolve("uploads/"));
+         // Caminho atualizado para garantir que a imagem seja salva na pasta correta
     },
     filename: (req, file, callback) => {
         const time = new Date().getTime();
@@ -11,6 +12,4 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage });
-
-module.exports = upload;
+module.exports = storage;

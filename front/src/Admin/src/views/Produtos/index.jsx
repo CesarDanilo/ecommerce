@@ -50,7 +50,7 @@ const Produtos = () => {
                                 <tbody>
                                     {data.map((item) => (
                                         <tr key={item.id}>
-                                            {/* <th scope="row">
+                                            <th scope="row">
                                                 <Media className="align-items-center">
                                                     <a
                                                         className="avatar rounded-circle mr-3"
@@ -59,13 +59,13 @@ const Produtos = () => {
                                                     >
                                                         <img
                                                             alt={item.nome}
-                                                            src={imagem}
+                                                            src={""}
                                                             className="rounded-circle"
                                                             style={{ width: "50px", height: "50px", objectFit: "cover" }}
                                                         />
                                                     </a>
                                                 </Media>
-                                            </th> */}
+                                            </th>
                                             <td>{item.nome}</td>
                                             <td>
                                                 <span className="text-truncate" style={{ maxWidth: "150px" }}>
