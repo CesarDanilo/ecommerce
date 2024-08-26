@@ -8,10 +8,13 @@ const cors = require('cors');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 // Habilitando o CORS para permitir requisições do frontend
 app.use(cors({
     origin: 'http://localhost:3000' // Permite apenas a origem específica
 }));
+
+app.use('/uploads', express.static('uploads'));
 
 // Servir arquivos estáticos da pasta 'static/uploads'
 
@@ -19,6 +22,7 @@ app.use(cors({
 app.get('/', (req, res) => {
     res.send('Hello!');
 });
+
 
 // Usando as rotas importadas
 app.use('/', rotas);
