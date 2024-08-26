@@ -19,6 +19,7 @@ const inserirProduto = async (req, res, next) => {
 
         res.json(savedProduct);
         
+        console.log("Sucesso ao salvar produto:");
     } catch (error) {
         console.error("Erro ao salvar produto:", error);
         res.status(500).json({ message: "Erro ao salvar produto" });

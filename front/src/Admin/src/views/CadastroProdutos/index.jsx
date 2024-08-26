@@ -36,7 +36,7 @@ const CadastroMaterial = () => {
         try {
             const res = await axios.post(baseUrl, formData, {
                 headers: {
-                    'Content-Type': 'application/json' // Definido corretamente para uploads de arquivo
+                    'Content-Type': 'multipart/form-data' // Definido corretamente para uploads de arquivo
                 }
             });
             console.log("Dados gravados com sucesso", res.data);
@@ -143,7 +143,7 @@ const CadastroMaterial = () => {
                                                     />
                                                 </FormGroup>
                                             </Col>
-                                            {/* <Col lg="6">
+                                            <Col lg="6">
                                                 <FormGroup>
                                                     <label
                                                         className="form-control-label"
@@ -153,13 +153,14 @@ const CadastroMaterial = () => {
                                                     </label>
                                                     <Input
                                                         className="form-control-alternative"
-                                                        id="input-imagem"
+                                                        id="imagem"
+                                                        name="imagem"
                                                         type="file"
-                                                        onChange={(e) => setImg(e.target.value)}
+                                                        onChange={(e) => setImg(e.target.files[0])}
                                                         required
                                                     />
                                                 </FormGroup>
-                                            </Col> */}
+                                            </Col>
 
                                         </Row>
 
