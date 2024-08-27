@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import { IconButton } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Await } from "react-router-dom";
 
 const Produtos = () => {
+    const [atualizarPagina, setAtualizarPagina] = useState(false);
     const [data, setData] = useState([]);
 
-    const url = "http://localhost:3001/produto";
+    const url = "http://localhost:3001/produto/";
 
     const BuscarDados = async () => {
         try {
@@ -23,9 +25,23 @@ const Produtos = () => {
         }
     };
 
+    const handleClickExcluir = async (id) => {
+        try {
+            const res = await axios.delete(url + id);
+            console.log(`codigo ${id} apagado`);
+            setAtualizarPagina(true)
+
+        } catch (error) {
+            console.log("Erro ao buscar dados:", error); // Exibe o erro no console
+        }
+    }
+
     useEffect(() => {
         BuscarDados();
-    }, []);
+        if(atualizarPagina){
+            setAtualizarPagina(false);
+        }
+    }, [atualizarPagina]);
 
     return (
         <>
