@@ -1,15 +1,19 @@
 import { Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle, Media, Pagination, PaginationItem, PaginationLink, Progress, Table, Container, Row, UncontrolledTooltip, } from "reactstrap";
 import axios from "axios";
-import Header from "../../components/Headers/Header.js";
+import Header from "../../../components/Headers/Header.js";
 import { useEffect, useState } from "react";
 import { IconButton } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Await } from "react-router-dom";
+import CadastroMaterial from "../Cadastro/index.jsx";
+import { EditAttributes } from "@mui/icons-material";
 
 const Produtos = () => {
     const [atualizarPagina, setAtualizarPagina] = useState(false);
     const [data, setData] = useState([]);
+    const [id, setId] = useState(0);
+    const [editar, setEditar] = useState(false);
 
     const url = "http://localhost:3001/produto/";
 
@@ -36,21 +40,31 @@ const Produtos = () => {
         }
     }
 
+    const handleClickEditar = async (id) => {
+        setId(id);
+        setEditar(true)
+    }
+
     useEffect(() => {
         BuscarDados();
-        if(atualizarPagina){
+        if (atualizarPagina) {
             setAtualizarPagina(false);
+            BuscarDados()
         }
-    }, [atualizarPagina]);
+
+        if (editar) {
+            setEditar(false);
+            BuscarDados();
+        }
+    }, [atualizarPagina, id, editar]);
 
     return (
         <>
-            <Header />
-
             <Container className="mt--7" fluid>
+                <CadastroMaterial id={id} editar={editar} setEditar={setEditar} atualizarPagina={atualizarPagina} setAtualizarPagina={setAtualizarPagina}/>
 
                 <Row>
-                    <div className="col">
+                    <div className="col" style={{ marginTop: 20 }}>
                         <Card className="shadow">
                             <CardHeader className="border-0">
                                 <h3 className="mb-0">TABELA DE PRODUTOS</h3>

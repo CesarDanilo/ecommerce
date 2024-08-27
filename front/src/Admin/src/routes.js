@@ -22,8 +22,8 @@ import Register from "./views/examples/Register.js";
 import Login from "./views/examples/Login.js";
 import Tables from "./views/examples/Tables.js";
 import Icons from "./views/examples/Icons";
-import Produtos from "./views/Produtos/index.jsx";
-import CadastroProdutos from "./views/CadastroProdutos/index.jsx";
+import Produtos from "./views/Produtos/Table/index.jsx";
+import CadastroProdutos from "./views/Produtos/Cadastro/index.jsx";
 
 var routes = [
   {
@@ -47,13 +47,13 @@ var routes = [
     component: <Produtos />,
     layout: "/admin",
   },
-  {
-    path: "/CadastroProdutos",
-    name: "Cadastro Produtos",
-    icon: "ni ni-planet text-blue",
-    component: <CadastroProdutos />,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/CadastroProdutos",
+  //   name: "Cadastro Produtos",
+  //   icon: "ni ni-planet text-blue",
+  //   component: <CadastroProdutos />,
+  //   layout: "/admin",
+  // },
   {
     path: "/user-profile",
     name: "User Profile",

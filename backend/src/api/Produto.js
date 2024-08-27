@@ -12,7 +12,7 @@ rotas.get('/', ProdutoControllers.listarProduto);
 
 rotas.post('/', upload.single('imagem'), ProdutoControllers.inserirProduto);
 
-rotas.put('/:id', ProdutoControllers.editarProduto);
+rotas.put('/:id', upload.single('imagem'), ProdutoControllers.editarProduto);
 
 rotas.delete('/:id', ProdutoControllers.excluirProduto);
 
