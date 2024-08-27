@@ -30,7 +30,7 @@ Este projeto de e-commerce não é apenas sobre vender produtos online. É uma d
 ### Clone o repositório:
 
 ```bash
-git clone https://github.com/seunomeusuario/ecommerce-website.git
+git clone https://github.com/CesarDanilo/ecommerce.git
 cd ecommerce-website
 ```
 ### Backend:
