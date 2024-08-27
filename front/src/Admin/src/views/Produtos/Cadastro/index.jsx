@@ -10,7 +10,7 @@ const CadastroMaterial = ({ id, editar, setEditar, atualizarPagina, setAtualizar
     const [descricao, setDescricao] = useState("");
     const [img, setImg] = useState(null); // Inicialize como null
     const [data, setData] = useState(null);
-
+                
     const baseUrl = "http://localhost:3001/produto/";
 
     const BuscarDados = async (id) => {

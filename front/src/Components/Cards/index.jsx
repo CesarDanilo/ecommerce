@@ -4,8 +4,10 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, Grid, Box } from '@mui/material';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import axios from "axios";
+import Produto from "../Produto/MainProduto";
 
 const Cards = ({ titulo }) => {
     const [data, setData] = useState([]);
@@ -52,7 +54,7 @@ const Cards = ({ titulo }) => {
             <Grid container spacing={3}>
                 {data.map((i, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
-                        <Link href="/produto" underline="none" color="black" fontWeight="bold">
+                        <Link to={`/produto/${i.id}`} style={{ textDecoration: 'none', color: 'black' }}>
                             <Card sx={{ maxWidth: '100%', margin: 'auto' }}>
                                 <CardActionArea>
                                     <CardMedia
