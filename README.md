@@ -31,7 +31,7 @@ Este projeto de e-commerce não é apenas sobre vender produtos online. É uma d
 
 ```bash
 git clone https://github.com/CesarDanilo/ecommerce.git
-cd ecommerce-website
+cd ecommerce
 ```
 ### Backend:
 ```bash
