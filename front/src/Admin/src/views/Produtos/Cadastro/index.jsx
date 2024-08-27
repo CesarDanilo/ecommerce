@@ -1,6 +1,6 @@
 import axios from "axios";
 import Header from "../../../components/Headers/Header.js";
-import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, } from "reactstrap";
+import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col } from "reactstrap";
 import { useEffect, useState } from "react";
 
 const CadastroMaterial = ({ id, editar, setEditar, atualizarPagina, setAtualizarPagina }) => {
@@ -22,8 +22,9 @@ const CadastroMaterial = ({ id, editar, setEditar, atualizarPagina, setAtualizar
             setPreco(data[0].preco);
             setEstoque(data[0].estoque);
             setDescricao(data[0].descricao);
-            LimparCampos();
-        } catch (error) { console.log("Não foi possível buscar os dados:", error); }
+        } catch (error) {
+            console.log("Não foi possível buscar os dados:", error);
+        }
     };
 
     const SalvarDados = async (e) => {
@@ -35,8 +36,8 @@ const CadastroMaterial = ({ id, editar, setEditar, atualizarPagina, setAtualizar
         formData.append("estoque", estoque);
         formData.append("imagem", img);
 
-        if (id > 0) {
-            try {
+        try {
+            if (id > 0) {
                 const url = baseUrl + id;
                 const res = await axios.put(url, formData, {
                     headers: {
@@ -44,14 +45,7 @@ const CadastroMaterial = ({ id, editar, setEditar, atualizarPagina, setAtualizar
                     }
                 });
                 console.log("Dados gravados com sucesso", res.data);
-                setAtualizarPagina(true);
-                LimparCampos()
-            } catch (error) {
-                console.log("Erro ao salvar dados:", error);
-                alert("Erro ao salvar dados. Verifique o console para mais detalhes.");
-            }
-        } else {
-            try {
+            } else {
                 const res = await axios.post(baseUrl, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -59,31 +53,33 @@ const CadastroMaterial = ({ id, editar, setEditar, atualizarPagina, setAtualizar
                 });
                 console.log("Dados gravados com sucesso", res.data);
                 alert("Gravado com sucesso!");
-                LimparCampos()
-            } catch (error) {
-                console.log("Erro ao salvar dados:", error);
-                alert("Erro ao salvar dados. Verifique o console para mais detalhes.");
             }
+            setAtualizarPagina(true);
+            LimparCampos();
+        } catch (error) {
+            console.log("Erro ao salvar dados:", error);
+            alert("Erro ao salvar dados. Verifique o console para mais detalhes.");
         }
     };
 
     const LimparCampos = () => {
-        id(0)
+        setEditar(false);  // Para de editar
         setNome("");
         setPreco("");
         setEstoque("");
         setDescricao("");
-        setImg("");
+        setImg(null);  // Limpa a imagem
     }
 
     useEffect(() => {
-        if (editar && id) {  // Verifica se está em modo de edição e se o id está disponível
-            BuscarDados(id);
-        }
-        if (atualizarPagina) {
-            setAtualizarPagina(false);
-        }
-    }, [editar, id, atualizarPagina, setAtualizarPagina]);
+        const fetchData = async () => {
+            if (editar && id) {  // Verifica se está em modo de edição e se o id está disponível
+                await BuscarDados(id);
+            }
+        };
+
+        fetchData();
+    }, [editar, id]);
 
     return (
         <Container className="mt--7" fluid >
@@ -91,9 +87,9 @@ const CadastroMaterial = ({ id, editar, setEditar, atualizarPagina, setAtualizar
                 <Col className="order-xl-1" xl="8">
                     <Card className="bg-secondary shadow">
                         <CardHeader className="bg-white border-0">
-                            <Row className="align-items-center" >
-                                <Col xs="12" >
-                                    <h3 className="mb-0" >Cadastro de Material</h3>
+                            <Row className="align-items-center">
+                                <Col xs="12">
+                                    <h3 className="mb-0">Cadastro de Material</h3>
                                 </Col>
                             </Row>
                         </CardHeader>
@@ -106,10 +102,7 @@ const CadastroMaterial = ({ id, editar, setEditar, atualizarPagina, setAtualizar
                                     <Row>
                                         <Col lg="8">
                                             <FormGroup>
-                                                <label
-                                                    className="form-control-label"
-                                                    htmlFor="input-nome"
-                                                >
+                                                <label className="form-control-label" htmlFor="input-nome">
                                                     Nome
                                                 </label>
                                                 <Input
@@ -124,10 +117,7 @@ const CadastroMaterial = ({ id, editar, setEditar, atualizarPagina, setAtualizar
                                         </Col>
                                         <Col lg="2">
                                             <FormGroup>
-                                                <label
-                                                    className="form-control-label"
-                                                    htmlFor="input-preco"
-                                                >
+                                                <label className="form-control-label" htmlFor="input-preco">
                                                     Preço
                                                 </label>
                                                 <Input
@@ -144,10 +134,7 @@ const CadastroMaterial = ({ id, editar, setEditar, atualizarPagina, setAtualizar
 
                                         <Col lg="2">
                                             <FormGroup>
-                                                <label
-                                                    className="form-control-label"
-                                                    htmlFor="input-estoque"
-                                                >
+                                                <label className="form-control-label" htmlFor="input-estoque">
                                                     Estoque
                                                 </label>
                                                 <Input
@@ -162,10 +149,7 @@ const CadastroMaterial = ({ id, editar, setEditar, atualizarPagina, setAtualizar
                                         </Col>
                                         <Col md="8">
                                             <FormGroup>
-                                                <label
-                                                    className="form-control-label"
-                                                    htmlFor="input-descricao"
-                                                >
+                                                <label className="form-control-label" htmlFor="input-descricao">
                                                     Descrição
                                                 </label>
                                                 <Input
@@ -181,10 +165,7 @@ const CadastroMaterial = ({ id, editar, setEditar, atualizarPagina, setAtualizar
                                         </Col>
                                         <Col lg="6">
                                             <FormGroup>
-                                                <label
-                                                    className="form-control-label"
-                                                    htmlFor="input-imagem"
-                                                >
+                                                <label className="form-control-label" htmlFor="input-imagem">
                                                     Imagem
                                                 </label>
                                                 <Input
@@ -197,10 +178,7 @@ const CadastroMaterial = ({ id, editar, setEditar, atualizarPagina, setAtualizar
                                                 />
                                             </FormGroup>
                                         </Col>
-
                                     </Row>
-
-
                                 </div>
                                 <Button color="primary" type="submit">
                                     Salvar Material
