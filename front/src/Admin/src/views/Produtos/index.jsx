@@ -2,7 +2,10 @@ import { Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem, Uncont
 import axios from "axios";
 import Header from "../../components/Headers/Header.js";
 import { useEffect, useState } from "react";
-import imagem from "../../../../img/Logo/padpalace.png"
+import { IconButton } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 const Produtos = () => {
     const [data, setData] = useState([]);
 
@@ -39,11 +42,12 @@ const Produtos = () => {
                             <Table className="align-items-center table-flush" responsive>
                                 <thead className="thead-light">
                                     <tr>
-                                        {/* <th scope="col">Imagem</th> */}
+                                        <th scope="col">Imagem</th>
                                         <th scope="col">Produto</th>
                                         <th scope="col">Descrição</th>
                                         <th scope="col">Preço</th>
                                         <th scope="col">Estoque</th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
 
@@ -74,6 +78,21 @@ const Produtos = () => {
                                             </td>
                                             <td>{item.preco}</td>
                                             <td>{item.estoque}</td>
+
+                                            <td>
+                                                <>
+                                                    <IconButton variant="contained" size="small" onClick={() => {
+                                                        handleClickEditar(item.id);
+                                                    }}>
+                                                        <EditIcon color="success" />
+                                                    </IconButton>
+                                                    <IconButton variant="contained" onClick={() => {
+                                                        handleClickExcluir(item.id);
+                                                    }}>
+                                                        <DeleteIcon color="error" />
+                                                    </IconButton>
+                                                </>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
