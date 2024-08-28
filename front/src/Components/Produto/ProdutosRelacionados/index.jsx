@@ -10,6 +10,7 @@ import axios from "axios";
 const ProdutosRelacionados = () => {
     const [data, setData] = useState([]); // Inicializa como array vazio
     const baseURL = "http://localhost:3001/produto/";
+    const maxProducts = 3;
 
     const BuscarDadosProduto = async () => {
         try {
@@ -50,7 +51,7 @@ const ProdutosRelacionados = () => {
             </Typography>
             <Grid container spacing={3}>
                 {data.length > 0 ? (
-                    data.map((i, index) => (
+                    data.slice(0, maxProducts).map((i, index) => (
                         <Grid item xs={12} sm={6} md={4} key={index}>
                             <Link to={`/produto/${i.id}`} underline="none" color="black" fontWeight="bold">
                                 <Card sx={{ maxWidth: '100%', margin: 'auto' }}>
