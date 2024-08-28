@@ -89,7 +89,7 @@ const MainProduto = () => {
                         </Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'start', alignItems: "center", paddingLeft: 40, marginTop: 10 }}>
-                        <ButtonGroup variant="outlined" aria-label="Botão de quantidade" style={{marginRight: 20}}>
+                        <ButtonGroup variant="outlined" aria-label="Botão de quantidade" style={{ marginRight: 20 }}>
                             <Button onClick={() => handleQuantidadeChange('decrease')} variant="contained" style={{ backgroundColor: 'black' }}><RemoveIcon /></Button>
                             <Button variant="contained" style={{ backgroundColor: 'black' }}>{quantidade}</Button>
                             <Button onClick={() => handleQuantidadeChange('increase')} variant="contained" style={{ backgroundColor: 'black' }}><AddIcon /></Button>

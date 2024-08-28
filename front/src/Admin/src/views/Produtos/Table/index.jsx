@@ -60,8 +60,16 @@ const Produtos = () => {
 
     return (
         <>
-            <Container className="mt--7" fluid>
-                <CadastroMaterial id={id} editar={editar} setEditar={setEditar} atualizarPagina={atualizarPagina} setAtualizarPagina={setAtualizarPagina}/>
+            <Container className="mt--7" fluid
+                style={{
+                    display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"
+                }}>
+                <CadastroMaterial
+                    id={id}
+                    editar={editar}
+                    setEditar={setEditar}
+                    atualizarPagina={atualizarPagina}
+                    setAtualizarPagina={setAtualizarPagina} />
 
                 <Row>
                     <div className="col" style={{ marginTop: 20 }}>
