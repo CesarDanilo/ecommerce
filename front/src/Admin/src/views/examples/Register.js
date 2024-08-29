@@ -1,38 +1,40 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.2.4
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
-// reactstrap components
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Row,
-  Col,
-} from "reactstrap";
+import axios from "axios";
+import { useState } from "react";
+import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, InputGroupAddon, InputGroupText, InputGroup, Row, Col, } from "reactstrap";
 
 const Register = () => {
+
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
+  const SalvarDados = async () => {
+    console.log(`Nome: ${nome}`);
+    console.log(`E-mail: ${email}`);
+    console.log(`Senha: ${senha}`);
+
+    const baseURL = "http://localhost:3001/users";
+
+    let formData = new FormData();
+    formData.append("nome", nome);
+    formData.append("email", email);
+    formData.append("senha", senha);
+    formData.append("admin", false);
+
+    try {
+      const res = await axios.post(baseURL, formData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log("Dados gravados com sucesso", res.data);
+
+    } catch (error) {
+      console.log("Não foi possivel salvar os dados verifique o erro: ", error)
+    }
+
+  }
+
   return (
     <>
       <Col lg="6" md="8">
@@ -90,7 +92,7 @@ const Register = () => {
                       <i className="ni ni-hat-3" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input placeholder="Name" type="text" />
+                  <Input placeholder="Name" type="text" onChange={(e) => { setNome(e.target.value) }} /> {/* IMPUT DO NOME */}
                 </InputGroup>
               </FormGroup>
               <FormGroup>
@@ -104,7 +106,8 @@ const Register = () => {
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
-                  />
+                    onChange={(e) => { setEmail(e.target.value) }}
+                  /> {/* IMPUT DO E-MAIL */}
                 </InputGroup>
               </FormGroup>
               <FormGroup>
@@ -118,7 +121,8 @@ const Register = () => {
                     placeholder="Password"
                     type="password"
                     autoComplete="new-password"
-                  />
+                    onChange={(e) => { setSenha(e.target.value) }}
+                  /> {/* IMPUT DO SENHA */}
                 </InputGroup>
               </FormGroup>
               <div className="text-muted font-italic">
@@ -150,7 +154,7 @@ const Register = () => {
                 </Col>
               </Row>
               <div className="text-center">
-                <Button className="mt-4" color="primary" type="button">
+                <Button className="mt-4" color="primary" type="button" onClick={() => { SalvarDados() }}>
                   Create account
                 </Button>
               </div>
