@@ -17,22 +17,19 @@
 */
 
 // reactstrap components
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Row,
-  Col,
-} from "reactstrap";
+import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, InputGroupAddon, InputGroupText, InputGroup, Row, Col } from "reactstrap";
+import { useState } from "react";
 
 const Login = () => {
+
+  const [email, setEmail] = useState();
+  const [senha, setSenha] = useState();
+
+  const EnviarDados = () => {
+    console.log(`E-mail: ${email}`)
+    console.log(`Senha: ${senha}`)
+  }
+
   return (
     <>
       <Col lg="5" md="7">
@@ -94,6 +91,7 @@ const Login = () => {
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
+                    onChange={(e) => { setEmail(e.target.value) }}
                   />
                 </InputGroup>
               </FormGroup>
@@ -108,6 +106,7 @@ const Login = () => {
                     placeholder="Password"
                     type="password"
                     autoComplete="new-password"
+                    onChange={(e) => { setSenha(e.target.value) }}
                   />
                 </InputGroup>
               </FormGroup>
@@ -125,7 +124,7 @@ const Login = () => {
                 </label>
               </div>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="button">
+                <Button className="my-4" color="primary" type="button" onClick={() => { EnviarDados() }}>
                   Sign in
                 </Button>
               </div>
