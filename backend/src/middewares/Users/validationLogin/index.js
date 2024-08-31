@@ -1,4 +1,5 @@
 const { Users } = require("../../../database/models");
+const bcrypt = require("bcrypt");
 
 const validationLogin = async (req, res, next) => {
     const { email, senha } = req.body;
@@ -10,10 +11,17 @@ const validationLogin = async (req, res, next) => {
         return res.status(422).json({ msg: "A senha é obrigatória!" });
     }
 
-    const usersExists = await Users.findOne({ where: { email: email } });
+    const user = await Users.findOne({ where: { email: email } });
 
-    if (!usersExists) {
-        return res.status(422).json({ msg: "Usuario não encontrado!!!" });
+    if (!user) {
+        return res.status(404).json({ msg: "Usuario não encontrado!!!" });
+    }
+
+    //check password match
+    const checkpassword = await bcrypt.compare(senha, user.senha)
+
+    if (!checkpassword) {
+        return res.status(422).json({ msg: "A senha incorreta!!" });
     }
 
 }
