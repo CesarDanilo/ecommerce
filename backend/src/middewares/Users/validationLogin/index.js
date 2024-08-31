@@ -1,5 +1,6 @@
 const { Users } = require("../../../database/models");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const validationLogin = async (req, res, next) => {
     const { email, senha } = req.body;
@@ -22,6 +23,19 @@ const validationLogin = async (req, res, next) => {
 
     if (!checkpassword) {
         return res.status(422).json({ msg: "A senha incorreta!!" });
+    }
+
+    try {
+        const secret = process.env.SECRET;
+
+        const token = jwt.sign({
+            id: user._id
+        }, secret)
+
+        res.status(200).json({ msg: "autenticação realizada com sucesso!", token })
+
+    } catch (error) {
+
     }
 
 }
