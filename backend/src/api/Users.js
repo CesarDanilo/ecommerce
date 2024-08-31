@@ -2,10 +2,11 @@ const express = require('express');
 const rotas = express.Router();
 
 const UsersControllers = require('../controllers/Users');
+const validationLogin = require('../middewares/Users/validationLogin')
 
 rotas.get('/', UsersControllers.listarUsers);
 
-rotas.post('/', UsersControllers.inserirUsers);
+rotas.post('/', validationLogin, UsersControllers.inserirUsers);
 
 rotas.put('/:id', UsersControllers.editarUsers);
 
