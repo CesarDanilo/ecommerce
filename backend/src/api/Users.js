@@ -5,10 +5,11 @@ const UsersControllers = require('../controllers/Users');
 const validationCreateLogin = require('../middewares/Users/validationCreateLogin')
 const validationLogin = require('../middewares/Users/validationLogin')
 const userLogin = require('../middewares/Users/userLogin')
+const checktoken = require('../middewares/Users/checkToken')
 
 rotas.get('/', UsersControllers.listarUsers);
 
-rotas.get('/usuario/:id', userLogin);
+rotas.get('/usuario/:id', checktoken, userLogin);
 
 rotas.post('/auth/createuser', validationCreateLogin, UsersControllers.inserirUsers);
 
