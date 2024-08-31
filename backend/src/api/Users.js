@@ -2,10 +2,10 @@ const express = require('express');
 const rotas = express.Router();
 
 const UsersControllers = require('../controllers/Users');
-const validationCreateLogin = require('../middewares/Users/validationCreateLogin')
-const validationLogin = require('../middewares/Users/validationLogin')
-const userLogin = require('../middewares/Users/userLogin')
-const checktoken = require('../middewares/Users/checkToken')
+const validationCreateLogin = require('../middewares/Users/validationCreateLogin');
+const validationLogin = require('../middewares/Users/validationLogin');
+const userLogin = require('../middewares/Users/userLogin');
+const checktoken = require('../middewares/Users/checkToken');
 
 rotas.get('/', UsersControllers.listarUsers);
 
