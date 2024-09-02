@@ -13,7 +13,7 @@ const Register = () => {
     console.log(`E-mail: ${email}`);
     console.log(`Senha: ${senha}`);
 
-    const baseURL = "http://localhost:3001/users";
+    const baseURL = "http://localhost:3001/users/auth/createuser";
 
     let formData = new FormData();
     formData.append("nome", nome);
