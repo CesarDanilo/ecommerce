@@ -32,7 +32,8 @@ const validationLogin = async (req, res, next) => {
             id: user._id
         }, secret)
 
-        res.status(200).json({ msg: "autenticação realizada com sucesso!", token })
+        res.status(200).json({ msg: "autenticação realizada com sucesso!", token });
+        
 
     } catch (error) {
 

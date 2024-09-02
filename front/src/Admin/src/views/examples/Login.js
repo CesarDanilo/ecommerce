@@ -19,15 +19,30 @@
 // reactstrap components
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, InputGroupAddon, InputGroupText, InputGroup, Row, Col } from "reactstrap";
 import { useState } from "react";
+import axios from "axios";
 
 const Login = () => {
 
   const [email, setEmail] = useState();
   const [senha, setSenha] = useState();
 
-  const EnviarDados = () => {
+  const url = "http://localhost:3001/users/auth/login";
+
+  const EnviarDados = async () => {
     console.log(`E-mail: ${email}`)
     console.log(`Senha: ${senha}`)
+
+    const formData = new FormData();
+    formData.append("nome", nome);
+    formData.append("email", email);
+
+    const res = await axios.post(url, formData, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'  // Adiciona o token no cabeçalho Authorization
+      }
+    });
+
   }
 
   return (
