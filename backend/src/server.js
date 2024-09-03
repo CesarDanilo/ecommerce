@@ -3,10 +3,12 @@ const app = express();
 const port = 3001;
 const rotas = require('./routes');
 const cors = require('cors');
+const session = require('express-session')
 
 // Middleware para parsear JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(session({ secret: process.env.SECRET }))
 
 
 // Habilitando o CORS para permitir requisições do frontend
@@ -16,13 +18,10 @@ app.use(cors({
 
 app.use('/uploads', express.static('uploads'));
 
-// Servir arquivos estáticos da pasta 'static/uploads'
-
 // Definindo a rota raiz
 app.get('/', (req, res) => {
     res.send('Hello!');
 });
-
 
 // Usando as rotas importadas
 app.use('/', rotas);
