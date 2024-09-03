@@ -1,49 +1,49 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.2.4
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
-// reactstrap components
-import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, InputGroupAddon, InputGroupText, InputGroup, Row, Col } from "reactstrap";
+import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, InputGroupAddon, InputGroupText, InputGroup, Row, Col, Alert } from "reactstrap";
 import { useState } from "react";
 import axios from "axios";
 
 const Login = () => {
-
-  const [email, setEmail] = useState();
-  const [senha, setSenha] = useState();
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const url = "http://localhost:3001/users/auth/login";
 
   const EnviarDados = async () => {
-    console.log(`E-mail: ${email}`)
-    console.log(`Senha: ${senha}`)
+    setLoading(true);
+    setError('');
+    setSuccess('');
+    try {
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("senha", senha);
 
-    const formData = new FormData();
-    formData.append("nome", nome);
-    formData.append("email", email);
+      console.log(formData);
 
-    const res = await axios.post(url, formData, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'  // Adiciona o token no cabeçalho Authorization
+      const res = await axios.post(url, formData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const { token } = res.data;
+      console.log("ESTE E MEU TOKEN DE AUTENTICAÇÃO: ", token);
+      if (token) {
+        localStorage.setItem('authToken', token);
+        setSuccess('Login bem-sucedido! Você será redirecionado.');
+        // Redirecionar ou atualizar estado do aplicativo conforme necessário
+      } else {
+        setError('Não foi possível obter o token.');
       }
-    });
-
-  }
+    } catch (error) {
+      console.error("Erro ao enviar dados:", error);
+      setError('Erro ao realizar login. Verifique suas credenciais.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -62,11 +62,8 @@ const Login = () => {
               >
                 <span className="btn-inner--icon">
                   <img
-                    alt="..."
-                    src={
-                      require("../../assets/img/icons/common/github.svg")
-                        .default
-                    }
+                    alt="Github logo"
+                    src={require("../../assets/img/icons/common/github.svg").default}
                   />
                 </span>
                 <span className="btn-inner--text">Github</span>
@@ -79,11 +76,8 @@ const Login = () => {
               >
                 <span className="btn-inner--icon">
                   <img
-                    alt="..."
-                    src={
-                      require("../../assets/img/icons/common/google.svg")
-                        .default
-                    }
+                    alt="Google logo"
+                    src={require("../../assets/img/icons/common/google.svg").default}
                   />
                 </span>
                 <span className="btn-inner--text">Google</span>
@@ -95,6 +89,8 @@ const Login = () => {
               <small>Or sign in with credentials</small>
             </div>
             <Form role="form">
+              {error && <Alert color="danger">{error}</Alert>}
+              {success && <Alert color="success">{success}</Alert>}
               <FormGroup className="mb-3">
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
@@ -106,7 +102,7 @@ const Login = () => {
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
-                    onChange={(e) => { setEmail(e.target.value) }}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </InputGroup>
               </FormGroup>
@@ -121,26 +117,32 @@ const Login = () => {
                     placeholder="Password"
                     type="password"
                     autoComplete="new-password"
-                    onChange={(e) => { setSenha(e.target.value) }}
+                    onChange={(e) => setSenha(e.target.value)}
                   />
                 </InputGroup>
               </FormGroup>
               <div className="custom-control custom-control-alternative custom-checkbox">
                 <input
                   className="custom-control-input"
-                  id=" customCheckLogin"
+                  id="customCheckLogin"
                   type="checkbox"
                 />
                 <label
                   className="custom-control-label"
-                  htmlFor=" customCheckLogin"
+                  htmlFor="customCheckLogin"
                 >
                   <span className="text-muted">Remember me</span>
                 </label>
               </div>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="button" onClick={() => { EnviarDados() }}>
-                  Sign in
+                <Button
+                  className="my-4"
+                  color="primary"
+                  type="button"
+                  onClick={EnviarDados}
+                  disabled={loading}
+                >
+                  {loading ? "Signing in..." : "Sign in"}
                 </Button>
               </div>
             </Form>
