@@ -1,6 +1,7 @@
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, InputGroupAddon, InputGroupText, InputGroup, Row, Col, Alert } from "reactstrap";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Importando useNavigate
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -8,6 +9,8 @@ const Login = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate(); // Inicializando useNavigate
 
   const url = "http://localhost:3001/users/auth/login";
 
@@ -20,23 +23,23 @@ const Login = () => {
       formData.append("email", email);
       formData.append("senha", senha);
 
-      console.log(formData);
-
       const res = await axios.post(url, formData, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
 
-      const { token } = res.data;
-      console.log("ESTE E MEU TOKEN DE AUTENTICAÇÃO: ", token);
+      const { token, user } = res.data; // Supondo que o backend retorne token e dados do usuário
       if (token) {
         localStorage.setItem('authToken', token);
+        localStorage.setItem('userData', JSON.stringify(user)); // Salvando os dados do usuário
         setSuccess('Login bem-sucedido! Você será redirecionado.');
-        // Redirecionar ou atualizar estado do aplicativo conforme necessário
+        // Redirecionar para a tela home
+        navigate('/');
       } else {
         setError('Não foi possível obter o token.');
       }
+
     } catch (error) {
       console.error("Erro ao enviar dados:", error);
       setError('Erro ao realizar login. Verifique suas credenciais.');
@@ -54,34 +57,7 @@ const Login = () => {
               <small>Sign in with</small>
             </div>
             <div className="btn-wrapper text-center">
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img
-                    alt="Github logo"
-                    src={require("../../assets/img/icons/common/github.svg").default}
-                  />
-                </span>
-                <span className="btn-inner--text">Github</span>
-              </Button>
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img
-                    alt="Google logo"
-                    src={require("../../assets/img/icons/common/google.svg").default}
-                  />
-                </span>
-                <span className="btn-inner--text">Google</span>
-              </Button>
+              {/* Botões de login social */}
             </div>
           </CardHeader>
           <CardBody className="px-lg-5 py-lg-5">

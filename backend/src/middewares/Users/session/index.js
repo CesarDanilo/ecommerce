@@ -8,7 +8,7 @@ const session = async (req, res, next) => {
 
         const user = await Users.findOne({ where: { email: email } });
 
-        res.redirect('/');
+        res.redirect('/users/usuario/' + user.id);
 
 
     } else {
