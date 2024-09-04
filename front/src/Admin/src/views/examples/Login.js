@@ -29,10 +29,12 @@ const Login = () => {
         }
       });
 
-      const { token, user } = res.data; // Supondo que o backend retorne token e dados do usuário
+      const { token, dados } = res.data; // Supondo que o backend retorne token e dados do usuário
+
       if (token) {
         localStorage.setItem('authToken', token);
-        localStorage.setItem('userData', JSON.stringify(user)); // Salvando os dados do usuário
+        console.log("***********", dados)
+        localStorage.setItem('userData', JSON.stringify(dados)); // Salvando os dados do usuário
         setSuccess('Login bem-sucedido! Você será redirecionado.');
         // Redirecionar para a tela home
         navigate('/');
