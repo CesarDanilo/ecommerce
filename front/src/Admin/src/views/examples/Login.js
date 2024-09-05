@@ -4,20 +4,22 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Importando useNavigate
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate(); // Inicializando useNavigate
-
   const url = "http://localhost:3001/users/auth/login";
 
   const EnviarDados = async () => {
+
     setLoading(true);
     setError('');
     setSuccess('');
+
     try {
       const formData = new FormData();
       formData.append("email", email);
@@ -29,19 +31,16 @@ const Login = () => {
         }
       });
 
-      const { token, dados } = res.data; // Supondo que o backend retorne token e dados do usuário
+      const { token, dados } = res.data;
 
       if (token) {
         localStorage.setItem('authToken', token);
-        console.log("***********", dados)
-        localStorage.setItem('userData', JSON.stringify(dados)); // Salvando os dados do usuário
+        localStorage.setItem('userData', JSON.stringify(dados));
         setSuccess('Login bem-sucedido! Você será redirecionado.');
-        // Redirecionar para a tela home
         navigate('/');
       } else {
         setError('Não foi possível obter o token.');
       }
-
     } catch (error) {
       console.error("Erro ao enviar dados:", error);
       setError('Erro ao realizar login. Verifique suas credenciais.');

@@ -10,20 +10,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Configuração da sessão
+app.use(cors({
+  origin: 'http://localhost:3000'
+}));
+
+app.use('/uploads', express.static('uploads'));
+
 app.use(session({
   secret: process.env.SECRET || 'your-secret-key', // Defina uma chave secreta
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false } // Configure para true se estiver usando HTTPS
 }));
-
-// Habilitando o CORS para permitir requisições do frontend
-app.use(cors({
-  origin: 'http://localhost:3000', // Permite apenas a origem específica
-  credentials: true // Permite o envio de cookies
-}));
-
-app.use('/uploads', express.static('uploads'));
 
 // Rota para obter dados da sessão
 app.get('/session', (req, res) => {
