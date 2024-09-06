@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,24 +7,32 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+import axios from 'axios';
 
 const Tabela = () => {
+    const [data, setData] = useState([]);
+    const urlBased = "http://localhost:3001/produto";
+
+    const buscarDados = async () => {
+        try {
+            const res = await axios.get(urlBased);
+            const { data } = res.data; // `res.data` já deve ser o array que você espera
+            setData(data);
+            console.log("Dados retornados do banco: ", data);
+        } catch (error) {
+            console.log("Não foi possível consultar os dados, erro: ", error);
+        }
+    };
+
+    // Carregar dados quando o componente é montado
+    useEffect(() => {
+        buscarDados();
+    }, []);
+
     return (
-        <div style={{ margin: 15, position: 'fixed' }}>
-            <TableContainer component={Paper} >
-                <Table sx={{ minWidth: 1600 }} aria-label="simple table">
+        <div style={{ margin: 15, position: 'relative' }}>
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 600 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell>IMG</TableCell>
@@ -34,23 +43,23 @@ const Tabela = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {Array.isArray(data) && data.map((i) => (
                             <TableRow
-                                key={row.name}
-                                sx={""}
+                                key={i.id} // Certifique-se de que `id` é único
                             >
                                 <TableCell component="th" scope="row"> IMG </TableCell>
-                                <TableCell align="left">{row.name}</TableCell>
-                                <TableCell align="left">{row.calories}</TableCell>
-                                <TableCell align="right">{row.fat}</TableCell>
-                                <TableCell align="right">{row.carbs}</TableCell>
+                                <TableCell align="left">{i.name}</TableCell>
+                                <TableCell align="left">{i.description}</TableCell>
+                                <TableCell align="right">{i.price}</TableCell>
+                                <TableCell align="right">{i.stock}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
+            <button onClick={buscarDados}>Buscar</button>
         </div>
     );
 }
 
-export default Tabela
+export default Tabela;

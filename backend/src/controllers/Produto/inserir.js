@@ -4,8 +4,9 @@ const path = require('path');
 const inserirProduto = async (req, res, next) => {
     try {
         const { nome, preco, descricao, estoque } = req.body;
-        const imagem_name = req.file.path.replace(/\\/g, "/");
-        const imagem = path.basename(imagem_name)
+        // const imagem_name = req.file.path.replace(/\\/g, "/");
+        // const imagem = path.basename(imagem_name)
+        const imagem = null
         console.log("nome da img", imagem)
 
         // Salve as informações no banco de dados, incluindo o caminho da imagem
@@ -18,7 +19,7 @@ const inserirProduto = async (req, res, next) => {
         console.log("Sucesso ao salvar produto:");
     } catch (error) {
         console.error("Erro ao salvar produto:", error);
-        res.status(500).json({ message: "Erro ao salvar produto" });
+        res.status(500).json({ message: "Erro ao salvar produto", error : error});
     }
 }
 
