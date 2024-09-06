@@ -47,10 +47,7 @@ const Tabela = () => {
                             <TableRow
                                 key={item.id} // Certifique-se de que `id` é único
                             >
-                                <TableCell>
-                                    <img src={item.imagem} alt={item.name} width={50} />
-
-                                </TableCell>
+                                <TableCell><img src={`http://localhost:3001/uploads/${item.imagem}`} alt={item.name} width={50} /></TableCell>
                                 <TableCell align="left">{item.nome}</TableCell>
                                 <TableCell align="left">{item.descricao}</TableCell>
                                 <TableCell align="right">{item.preco}</TableCell>
