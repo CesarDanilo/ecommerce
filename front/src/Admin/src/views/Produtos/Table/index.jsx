@@ -29,7 +29,6 @@ const Tabela = () => {
         try {
             const res = await axios.get(urlBased);
             const { data: produto } = res.data
-
             setData(produto); // `res.data` deve ser o array que você espera
             console.log("Dados retornados do banco: ", data);
         } catch (error) {
@@ -42,12 +41,12 @@ const Tabela = () => {
     }, []);
 
     return (
-        <div style={{ margin: 15, position: 'relative'}}>
+        <div style={{ margin: 15, position: 'relative' }}>
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>IMG</TableCell>
+                            <TableCell></TableCell>
                             <TableCell align="left">NOME</TableCell>
                             <TableCell align="left">DESCRIÇÃO</TableCell>
                             <TableCell align="right">PREÇO</TableCell>

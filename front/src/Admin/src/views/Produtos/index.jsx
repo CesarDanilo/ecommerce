@@ -82,7 +82,7 @@ const Produto = () => {
                 </DialogActions>
             </Dialog>
 
-            <div className="content">
+            <div className="content" style={{marginTop: 60}} >
                 <div>
                     <Nav tabs justified='fill'>
                         <NavItem className="NavItem"
