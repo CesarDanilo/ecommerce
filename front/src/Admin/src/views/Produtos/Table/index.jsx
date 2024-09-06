@@ -1,13 +1,11 @@
-import { Badge, Card, CardHeader, CardFooter, DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle, Media, Pagination, PaginationItem, PaginationLink, Progress, Table, Container, Row, UncontrolledTooltip, } from "reactstrap";
+import { Badge, Card, CardHeader, CardFooter, Pagination, PaginationItem, Media, PaginationLink, Table, Container, Row } from "reactstrap";
 import axios from "axios";
 import Header from "../../../components/Headers/Header.js";
 import { useEffect, useState } from "react";
 import { IconButton } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Await } from "react-router-dom";
 import CadastroMaterial from "../Cadastro/index.jsx";
-import { EditAttributes } from "@mui/icons-material";
 
 const Produtos = () => {
     const [atualizarPagina, setAtualizarPagina] = useState(false);
@@ -19,44 +17,46 @@ const Produtos = () => {
 
     const BuscarDados = async () => {
         try {
-            const res = await axios.get(url); // Aguarda a resposta da requisição
-            const { data: produtos, countAll } = res.data; // Renomeia a variável para evitar conflito
+            const res = await axios.get(url);
+            const { data: produtos } = res.data;
             setData(produtos);
             console.log(produtos);
-
         } catch (error) {
-            console.log("Erro ao buscar dados:", error); // Exibe o erro no console
+            console.log("Erro ao buscar dados:", error);
         }
     };
 
     const handleClickExcluir = async (id) => {
-        try {
-            const res = await axios.delete(url + id);
-            console.log(`codigo ${id} apagado`);
-            setAtualizarPagina(true)
-
-        } catch (error) {
-            console.log("Erro ao buscar dados:", error); // Exibe o erro no console
+        if (window.confirm("Tem certeza que deseja excluir este produto?")) {
+            try {
+                await axios.delete(url + id);
+                console.log(`Código ${id} apagado`);
+                setAtualizarPagina(true);
+            } catch (error) {
+                console.error("Erro ao excluir dados:", error);
+                alert("Erro ao excluir o produto. Verifique o console para mais detalhes.");
+            }
         }
     }
 
-    const handleClickEditar = async (id) => {
+    const handleClickEditar = (id) => {
         setId(id);
-        setEditar(true)
+        setEditar(true);
     }
 
     useEffect(() => {
-        BuscarDados();
-        if (atualizarPagina) {
-            setAtualizarPagina(false);
-            BuscarDados()
-        }
+        const fetchData = async () => {
+            await BuscarDados();
+        };
 
-        if (editar) {
+        fetchData();
+
+        if (atualizarPagina || editar) {
+            setAtualizarPagina(false);
             setEditar(false);
-            BuscarDados();
+            fetchData();
         }
-    }, [atualizarPagina, id, editar]);
+    }, [atualizarPagina, editar]);
 
     return (
         <>
@@ -119,14 +119,10 @@ const Produtos = () => {
 
                                             <td>
                                                 <>
-                                                    <IconButton variant="contained" size="small" onClick={() => {
-                                                        handleClickEditar(item.id);
-                                                    }}>
+                                                    <IconButton variant="contained" size="small" onClick={() => handleClickEditar(item.id)}>
                                                         <EditIcon color="success" />
                                                     </IconButton>
-                                                    <IconButton variant="contained" onClick={() => {
-                                                        handleClickExcluir(item.id);
-                                                    }}>
+                                                    <IconButton variant="contained" onClick={() => handleClickExcluir(item.id)}>
                                                         <DeleteIcon color="error" />
                                                     </IconButton>
                                                 </>
@@ -192,7 +188,6 @@ const Produtos = () => {
                     </div>
                 </Row>
             </Container>
-
         </>
     );
 }
