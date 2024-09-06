@@ -16,15 +16,15 @@ const Tabela = () => {
     const buscarDados = async () => {
         try {
             const res = await axios.get(urlBased);
-            const { data } = res.data; // `res.data` já deve ser o array que você espera
-            setData(data);
+            const { data: produto } = res.data
+
+            setData(produto); // `res.data` deve ser o array que você espera
             console.log("Dados retornados do banco: ", data);
         } catch (error) {
-            console.log("Não foi possível consultar os dados, erro: ", error);
+            console.error("Não foi possível consultar os dados, erro: ", error);
         }
     };
 
-    // Carregar dados quando o componente é montado
     useEffect(() => {
         buscarDados();
     }, []);
@@ -32,7 +32,7 @@ const Tabela = () => {
     return (
         <div style={{ margin: 15, position: 'relative' }}>
             <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 600 }} aria-label="simple table">
+                <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell>IMG</TableCell>
@@ -43,21 +43,23 @@ const Tabela = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {Array.isArray(data) && data.map((i) => (
+                        {data.map((item) => (
                             <TableRow
-                                key={i.id} // Certifique-se de que `id` é único
+                                key={item.id} // Certifique-se de que `id` é único
                             >
-                                <TableCell component="th" scope="row"> IMG </TableCell>
-                                <TableCell align="left">{i.name}</TableCell>
-                                <TableCell align="left">{i.description}</TableCell>
-                                <TableCell align="right">{i.price}</TableCell>
-                                <TableCell align="right">{i.stock}</TableCell>
+                                <TableCell>
+                                    <img src={item.imagem} alt={item.name} width={50} />
+
+                                </TableCell>
+                                <TableCell align="left">{item.nome}</TableCell>
+                                <TableCell align="left">{item.descricao}</TableCell>
+                                <TableCell align="right">{item.preco}</TableCell>
+                                <TableCell align="right">{item.estoque}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            <button onClick={buscarDados}>Buscar</button>
         </div>
     );
 }
