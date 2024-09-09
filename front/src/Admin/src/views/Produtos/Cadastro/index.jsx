@@ -47,7 +47,7 @@ const Cadastro = () => {
                         InputLabelProps={{
                             shrink: true,
                         }}
-                        style={{ width: "80px" }}
+                        style={{ width: "76px" }}
                     />
                     <Button
                         variant="contained"
@@ -62,6 +62,19 @@ const Cadastro = () => {
                         onChange={handleFileChange}
                         style={{ display: 'none' }}
                     />
+                </div>
+                <div style={{ display: "flex", gap: "12px", marginTop: "15px" }}>
+                    <TextField
+                        required
+                        multiline
+                        id="Descricao"
+                        label="Descrição"
+                        size="small"
+                        rows={4}
+                        defaultValue=""
+                        style={{width: "600px"}}
+                    />
+
                 </div>
             </Box>
         </>
