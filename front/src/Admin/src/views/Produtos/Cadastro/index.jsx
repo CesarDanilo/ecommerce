@@ -29,7 +29,14 @@ const Cadastro = () => {
         <>
             <Stack sx={{ width: '100%' }} spacing={2}>
                 {ativo && (
-                    <Alert severity="success">Dados gravados com sucesso!</Alert>
+                    <div style={{
+                        position: 'fixed',
+                        bottom: '16px',
+                        right: '16px',
+                        zIndex: 1300, // Garante que o alerta esteja acima dos outros componentes
+                    }}>
+                        <Alert severity="success">Dados gravados com sucesso!</Alert>
+                    </div>
                 )}
             </Stack>
             <h1>Cadastro</h1>
