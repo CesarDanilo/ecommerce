@@ -2,6 +2,8 @@ import React, { useRef } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 const Cadastro = () => {
     const fileInputRef = useRef(null);
@@ -17,8 +19,12 @@ const Cadastro = () => {
 
     return (
         <>
+            <Stack sx={{ width: '100%' }} spacing={2}>
+                <Alert severity="success">This is a success Alert.</Alert>
+                <Alert severity="error">This is an error Alert.</Alert>
+            </Stack>
             <h1>Cadastro</h1>
-            <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
+            <Box component="section" sx={{ p: 2 }}>
                 <div style={{ display: "flex", gap: "12px" }}>
                     <TextField
                         required
@@ -52,7 +58,7 @@ const Cadastro = () => {
                     <Button
                         variant="contained"
                         onClick={handleClick}
-                        style={{ width: "200px", marginLeft: "30px" }}
+                        style={{ width: "200px", marginLeft: "30px", backgroundColor: "black" }}
                     >
                         Selecionar Arquivo
                     </Button>
@@ -72,10 +78,12 @@ const Cadastro = () => {
                         size="small"
                         rows={4}
                         defaultValue=""
-                        style={{width: "600px"}}
+                        style={{ width: "600px" }}
                     />
-
+                    <Button variant="contained"
+                        style={{ height: "40px", width: "200px", marginLeft: "30px", backgroundColor: "black" }}>Gravar</Button>
                 </div>
+
             </Box>
         </>
     );
