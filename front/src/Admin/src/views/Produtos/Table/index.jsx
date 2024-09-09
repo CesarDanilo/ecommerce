@@ -33,6 +33,7 @@ const Tabela = () => {
             console.log("Dados retornados do banco: ", data);
         } catch (error) {
             console.error("Não foi possível consultar os dados, erro: ", error);
+            
         }
     };
 
