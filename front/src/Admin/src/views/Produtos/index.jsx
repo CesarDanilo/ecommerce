@@ -57,7 +57,7 @@ const Produto = () => {
     useEffect(() => {
         setEvento(!evento);
     }, [activeTab]);
-    
+
     return (
         <>
             <Dialog
@@ -82,7 +82,7 @@ const Produto = () => {
                 </DialogActions>
             </Dialog>
 
-            <div className="content" style={{marginTop: 60}} >
+            <div className="content" style={{ marginTop: 60 }} >
                 <div>
                     <Nav tabs justified='fill'>
                         <NavItem className="NavItem"
@@ -92,6 +92,7 @@ const Produto = () => {
                             <NavLink
                                 className={activeTab}
                                 onClick={() => setActiveTab('1')}
+                                style={{ color: "black" }}
                             >
                                 LISTAGEM
                             </NavLink>
@@ -103,6 +104,7 @@ const Produto = () => {
                             <NavLink
                                 className={activeTab}
                                 onClick={() => setActiveTab('2')}
+                                style={{ color: "black" }}
                             >
                                 CADASTRO
                             </NavLink>
