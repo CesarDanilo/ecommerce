@@ -4,10 +4,18 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import { SettingsSuggestRounded } from '@mui/icons-material';
 
 const Cadastro = () => {
     const [ativo, setAtivo] = useState(false); // Estado para controlar o alerta
     const fileInputRef = useRef(null);
+
+    // INPUTS
+    const [nome, setNome] = useState();
+    const [descricao, setDescricao] = useState();
+    const [preco, setPreco] = useState();
+    const [estoque, setEstoque] = useState();
+    const [imagem, setImagem] = useState();
 
     const handleClick = () => {
         fileInputRef.current.click();
@@ -15,15 +23,24 @@ const Cadastro = () => {
 
     const handleFileChange = (event) => {
         // Aqui você pode processar o arquivo selecionado
-        console.log(event.target.files[0]);
+        setImagem(event.target.files[0]);
     };
 
     const handleSave = () => {
+        enviarDados()
         setAtivo(true); // Ativa o alerta
         setTimeout(() => {
             setAtivo(false); // Desativa o alerta após 3 segundos
         }, 3000); // Tempo de 3 segundos
     };
+
+    const enviarDados = () => {
+        console.log(nome)
+        console.log(preco)
+        console.log(descricao)
+        console.log(estoque)
+        console.log(imagem)
+    }
 
     return (
         <>
@@ -40,7 +57,7 @@ const Cadastro = () => {
                 )}
             </Stack>
             <h1>Cadastro</h1>
-            <Box component="section" sx={{ p: 2, display: 'flex', flexDirection: 'column',  alignItems: 'center'}}>
+            <Box component="section" sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{ display: "flex", gap: "12px" }}>
                     <TextField
                         required
@@ -48,6 +65,7 @@ const Cadastro = () => {
                         label="Produto"
                         size="small"
                         style={{ width: "350px" }}
+                        onChange={(e) => { setNome(e.target.value) }}
                     />
                     <TextField
                         required
@@ -59,6 +77,7 @@ const Cadastro = () => {
                             shrink: true,
                         }}
                         style={{ width: "150px" }}
+                        onChange={(e) => { setPreco(e.target.value) }}
                     />
                     <TextField
                         required
@@ -70,6 +89,7 @@ const Cadastro = () => {
                             shrink: true,
                         }}
                         style={{ width: "76px" }}
+                        onChange={(e) => { setEstoque(e.target.value) }}
                     />
                     <Button
                         variant="contained"
