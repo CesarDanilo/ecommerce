@@ -40,7 +40,7 @@ const Cadastro = () => {
                 )}
             </Stack>
             <h1>Cadastro</h1>
-            <Box component="section" sx={{ p: 2 }}>
+            <Box component="section" sx={{ p: 2, display: 'flex', flexDirection: 'column',  alignItems: 'center'}}>
                 <div style={{ display: "flex", gap: "12px" }}>
                     <TextField
                         required
