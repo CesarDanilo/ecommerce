@@ -10,20 +10,40 @@ import Paper from '@mui/material/Paper';
 import { IconButton } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
 
 import axios from 'axios';
 
 const Tabela = () => {
     const [data, setData] = useState([]);
-    const urlBased = "http://localhost:3001/produto";
+    const [open, setOpen] = React.useState(false);
+    const [id, setId] = useState();
 
-    const handleClickEditar = async () => {
+    const urlBased = "http://localhost:3001/produto/";
 
+    const handleClickOpen = (id) => {
+        setOpen(true)
+        setId(id)
+    };
+
+    const handleClose = () => { setOpen(false) };
+
+    const handleClickExcluir = async (id) => {
+        try {
+            const res = await axios.delete(urlBased + id);
+            buscarDados();
+
+        } catch (error) {
+            console.log("Erro ao tentar excluir: ", error);
+        }
     }
 
-    const handleClickExcluir = async () => {
-
-    }
+    const handleClickEditar = async () => { }
 
     const buscarDados = async () => {
         try {
@@ -33,7 +53,7 @@ const Tabela = () => {
             console.log("Dados retornados do banco: ", data);
         } catch (error) {
             console.error("Não foi possível consultar os dados, erro: ", error);
-            
+
         }
     };
 
@@ -43,6 +63,29 @@ const Tabela = () => {
 
     return (
         <div style={{ margin: 15, position: 'relative' }}>
+
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Use Google's location service?"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Deseja mesmo excluir?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancelar</Button>
+                    <Button onClick={() => { handleClose(); handleClickExcluir(id) }} autoFocus>
+                        Confirmar
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
@@ -63,7 +106,7 @@ const Tabela = () => {
                                 <TableCell><img src={`http://localhost:3001/uploads/${item.imagem}`} alt={item.name} width={50} /></TableCell>
                                 <TableCell align="left">{item.nome}</TableCell>
                                 <TableCell align="left">{item.descricao}</TableCell>
-                                <TableCell align="right">{item.preco}</TableCell>
+                                <TableCell align="right">R$ {item.preco}</TableCell>
                                 <TableCell align="right">{item.estoque}</TableCell>
                                 <TableCell align="right">
                                     <>
@@ -73,7 +116,7 @@ const Tabela = () => {
                                             <EditIcon color="success" />
                                         </IconButton>
                                         <IconButton variant="contained" onClick={() => {
-                                            handleClickExcluir(item.id);
+                                            handleClickOpen(item.id)
                                         }}>
                                             <DeleteIcon color="error" />
                                         </IconButton>
