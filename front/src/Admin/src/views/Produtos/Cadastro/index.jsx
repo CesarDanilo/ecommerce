@@ -6,7 +6,7 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
 
-const Cadastro = ({ id, editarDados, setEditarDados }) => {
+const Cadastro = ({ id, editarDados, setEditarDados, evento }) => {
     const [ativo, setAtivo] = useState(false);
     const [data, setData] = useState([]);
     const fileInputRef = useRef(null);
@@ -82,6 +82,8 @@ const Cadastro = ({ id, editarDados, setEditarDados }) => {
         } catch (error) {
             console.log("Erro ao enviar dados: ", error);
         }
+
+        evento=true
     };
 
     useEffect(() => {
