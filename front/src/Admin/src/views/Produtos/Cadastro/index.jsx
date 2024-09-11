@@ -4,40 +4,34 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
-import { SettingsSuggestRounded } from '@mui/icons-material';
 import axios from 'axios';
 
 const Cadastro = ({ id, editarDados, setEditarDados }) => {
-    const [ativo, setAtivo] = useState(false); // Estado para controlar o alerta
+    const [ativo, setAtivo] = useState(false);
     const [data, setData] = useState([]);
     const fileInputRef = useRef(null);
 
-    // INPUTS
-    const [nome, setNome] = useState();
-    const [descricao, setDescricao] = useState();
-    const [preco, setPreco] = useState();
-    const [estoque, setEstoque] = useState();
-    const [imagem, setImagem] = useState();
+    const [nome, setNome] = useState('');
+    const [descricao, setDescricao] = useState('');
+    const [preco, setPreco] = useState('');
+    const [estoque, setEstoque] = useState('');
+    const [imagem, setImagem] = useState(null);
 
-    const url_Based = "http://localhost:3001/produto/"
+    const url_Based = "http://localhost:3001/produto/";
 
     const buscarDados = async () => {
-        console.log("estou dentro do buscar dados ", id)
         try {
             const res = await axios.get(`${url_Based}?id=${id}`);
-            const { data } = res.data
-            setData(data[0]); // `res.data` deve ser o array que você espera
-            console.log("Dados retornados do banco: ", data[0]);
+            const { data } = res.data;
+            setData(data[0]);
 
             setNome(data[0].nome);
             setDescricao(data[0].descricao);
             setPreco(data[0].preco);
             setEstoque(data[0].estoque);
             setImagem(data[0].imagem);
-
         } catch (error) {
             console.error("Não foi possível consultar os dados, erro: ", error);
-
         }
     };
 
@@ -46,20 +40,22 @@ const Cadastro = ({ id, editarDados, setEditarDados }) => {
     };
 
     const handleFileChange = (event) => {
-        // Aqui você pode processar o arquivo selecionado
         setImagem(event.target.files[0]);
     };
 
-    const handleSave = () => {
-        enviarDados()
-        setAtivo(true); // Ativa o alerta
-        setTimeout(() => {
-            setAtivo(false); // Desativa o alerta após 3 segundos
-        }, 3000); // Tempo de 3 segundos
+    const handleSave = async () => {
+        try {
+            await enviarDados();
+            setAtivo(true);
+            setTimeout(() => {
+                setAtivo(false);
+            }, 3000);
+        } catch (error) {
+            console.error("Erro ao salvar dados:", error);
+        }
     };
 
     const enviarDados = async () => {
-
         const formData = new FormData();
         formData.append("nome", nome);
         formData.append("descricao", descricao);
@@ -68,38 +64,31 @@ const Cadastro = ({ id, editarDados, setEditarDados }) => {
         formData.append("imagem", imagem);
 
         try {
-            if (id > 0) {
-                // enviar dados editados
+            if (id) {
                 const url = `${url_Based}?id=${id}`;
-                const res = await axios.put(url, formData, {
+                await axios.put(url, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
-                })
-                handleSave();
+                });
             } else {
-                // enviar novos dados
                 const url = `${url_Based}`;
-                const res = await axios.post(url, formData, {
+                await axios.post(url, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
-                })
-                handleSave();
+                });
             }
         } catch (error) {
-            console.log("Erro ao enviar dados: ", error)
+            console.log("Erro ao enviar dados: ", error);
         }
-    }
+    };
 
     useEffect(() => {
-        if (editarDados) {
-            setEditarDados(!editarDados)
-            buscarDados(id)
+        if (id) {
+            buscarDados();
         }
-
-
-    }, [editarDados, setEditarDados]);
+    }, [id]);
 
     return (
         <>
@@ -109,7 +98,7 @@ const Cadastro = ({ id, editarDados, setEditarDados }) => {
                         position: 'fixed',
                         bottom: '16px',
                         right: '16px',
-                        zIndex: 1300, // Garante que o alerta esteja acima dos outros componentes
+                        zIndex: 1300,
                     }}>
                         <Alert severity="success">Dados gravados com sucesso!</Alert>
                     </div>
@@ -124,11 +113,9 @@ const Cadastro = ({ id, editarDados, setEditarDados }) => {
                         label="Produto"
                         size="small"
                         style={{ width: "350px" }}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
+                        InputLabelProps={{ shrink: true }}
                         value={nome}
-                        onChange={(e) => { setNome(e.target.value) }}
+                        onChange={(e) => setNome(e.target.value)}
                     />
                     <TextField
                         required
@@ -136,12 +123,10 @@ const Cadastro = ({ id, editarDados, setEditarDados }) => {
                         label="Preço"
                         size="small"
                         type="number"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
+                        InputLabelProps={{ shrink: true }}
                         style={{ width: "150px" }}
                         value={preco}
-                        onChange={(e) => { setPreco(e.target.value) }}
+                        onChange={(e) => setPreco(e.target.value)}
                     />
                     <TextField
                         required
@@ -149,12 +134,10 @@ const Cadastro = ({ id, editarDados, setEditarDados }) => {
                         label="Estoque"
                         size="small"
                         type="number"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
+                        InputLabelProps={{ shrink: true }}
                         style={{ width: "76px" }}
                         value={estoque}
-                        onChange={(e) => { setEstoque(e.target.value) }}
+                        onChange={(e) => setEstoque(e.target.value)}
                     />
                     <Button
                         variant="contained"
@@ -178,17 +161,14 @@ const Cadastro = ({ id, editarDados, setEditarDados }) => {
                         label="Descrição"
                         size="small"
                         rows={4}
-                        defaultValue=""
                         style={{ width: "600px" }}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
+                        InputLabelProps={{ shrink: true }}
                         value={descricao}
-                        onChange={(e) => { setDescricao(e.target.value) }}
+                        onChange={(e) => setDescricao(e.target.value)}
                     />
                     <Button
                         variant="contained"
-                        onClick={handleSave} // Adicione o manipulador de clique aqui
+                        onClick={handleSave}
                         style={{ height: "40px", width: "200px", marginLeft: "30px", backgroundColor: "black" }}
                     >
                         Gravar
@@ -197,6 +177,6 @@ const Cadastro = ({ id, editarDados, setEditarDados }) => {
             </Box>
         </>
     );
-}
+};
 
 export default Cadastro;
