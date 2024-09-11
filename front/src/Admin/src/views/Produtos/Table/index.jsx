@@ -71,7 +71,7 @@ const Tabela = () => {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {"Use Google's location service?"}
+                    {/* {"Use Google's location service?"} */}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
@@ -79,8 +79,8 @@ const Tabela = () => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancelar</Button>
-                    <Button onClick={() => { handleClose(); handleClickExcluir(id) }} autoFocus>
+                    <Button style={{ color: "black" }} onClick={handleClose}>Cancelar</Button>
+                    <Button style={{ color: "white", backgroundColor: 'gray' }} onClick={() => { handleClose(); handleClickExcluir(id) }} autoFocus>
                         Confirmar
                     </Button>
                 </DialogActions>
