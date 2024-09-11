@@ -25,10 +25,10 @@ const Produto = () => {
 
     const [evento, setEvento] = useState(false);
 
-    const handleClickExcluir = async (id) => {
-        setOpen({ ...open, visible: true, id: id });
-        console.log(id)
-    }
+    // const handleClickExcluir = async (id) => {
+    //     setOpen({ ...open, visible: true, id: id });
+    //     console.log(id)
+    // }
 
     const excluirRegitro = async (id) => {
         try {
@@ -116,7 +116,7 @@ const Produto = () => {
                             <Row>
                                 <Col sm="12">
                                     <Tabela
-                                        handleClickExcluir={handleClickExcluir}
+                                        // handleClickExcluir={handleClickExcluir}
                                         handleClickEditar={handleClickEditar}
                                         atualizaPagina={atualizaPagina}
                                         setAtualizaPagina={setAtualizaPagina}

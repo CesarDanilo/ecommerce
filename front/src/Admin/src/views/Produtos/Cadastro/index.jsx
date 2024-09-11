@@ -1,13 +1,15 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { SettingsSuggestRounded } from '@mui/icons-material';
+import axios from 'axios';
 
-const Cadastro = () => {
+const Cadastro = ({ id, editarDados, setEditarDados }) => {
     const [ativo, setAtivo] = useState(false); // Estado para controlar o alerta
+    const [data, setData] = useState([]);
     const fileInputRef = useRef(null);
 
     // INPUTS
@@ -16,6 +18,28 @@ const Cadastro = () => {
     const [preco, setPreco] = useState();
     const [estoque, setEstoque] = useState();
     const [imagem, setImagem] = useState();
+
+    const url_Based = "http://localhost:3001/produto/"
+
+    const buscarDados = async () => {
+        console.log("estou dentro do buscar dados ", id)
+        try {
+            const res = await axios.get(`${url_Based}?id=${id}`);
+            const { data } = res.data
+            setData(data[0]); // `res.data` deve ser o array que você espera
+            console.log("Dados retornados do banco: ", data[0]);
+
+            setNome(data[0].nome);
+            setDescricao(data[0].descricao);
+            setPreco(data[0].preco);
+            setEstoque(data[0].estoque);
+            setImagem(data[0].imagem);
+
+        } catch (error) {
+            console.error("Não foi possível consultar os dados, erro: ", error);
+
+        }
+    };
 
     const handleClick = () => {
         fileInputRef.current.click();
@@ -34,13 +58,48 @@ const Cadastro = () => {
         }, 3000); // Tempo de 3 segundos
     };
 
-    const enviarDados = () => {
-        console.log(nome)
-        console.log(preco)
-        console.log(descricao)
-        console.log(estoque)
-        console.log(imagem)
+    const enviarDados = async () => {
+
+        const formData = new FormData();
+        formData.append("nome", nome);
+        formData.append("descricao", descricao);
+        formData.append("preco", preco);
+        formData.append("estoque", estoque);
+        formData.append("imagem", imagem);
+
+        try {
+            if (id > 0) {
+                // enviar dados editados
+                const url = `${url_Based}?id=${id}`;
+                const res = await axios.put(url, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                handleSave();
+            } else {
+                // enviar novos dados
+                const url = `${url_Based}`;
+                const res = await axios.post(url, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                handleSave();
+            }
+        } catch (error) {
+            console.log("Erro ao enviar dados: ", error)
+        }
     }
+
+    useEffect(() => {
+        if (editarDados) {
+            setEditarDados(!editarDados)
+            buscarDados(id)
+        }
+
+
+    }, [editarDados, setEditarDados]);
 
     return (
         <>
@@ -65,6 +124,10 @@ const Cadastro = () => {
                         label="Produto"
                         size="small"
                         style={{ width: "350px" }}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        value={nome}
                         onChange={(e) => { setNome(e.target.value) }}
                     />
                     <TextField
@@ -77,6 +140,7 @@ const Cadastro = () => {
                             shrink: true,
                         }}
                         style={{ width: "150px" }}
+                        value={preco}
                         onChange={(e) => { setPreco(e.target.value) }}
                     />
                     <TextField
@@ -89,6 +153,7 @@ const Cadastro = () => {
                             shrink: true,
                         }}
                         style={{ width: "76px" }}
+                        value={estoque}
                         onChange={(e) => { setEstoque(e.target.value) }}
                     />
                     <Button
@@ -115,6 +180,11 @@ const Cadastro = () => {
                         rows={4}
                         defaultValue=""
                         style={{ width: "600px" }}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        value={descricao}
+                        onChange={(e) => { setDescricao(e.target.value) }}
                     />
                     <Button
                         variant="contained"
