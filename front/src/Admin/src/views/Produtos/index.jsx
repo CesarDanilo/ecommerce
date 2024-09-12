@@ -121,6 +121,8 @@ const Produto = () => {
                                         atualizaPagina={atualizaPagina}
                                         setAtualizaPagina={setAtualizaPagina}
                                         activeTab={activeTab}
+                                        evento={evento}
+                                        
                                     />
                                 </Col>
                             </Row>

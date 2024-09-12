@@ -47,6 +47,7 @@ const Cadastro = ({ id, editarDados, setEditarDados, evento }) => {
         try {
             await enviarDados();
             setAtivo(true);
+            limparDados();
             setTimeout(() => {
                 setAtivo(false);
             }, 3000);
@@ -65,13 +66,15 @@ const Cadastro = ({ id, editarDados, setEditarDados, evento }) => {
 
         try {
             if (id) {
-                const url = `${url_Based}?id=${id}`;
-                await axios.put(url, formData, {
+                console.log("********", id)
+                const url = `${url_Based}${id}`;
+                const res = await axios.put(url, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
             } else {
+                limparDados()
                 const url = `${url_Based}`;
                 await axios.post(url, formData, {
                     headers: {
@@ -81,10 +84,17 @@ const Cadastro = ({ id, editarDados, setEditarDados, evento }) => {
             }
         } catch (error) {
             console.log("Erro ao enviar dados: ", error);
+            window.alert("Existem campos vazios!")
         }
-
-        evento=true
     };
+
+    const limparDados = () => {
+        setNome("")
+        setDescricao("")
+        setPreco("")
+        setEstoque("")
+        setImagem("")
+    }
 
     useEffect(() => {
         if (id) {

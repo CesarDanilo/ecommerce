@@ -19,7 +19,7 @@ import Button from '@mui/material/Button';
 
 import axios from 'axios';
 
-const Tabela = ({ handleClickEditar }) => {
+const Tabela = ({ handleClickEditar, evento }) => {
     const [data, setData] = useState([]);
     const [open, setOpen] = React.useState(false);
     const [id, setId] = useState();
@@ -59,7 +59,7 @@ const Tabela = ({ handleClickEditar }) => {
 
     useEffect(() => {
         buscarDados();
-    }, []);
+    }, [evento]);
 
     return (
         <div style={{ margin: 15, position: 'relative' }}>
