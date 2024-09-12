@@ -26,6 +26,7 @@ import Icons from "./views/examples/Icons";
 // import CadastroProdutos from "./views/Produtos/Cadastro/index.jsx";
 import Produtos from "./views/Produtos/index.jsx";
 import Home from "../../views/Home";
+import Usuarios from "./views/Usuarios/index.jsx";
 
 var routes = [
   // {
@@ -56,13 +57,13 @@ var routes = [
     component: <Home />,
     layout: "/",
   },
-  // {
-  //   path: "/user-profile",
-  //   name: "User Profile",
-  //   icon: "ni ni-single-02 text-yellow",
-  //   component: <Profile />,
-  //   layout: "/admin",
-  // },
+  {
+    path: "/usuarios-cadastrados",
+    name: "User Profile",
+    icon: "ni ni-single-02 text-yellow",
+    component: <Usuarios />,
+    layout: "/admin",
+  },
   // {
   //   path: "/tables",
   //   name: "Tables",
