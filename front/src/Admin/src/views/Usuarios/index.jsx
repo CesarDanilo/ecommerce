@@ -30,6 +30,7 @@ const Usuarios = () => {
 
   return (
     <div style={{ margin: 15, position: 'relative' }}>
+      <h1 style={{ margin: 25, position: 'relative' }}>Usuarios</h1>
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
@@ -50,7 +51,11 @@ const Usuarios = () => {
                 <TableCell align="left">{item.nome}</TableCell>
                 <TableCell align="left">{item.email}</TableCell>
                 <TableCell align="center">{item.admin ? 'Yes' : 'No'}</TableCell> {/* Exibe 'Yes' ou 'No' */}
-                <TableCell align="left">{new Date(item.dateCreate).toLocaleDateString()}</TableCell> {/* Formata a data */}
+                <TableCell align="left">
+                  {item.createdAt ?
+                    new Date(item.createdAt).toLocaleDateString() :
+                    'Data não disponível'}
+                </TableCell> {/* Formata a data */}
               </TableRow>
             ))}
           </TableBody>
