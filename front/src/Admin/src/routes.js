@@ -52,14 +52,14 @@ var routes = [
   },
   {
     path: "",
-    name: "Home",
+    name: "Pagina Inicial",
     icon: "ni ni-planet text-blue",
     component: <Home />,
     layout: "/",
   },
   {
     path: "/usuarios-cadastrados",
-    name: "User Profile",
+    name: "Usuarios Cadastrados",
     icon: "ni ni-single-02 text-yellow",
     component: <Usuarios />,
     layout: "/admin",
