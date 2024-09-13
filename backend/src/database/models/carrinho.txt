@@ -1,0 +1,5 @@
+precisa ser feito uma tabela chamada carrinho, onde contem 
+id 
+id usuario
+id produto
+quantidade
