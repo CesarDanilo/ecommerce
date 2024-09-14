@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
       // Exemplo de associação, se aplicável:
       Carrinho.belongsTo(models.Users, { foreignKey: 'usuario_id' });
       Carrinho.belongsTo(models.Produto, { foreignKey: 'produto_id' });
-    }
+    }0
   };
 
   Carrinho.init({
