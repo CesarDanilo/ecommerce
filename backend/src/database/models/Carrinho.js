@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
       // Exemplo de associação, se aplicável:
       Carrinho.belongsTo(models.Users, { foreignKey: 'usuario_id' });
       Carrinho.belongsTo(models.Produto, { foreignKey: 'produto_id' });
-    }0
+    } 0
   };
 
   Carrinho.init({
@@ -37,6 +37,10 @@ module.exports = (sequelize) => {
       },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL'
+    },
+    quantidade: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
     createdAt: {
       type: DataTypes.DATE,

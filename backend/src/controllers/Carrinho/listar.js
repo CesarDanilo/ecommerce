@@ -2,7 +2,7 @@ const { Carrinho } = require('../../database/models');
 const { Op } = require('sequelize');
 
 const listarCarrinho = async (req, resp) => {
-    const { offset, order, direction, nome, id } = req.query;
+    const { offset, order, direction, id } = req.query;
     let { limit } = req.query;
     limit = limit ? parseInt(limit) : 15;
 
@@ -29,11 +29,6 @@ const listarCarrinho = async (req, resp) => {
             where.id = parseInt(id);
         }
 
-        if (nome) {
-            where.nome = {
-                [Op.iLike]: `%${nome}%`
-            };
-        }
 
         // Contando sem o limit e offset para poder criar a paginação
         const countAll = await Carrinho.count({ where });
@@ -43,7 +38,7 @@ const listarCarrinho = async (req, resp) => {
             ...options,
             order: orderOptions,
             where,
-            attributes: ['id', 'nome', 'email', 'senha', 'admin', 'createdAt', 'updatedAt'] // Incluindo apenas os atributos necessários
+            attributes: ['id'] // Incluindo apenas os atributos necessários
         });
 
         return resp.status(200).json({
