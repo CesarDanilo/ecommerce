@@ -26,7 +26,7 @@ export function Usuarios() {
   const basedUrl = "http://localhost:3001/users/"
   const [dadosUsuarios, setDadosUsuarios] = useState([]);
 
-  const buscarProdutosCadastrados = async () => {
+  const buscarUsuariosCadastrados = async () => {
     try {
       const response = await axios.get(basedUrl);
       const { data: produto } = response.data
@@ -38,8 +38,9 @@ export function Usuarios() {
     }
   }
 
+
   useEffect(() => {
-    buscarProdutosCadastrados();
+    buscarUsuariosCadastrados();
   }, [])
 
   return (
@@ -60,7 +61,7 @@ export function Usuarios() {
                 <CardBody>
                   <form className="shadow-none mt-8 flex flex-col lg:flex-row gap-4 mb-2 w-full max-w-full">
                     {/* Nome */}
-                    <div className="shadow-none mb-4 flex flex-col gap-4 w-full lg:w-[50%]">
+                    <div className="shadow-none mb-4 flex flex-col gap-4 w-full lg:w-[100%]">
                       <label className="text-blue-gray-700 text-sm font-semibold">Nome</label>
                       <input
                         type="text"
@@ -70,7 +71,7 @@ export function Usuarios() {
                     </div>
 
                     {/* Email */}
-                    <div className="shadow-none mb-4 flex flex-col gap-4 w-full lg:w-[50%]">
+                    <div className="shadow-none mb-4 flex flex-col gap-4 w-full lg:w-[90%]">
                       <label className="text-blue-gray-700 text-sm font-semibold">Email</label>
                       <input
                         type="email"
@@ -80,7 +81,7 @@ export function Usuarios() {
                     </div>
 
                     {/* Senha */}
-                    <div className="shadow-none mb-4 flex flex-col gap-4 w-full lg:w-96">
+                    <div className="shadow-none mb-4 flex flex-col gap-4 w-full lg:w-[90%]">
                       <label className="text-blue-gray-700 text-sm font-semibold">Senha</label>
                       <input
                         type="password"
