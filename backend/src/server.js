@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Configuração da sessão
 app.use(cors({
-  origin: 'http://localhost:3000'
+  origin: '*'
 }));
 
 app.use('/uploads', express.static('uploads'));

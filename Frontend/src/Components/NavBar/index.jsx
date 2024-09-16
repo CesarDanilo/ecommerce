@@ -59,7 +59,7 @@ const NavBar = ({ qntProd }) => {
                             </Link>
                         </Button>
                         <Button>
-                            <Link href="/admin" underline="none" color="black" fontWeight="bold">
+                            <Link href="http://localhost:5173/" underline="none" color="black" fontWeight="bold">
                                 {'DASHBOARD'}
                             </Link>
                         </Button>
