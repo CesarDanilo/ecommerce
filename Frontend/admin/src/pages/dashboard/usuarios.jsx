@@ -25,6 +25,10 @@ export function Usuarios() {
 
   const basedUrl = "http://localhost:3001/users/"
   const [dadosUsuarios, setDadosUsuarios] = useState([]);
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [admin, setAdmin] = useState('');
 
   const buscarUsuariosCadastrados = async () => {
     try {
@@ -38,6 +42,25 @@ export function Usuarios() {
     }
   }
 
+  const enviarDadosUsuario = async () => {
+    const url = "http://localhost:3001/users/auth/createuser";
+
+    try {
+      // Criar uma instância de FormData
+      const dados = new FormData();
+      dados.append("nome", nome);
+      dados.append("email", email);
+      dados.append("senha", senha);
+      dados.append("admin", admin);
+
+      const response = await axios.post(url, dados);
+      console.log("Gravado com sucesso: ", response.data);
+      buscarUsuariosCadastrados();
+
+    } catch (error) {
+      console.log("Não foi possível enviar os dados: ", error.message);
+    }
+  }
 
   useEffect(() => {
     buscarUsuariosCadastrados();
@@ -54,71 +77,78 @@ export function Usuarios() {
         <Typography className="mt-5 ml-5" variant="h4" color="blue-gray">
           Usuarios Cadastrados
         </Typography>
-        <CardBody className="  flex justify-center p-4">
-          <Card className="  flex flex-col w-full max-w-screen-lg mr-4">
+        <CardBody className="flex justify-center p-4">
+          <Card className="flex flex-col w-full max-w-screen-lg mx-4 border border-blue-gray-100">
             <CardBody>
-              <Card className=" shadow-none">
-                <CardBody>
-                  <form className="shadow-none mt-8 flex flex-col lg:flex-row gap-4 mb-2 w-full max-w-full">
-                    {/* Nome */}
-                    <div className="shadow-none mb-4 flex flex-col gap-4 w-full lg:w-[100%]">
-                      <label className="text-blue-gray-700 text-sm font-semibold">Nome</label>
-                      <input
-                        type="text"
-                        placeholder="Nome completo"
-                        className="border border-blue-gray-200 focus:border-gray-900 rounded-lg p-2 w-full"
-                      />
-                    </div>
+              <Typography className="mt-5 ml-5" variant="h4" color="blue-gray">
+                Cadastro de Usuário
+              </Typography>
+              <form className="mt-8 flex flex-col lg:flex-row gap-4 mb-2 w-full">
+                {/* Nome */}
+                <div className="flex flex-col gap-4 w-full lg:w-[100%] mb-4">
+                  <label className="text-blue-gray-700 text-sm font-semibold">Nome</label>
+                  <input
+                    type="text"
+                    placeholder="Nome completo"
+                    onChange={(e) => setNome(e.target.value)}
+                    className="border border-blue-gray-200 focus:border-gray-900 rounded-lg p-2 w-full"
+                  />
+                </div>
 
-                    {/* Email */}
-                    <div className="shadow-none mb-4 flex flex-col gap-4 w-full lg:w-[90%]">
-                      <label className="text-blue-gray-700 text-sm font-semibold">Email</label>
-                      <input
-                        type="email"
-                        placeholder="Email"
-                        className="border border-blue-gray-200 focus:border-gray-900 rounded-lg p-2 w-full"
-                      />
-                    </div>
+                {/* Email */}
+                <div className="flex flex-col gap-4 w-full lg:w-[90%] mb-4">
+                  <label className="text-blue-gray-700 text-sm font-semibold">Email</label>
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="border border-blue-gray-200 focus:border-gray-900 rounded-lg p-2 w-full"
+                  />
+                </div>
 
-                    {/* Senha */}
-                    <div className="shadow-none mb-4 flex flex-col gap-4 w-full lg:w-[90%]">
-                      <label className="text-blue-gray-700 text-sm font-semibold">Senha</label>
-                      <input
-                        type="password"
-                        placeholder="Senha"
-                        className="border border-blue-gray-200 focus:border-gray-900 rounded-lg p-2 w-full"
-                      />
-                    </div>
+                {/* Senha */}
+                <div className="flex flex-col gap-4 w-full lg:w-[90%] mb-4">
+                  <label className="text-blue-gray-700 text-sm font-semibold">Senha</label>
+                  <input
+                    type="password"
+                    placeholder="Senha"
+                    onChange={(e) => setSenha(e.target.value)}
+                    className="border border-blue-gray-200 focus:border-gray-900 rounded-lg p-2 w-full"
+                  />
+                </div>
 
-                    {/* Usuário é Admin */}
-                    <div className="shadow-none mb-4 flex flex-col gap-4 w-full lg:w-96">
-                      <label className="text-blue-gray-700 text-sm font-semibold">Admin?</label>
-                      <select
-                        className="border border-blue-gray-200 focus:border-gray-900 rounded-lg p-2 w-[100px]"
-                      >
-                        <option value="false">Não</option>
-                        <option value="true">Sim</option>
-                      </select>
-                    </div>
-                  </form>
-                  <div className="flex gap-1 flex-col lg:flex-row mb-2 w-full max-w-full">
-                    <div className="w-full lg:w-96">
-                      <Button className="flex items-center justify-center h-11 w-full gap-2" variant="gradient">Gravar</Button>
-                    </div>
-                    <div className="w-full lg:w-96">
-                      <Button className="flex items-center h-11 w-full gap-2 justify-center bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 transition-all duration-300" variant="gradient">
-                        <IconButton className="p-2 bg-transparent text-white">
-                          <i className="fas fa-plus" />
-                        </IconButton>
-                        Novo
-                      </Button>
-                    </div>
-                  </div>
-                </CardBody>
-              </Card>
+                {/* Usuário é Admin */}
+                <div className="flex flex-col gap-4 w-full lg:w-96 mb-4">
+                  <label className="text-blue-gray-700 text-sm font-semibold">Admin?</label>
+                  <select
+                    onChange={(e) => setAdmin(e.target.value)}
+                    value={admin}
+                    className="border border-blue-gray-200 focus:border-gray-900 rounded-lg p-2 w-full"
+                  >
+                    <option value="false">Não</option>
+                    <option value="true">Sim</option>
+                  </select>
+                </div>
+              </form>
+              <div className="flex gap-2 flex-col lg:flex-row mb-2 w-full">
+                <div className="w-full lg:w-1/2">
+                  <Button onClick={enviarDadosUsuario} className="flex items-center justify-center h-11 w-full gap-2" variant="gradient">
+                    Gravar
+                  </Button>
+                </div>
+                <div className="w-full lg:w-1/2">
+                  <Button className="flex items-center h-11 w-full gap-2 justify-center bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 transition-all duration-300">
+                    <IconButton className="p-2 bg-transparent text-white">
+                      <i className="fas fa-plus" />
+                    </IconButton>
+                    Novo
+                  </Button>
+                </div>
+              </div>
             </CardBody>
           </Card>
         </CardBody>
+
 
         {/* TABELA DE USUARIOS CADASTRADOS */}
         <div className="mt-12 mb-8 flex flex-col gap-12">
