@@ -52,17 +52,26 @@ export function Usuarios() {
       setAlertMessage('Usuário cadastrado com sucesso!');
       setColor("green")
       setShowAlert(true);
+      limparCadastroUsuarios()
 
     } catch (error) {
-      if (error.response.status == 422) {
+      if (error.response.status === 422) {
         setColor("red")
         setAlertMessage('Usurario já existe!');
-        setShowAlert(true);
       } else {
         setAlertMessage('Ops! Ocorreu um erro!');
       }
+      setShowAlert(true);
+      limparCadastroUsuarios()
     }
   };
+
+  const limparCadastroUsuarios = () => {
+    setNome('');
+    setEmail('');
+    setSenha('');
+    setAdmin('');
+  }
 
   useEffect(() => {
     buscarUsuariosCadastrados();
@@ -101,6 +110,7 @@ export function Usuarios() {
                   <input
                     type="text"
                     placeholder="Nome completo"
+                    value={nome}
                     onChange={(e) => setNome(e.target.value)}
                     className="border border-blue-gray-200 focus:border-gray-900 rounded-lg p-2 w-full"
                   />
@@ -112,6 +122,7 @@ export function Usuarios() {
                   <input
                     type="email"
                     placeholder="Email"
+                    value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="border border-blue-gray-200 focus:border-gray-900 rounded-lg p-2 w-full"
                   />
@@ -123,6 +134,7 @@ export function Usuarios() {
                   <input
                     type="password"
                     placeholder="Senha"
+                    value={senha}
                     onChange={(e) => setSenha(e.target.value)}
                     className="border border-blue-gray-200 focus:border-gray-900 rounded-lg p-2 w-full"
                   />
@@ -148,7 +160,7 @@ export function Usuarios() {
                   </Button>
                 </div>
                 <div className="w-full lg:w-1/2">
-                  <Button className="flex items-center h-11 w-full gap-2 justify-center bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 transition-all duration-300">
+                  <Button onClick={limparCadastroUsuarios} className="flex items-center h-11 w-full gap-2 justify-center bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 transition-all duration-300">
                     <IconButton className="p-2 bg-transparent text-white">
                       <i className="fas fa-plus" />
                     </IconButton>
