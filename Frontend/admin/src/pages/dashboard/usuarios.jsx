@@ -162,8 +162,8 @@ export function Usuarios() {
                 </div>
                 <div className="w-full lg:w-1/2">
                   <Button onClick={limparCadastroUsuarios} className="flex items-center h-11 w-full gap-2 justify-center bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 transition-all duration-300">
-                    <IconButton className="p-2 bg-transparent text-white">
-                      <i className="fas fa-plus" />
+                    <IconButton className="p-2 shadow-none bg-transparent text-white">
+                      <i className="fas fa-plus shadow-none" />
                     </IconButton>
                     Novo
                   </Button>
