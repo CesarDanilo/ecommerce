@@ -1,78 +1,89 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardBody,
   CardHeader,
-  CardFooter,
   Avatar,
   Typography,
-  Tabs,
-  TabsHeader,
-  Tab,
-  Switch,
-  Tooltip,
   Button,
-  Input,
-  IconButton
+  IconButton,
+  Alert
 } from "@material-tailwind/react";
-
-import { authorsTableData, projectsTableData } from "@/data";
 import axios from "axios";
-import { useEffect, useState } from "react";
-
+import { authorsTableData } from "@/data";
 
 export function Usuarios() {
-
-  const basedUrl = "http://localhost:3001/users/"
+  const basedUrl = "http://localhost:3001/users/";
   const [dadosUsuarios, setDadosUsuarios] = useState([]);
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [admin, setAdmin] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [color, setColor] = useState('');
 
   const buscarUsuariosCadastrados = async () => {
     try {
       const response = await axios.get(basedUrl);
-      const { data: produto } = response.data
+      const { data: produto } = response.data;
       setDadosUsuarios(produto);
       console.log("dados retornados: ", dadosUsuarios);
-
     } catch (error) {
-      console.log("Não foi possivel buscar os dados: ", error);
+      console.log("Não foi possível buscar os dados: ", error);
     }
-  }
+  };
 
   const enviarDadosUsuario = async () => {
     const url = "http://localhost:3001/users/auth/createuser";
 
     try {
-      // Criar uma instância de FormData
-      const dados = new FormData();
-      dados.append("nome", nome);
-      dados.append("email", email);
-      dados.append("senha", senha);
-      dados.append("admin", admin);
+      const dadosRecebidos = {
+        "nome": nome,
+        "email": email,
+        "senha": senha,
+        "admin": admin
+      };
 
-      const response = await axios.post(url, dados);
-      console.log("Gravado com sucesso: ", response.data);
+      console.log("Dados que seriam enviados: ", dadosRecebidos);
+
+      const response = await axios.post(url, dadosRecebidos);
       buscarUsuariosCadastrados();
+      setAlertMessage('Usuário cadastrado com sucesso!');
+      setColor("green")
+      setShowAlert(true);
 
     } catch (error) {
-      console.log("Não foi possível enviar os dados: ", error.message);
+      if (error.response.status == 422) {
+        setColor("red")
+        setAlertMessage('Usurario já existe!');
+        setShowAlert(true);
+      } else {
+        setAlertMessage('Ops! Ocorreu um erro!');
+      }
     }
-  }
+  };
 
   useEffect(() => {
     buscarUsuariosCadastrados();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    if (showAlert) {
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
 
   return (
     <>
-      <div className="relative mt-8 h-72 w-full overflow-hidden rounded-xl bg-[url('/img/background-image.png')] bg-cover	bg-center">
+      <div className="relative mt-8 h-72 w-full overflow-hidden rounded-xl bg-[url('/img/background-image.png')] bg-cover bg-center">
         <div className="absolute inset-0 h-full w-full bg-gray-900/75" />
       </div>
       <Card className="mx-3 -mt-16 mb-6 lg:mx-4 border border-blue-gray-100">
-
         {/* FORMULARIO DE CADASTRO DO USUARIO */}
         <Typography className="mt-5 ml-5" variant="h4" color="blue-gray">
           Usuarios Cadastrados
@@ -149,7 +160,6 @@ export function Usuarios() {
           </Card>
         </CardBody>
 
-
         {/* TABELA DE USUARIOS CADASTRADOS */}
         <div className="mt-12 mb-8 flex flex-col gap-12">
           <Card>
@@ -178,38 +188,45 @@ export function Usuarios() {
                   </tr>
                 </thead>
                 <tbody>
-                  {dadosUsuarios.map(
-                    ({ nome, email, admin }, key) => {
-                      const className = `py-3 px-5 ${key === authorsTableData.length - 1
-                        ? ""
-                        : "border-b border-blue-gray-50"
-                        }`;
+                  {dadosUsuarios.map(({ nome, email, admin }, key) => {
+                    const className = `py-3 px-5 ${key === authorsTableData.length - 1
+                      ? ""
+                      : "border-b border-blue-gray-50"
+                      }`;
 
-                      return (
-                        <tr key={nome}>
-                          <td className={className}>
-                            <Typography className="text-xs font-semibold text-blue-gray-600">
-                              {nome.toUpperCase()}
-                            </Typography>
-                          </td>
-                          <td className={className}>
-                            {email}
-                          </td>
-                          <td className={className}>
-                            <Typography className="text-xs font-semibold text-blue-gray-600">
-                              {admin ? "SIM" : "NÃO"}
-                            </Typography>
-                          </td>
-                        </tr>
-                      );
-                    }
-                  )}
+                    return (
+                      <tr key={nome}>
+                        <td className={className}>
+                          <Typography className="text-xs font-semibold text-blue-gray-600">
+                            {nome.toUpperCase()}
+                          </Typography>
+                        </td>
+                        <td className={className}>
+                          {email}
+                        </td>
+                        <td className={className}>
+                          <Typography className="text-xs font-semibold text-blue-gray-600">
+                            {admin ? "SIM" : "NÃO"}
+                          </Typography>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </CardBody>
           </Card>
         </div>
       </Card>
+
+      {/* Alerta */}
+      {showAlert && (
+        <div className="fixed bottom-4 right-4 z-50">
+          <Alert color={color} size={16} className="w-80">
+            {alertMessage}
+          </Alert>
+        </div>
+      )}
     </>
   );
 }
