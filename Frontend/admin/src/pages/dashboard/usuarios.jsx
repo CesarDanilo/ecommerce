@@ -19,7 +19,7 @@ export function Usuarios() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [admin, setAdmin] = useState('');
+  const [admin, setAdmin] = useState();
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [color, setColor] = useState('');
@@ -63,19 +63,17 @@ export function Usuarios() {
         setAlertMessage('Ops! Ocorreu um erro!');
       }
       setShowAlert(true);
-      limparCadastroUsuarios()
     }
   };
 
   const deletarUsuarios = async (id) => {
     try {
       const response = await axios.delete(basedUrl + id);
-      console.log(basedUrl + id)
-      console.lod("excluido com sucesso:", response.status);
-      buscarUsuariosCadastrados();
-
+      console.log(basedUrl + id);
+      console.log("Excluído com sucesso:", response.status);
+      buscarUsuariosCadastrados(); // Atualiza a lista após excluir o usuário
     } catch (error) {
-      console.log("Não foi possivel excluir", error.response);
+      console.log("Não foi possível excluir", error.response);
     }
   }
 
@@ -83,7 +81,7 @@ export function Usuarios() {
     setNome('');
     setEmail('');
     setSenha('');
-    setAdmin('');
+    setAdmin(false);
   }
 
   useEffect(() => {
@@ -157,12 +155,12 @@ export function Usuarios() {
                 <div className="flex flex-col gap-4 w-full lg:w-96 mb-4">
                   <label className="text-blue-gray-700 text-sm font-semibold">Admin?</label>
                   <select
-                    onChange={(e) => setAdmin(e.target.value)}
-                    value={admin}
+                    onChange={(e) => setAdmin(e.target.value === "true")}
+                    value={admin ? "true" : "false"} // Mantém o valor padronizado de acordo com o estado
                     className="border border-blue-gray-200 focus:border-gray-900 rounded-lg p-2 w-full"
                   >
-                    <option value="false">Não</option>
-                    <option value="true">Sim</option>
+                    <option value={"false"}>Não</option>
+                    <option value={"true"}>Sim</option>
                   </select>
                 </div>
               </form>
@@ -220,7 +218,7 @@ export function Usuarios() {
                       }`;
 
                     return (
-                      <tr key={nome}>
+                      <tr key={id}>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
                             {nome.toUpperCase()}
