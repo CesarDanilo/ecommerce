@@ -67,6 +67,18 @@ export function Usuarios() {
     }
   };
 
+  const deletarUsuarios = async (id) => {
+    try {
+      const response = await axios.delete(basedUrl + id);
+      console.log(basedUrl + id)
+      console.lod("excluido com sucesso:", response.status);
+      buscarUsuariosCadastrados();
+
+    } catch (error) {
+      console.log("Não foi possivel excluir", error.response);
+    }
+  }
+
   const limparCadastroUsuarios = () => {
     setNome('');
     setEmail('');
@@ -201,7 +213,7 @@ export function Usuarios() {
                   </tr>
                 </thead>
                 <tbody>
-                  {dadosUsuarios.map(({ nome, email, admin }, key) => {
+                  {dadosUsuarios.map(({ id, nome, email, admin }, key) => {
                     const className = `py-3 px-5 ${key === authorsTableData.length - 1
                       ? ""
                       : "border-b border-blue-gray-50"
@@ -226,7 +238,7 @@ export function Usuarios() {
                           <IconButton className="flex-row mr-1">
                             <PencilIcon className="h-5 w-5 mr-1 text-white" />
                           </IconButton>
-                          <IconButton className="flex-row mr-1">
+                          <IconButton onClick={() => { deletarUsuarios(id) }} className="flex-row mr-1">
                             <TrashIcon className="h-5 w-5 mr-1 text-white" />
                           </IconButton>
                         </td>
