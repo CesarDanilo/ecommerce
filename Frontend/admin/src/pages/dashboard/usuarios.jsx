@@ -9,6 +9,7 @@ import {
   IconButton,
   Alert
 } from "@material-tailwind/react";
+import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import axios from "axios";
 import { authorsTableData } from "@/data";
 
@@ -184,7 +185,7 @@ export function Usuarios() {
               <table className="w-full min-w-[640px] table-auto">
                 <thead>
                   <tr>
-                    {["nome", "e-mail", "admin"].map((el) => (
+                    {["nome", "e-mail", "admin", "actions"].map((el) => (
                       <th
                         key={el}
                         className="border-b border-blue-gray-50 py-3 px-5 text-left"
@@ -221,6 +222,14 @@ export function Usuarios() {
                             {admin ? "SIM" : "NÃO"}
                           </Typography>
                         </td>
+                        <td className={className}>
+                          <IconButton className="flex-row mr-1">
+                            <PencilIcon className="h-5 w-5 mr-1 text-white" />
+                          </IconButton>
+                          <IconButton className="flex-row mr-1">
+                            <TrashIcon className="h-5 w-5 mr-1 text-white" />
+                          </IconButton>
+                        </td>
                       </tr>
                     );
                   })}
@@ -228,17 +237,19 @@ export function Usuarios() {
               </table>
             </CardBody>
           </Card>
-        </div>
-      </Card>
+        </div >
+      </Card >
 
       {/* Alerta */}
-      {showAlert && (
-        <div className="fixed bottom-4 right-4 z-50">
-          <Alert color={color} size={16} className="w-80">
-            {alertMessage}
-          </Alert>
-        </div>
-      )}
+      {
+        showAlert && (
+          <div className="fixed bottom-4 right-4 z-50">
+            <Alert color={color} size={16} className="w-80">
+              {alertMessage}
+            </Alert>
+          </div>
+        )
+      }
     </>
   );
 }
