@@ -19,7 +19,7 @@ export function Usuarios() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [admin, setAdmin] = useState();
+  const [admin, setAdmin] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [color, setColor] = useState('');
