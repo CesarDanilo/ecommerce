@@ -108,6 +108,7 @@ export function Usuarios() {
 
       const response = await axios.put(`${basedUrl}${id}`, dadosRecebidos);
       buscarUsuariosCadastrados();
+      setId('')
       console.log("dados salvos com sucesso: ", response.status)
 
     } catch (error) {
@@ -116,6 +117,7 @@ export function Usuarios() {
   };
 
   const limparCadastroUsuarios = () => {
+    setId('');
     setNome('');
     setEmail('');
     setSenha('');
