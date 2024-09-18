@@ -77,12 +77,47 @@ export function Usuarios() {
     }
   }
 
+  const editarDadosUsuario = async (id) => {
+    try {
+      const response = await axios.get(`${basedUrl}?id=${id}`);
+      const { data } = response.data;
+
+      setNome(data[0].nome);
+      setEmail(data[0].email);
+      setSenha("");
+      setAdmin(data[0].admin);
+
+      console.log("dados retornados: ", data);
+    } catch (error) {
+      console.log("Não foi possível buscar os dados: ", error);
+    }
+  };
+
+
+  const atualizarDadosUsuario = async (id) => {
+    try {
+
+      const dadosRecebidos = {
+        "nome": nome,
+        "email": email,
+        "senha": senha,
+        "admin": admin
+      };
+
+      const response = await axios.put(`${basedUrl}?id=${id}`, dadosRecebidos);
+      console.log("dados salvos com sucesso: ", response.status)
+
+    } catch (error) {
+      console.log("Não foi possivel altualizar os dados: ", error)
+    }
+  };
+
   const limparCadastroUsuarios = () => {
     setNome('');
     setEmail('');
     setSenha('');
     setAdmin(false);
-  }
+  };
 
   useEffect(() => {
     buscarUsuariosCadastrados();
@@ -233,7 +268,7 @@ export function Usuarios() {
                           </Typography>
                         </td>
                         <td className={className}>
-                          <IconButton className="flex-row mr-1">
+                          <IconButton onClick={() => { editarDadosUsuario(id) }} className="flex-row mr-1">
                             <PencilIcon className="h-5 w-5 mr-1 text-white" />
                           </IconButton>
                           <IconButton onClick={() => { deletarUsuarios(id) }} className="flex-row mr-1">
