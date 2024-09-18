@@ -16,6 +16,7 @@ import { authorsTableData } from "@/data";
 export function Usuarios() {
   const basedUrl = "http://localhost:3001/users/";
   const [dadosUsuarios, setDadosUsuarios] = useState([]);
+  const [id, setId] = useState('');
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -82,6 +83,7 @@ export function Usuarios() {
       const response = await axios.get(`${basedUrl}?id=${id}`);
       const { data } = response.data;
 
+      setId(data[0].id);
       setNome(data[0].nome);
       setEmail(data[0].email);
       setSenha("");
@@ -104,7 +106,8 @@ export function Usuarios() {
         "admin": admin
       };
 
-      const response = await axios.put(`${basedUrl}?id=${id}`, dadosRecebidos);
+      const response = await axios.put(`${basedUrl}${id}`, dadosRecebidos);
+      buscarUsuariosCadastrados();
       console.log("dados salvos com sucesso: ", response.status)
 
     } catch (error) {
@@ -201,7 +204,14 @@ export function Usuarios() {
               </form>
               <div className="flex gap-2 flex-col lg:flex-row mb-2 w-full">
                 <div className="w-full lg:w-1/2">
-                  <Button onClick={enviarDadosUsuario} className="flex items-center justify-center h-11 w-full gap-2" variant="gradient">
+                  <Button onClick={() => {
+                    if (id > 0) {
+                      atualizarDadosUsuario(id)
+                    } else {
+                      enviarDadosUsuario();
+                    }
+                  }
+                  } className="flex items-center justify-center h-11 w-full gap-2" variant="gradient">
                     Gravar
                   </Button>
                 </div>
