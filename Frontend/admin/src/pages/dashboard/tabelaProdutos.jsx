@@ -28,7 +28,6 @@ export function TabelaProdutos() {
       const response = await axios.get(basedUrl);
       const { data: produto } = response.data
       setDadosProdutos(produto);
-      console.log("dados retornados: ", dadosProdutos);
 
     } catch (error) {
       console.log("Não foi possivel buscar os dados: ", error);
