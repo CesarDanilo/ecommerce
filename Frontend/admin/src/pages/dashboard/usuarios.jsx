@@ -110,6 +110,7 @@ export function Usuarios() {
       buscarUsuariosCadastrados();
       setId('')
       console.log("dados salvos com sucesso: ", response.status)
+      limparCadastroUsuarios();
 
     } catch (error) {
       console.log("Não foi possivel altualizar os dados: ", error)
