@@ -54,9 +54,9 @@ export function TabelaProdutos() {
             <CardBody className="  flex justify-center p-4">
               <Card className="  flex flex-col w-full max-w-screen-lg mr-4">
                 <CardBody>
-                  <Card className=" shadow-none flex-row">
+                  <Card className="shadow-none mt-0 flex flex-col lg:flex-row mb-1 w-full max-w-full p-4">
                     <CardBody>
-                      <form className=" shadow-none mt-2 flex flex-col lg:flex-col mb-1 w-full max-w-full">
+                      <form className=" shadow-none mt-2 flex flex-col lg:flex-col mb-1 w-[380px] max-w-full">
                         <Card className=" shadow-none">
                           <CardBody className=" shadow-none flex flex-col sm:w-96 -mb-7">
                             <Typography variant="h6" color="blue-gray" className="-mb-0">
@@ -120,7 +120,7 @@ export function TabelaProdutos() {
                     </CardBody>
                     <CardBody>
                       <Card className="shadow-none">
-                        <CardBody className="shadow-none mb-1 flex  flex-col gap-2  max-w-[290px]">
+                        <CardBody className="shadow-none mb-1 flex  flex-col gap-2  max-w-[250px]">
                           <img
                             className="h-48 mb-3 w-full rounded-lg object-cover object-center shadow-xl shadow-blue-gray-900/50"
                             src="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
@@ -135,9 +135,9 @@ export function TabelaProdutos() {
                             }}
                           />
                         </CardBody>
-                        <CardBody className="flex gap-6 flex-col lg:flex-row mb-2 w-full max-w-full">
-                          <Button className="flex items-center h-11 w-[110px] gap-2" variant="gradient">Gravar</Button>
-                          <Button className="flex items-center h-11 w-[110px] gap-2 justify-center bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 transition-all duration-300" variant="gradient">
+                        <CardBody className="flex gap-6 flex-row lg:flex-row mb-2 w-full max-w-full">
+                          <Button className="flex items-center h-11 w-[90px] gap-2" variant="gradient">Gravar</Button>
+                          <Button className="flex items-center h-11 w-[90px] gap-2 justify-center bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 transition-all duration-300" variant="gradient">
                             <IconButton className="p-2 bg-transparent text-white">
                               <i className="fas fa-plus" />
                             </IconButton>
