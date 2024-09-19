@@ -56,61 +56,65 @@ export function TabelaProdutos() {
                 <CardBody>
                   <Card className=" shadow-none">
                     <CardBody>
-                      <form className=" shadow-none mt-8 flex flex-col lg:flex-row mb-2 w-full max-w-full">
-                        <Card className=" shadow-none mb-4 mr-4 flex flex-col gap-4 sm:w-96">
-                          <Typography variant="h6" color="blue-gray" className="-mb-2">
-                            Produto
-                          </Typography>
-                          <Input
-                            size="lg"
-                            placeholder="Produto"
-                            className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[600px]"
-                            labelProps={{
-                              className: "before:content-none after:content-none",
-                            }}
-                          />
+                      <form className=" shadow-none mt-2 flex flex-col lg:flex-col mb-1 w-full max-w-full">
+                        <Card className=" shadow-none">
+                          <CardBody className=" shadow-none flex flex-col sm:w-96 -mb-7">
+                            <Typography variant="h6" color="blue-gray" className="-mb-0">
+                              Produto
+                            </Typography>
+                            <Input
+                              size="lg"
+                              placeholder="Produto"
+                              className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[600px]"
+                              labelProps={{
+                                className: "before:content-none after:content-none",
+                              }}
+                            />
+                          </CardBody>
+                          <CardBody className=" shadow-none flex flex-col sm:w-96">
+                            <Typography variant="h6" color="blue-gray" className="-mb-0">
+                              Descrição
+                            </Typography>
+                            <Input
+                              size="lg"
+                              placeholder="Descrição"
+                              className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[600px]"
+                              labelProps={{
+                                className: "before:content-none after:content-none",
+                              }}
+                            />
+                          </CardBody>
                         </Card>
-                        <Card className=" shadow-none mb-4 mr-4 flex flex-col gap-4 sm:w-96">
-                          <Typography variant="h6" color="blue-gray" className="-mb-2">
-                            Descrição
-                          </Typography>
-                          <Input
-                            size="lg"
-                            placeholder="Descrição"
-                            className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[600px]"
-                            labelProps={{
-                              className: "before:content-none after:content-none",
-                            }}
-                          />
-                        </Card>
-                        <Card className=" shadow-none mb-4 mr-4 flex flex-col gap-4 sm:w-24">
-                          <Typography variant="h6" color="blue-gray" className="-mb-2">
-                            Estoque
-                          </Typography>
-                          <Input
-                            size="lg"
-                            placeholder="0"
-                            type="number"
-                            className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[90px]"
-                            labelProps={{
-                              className: "before:content-none after:content-none",
-                            }}
-                          />
-                        </Card>
-                        <Card className=" shadow-none mb-4 mr-4 flex flex-col gap-4 sm:w-96">
-                          <Typography variant="h6" color="blue-gray" className="-mb-2">
-                            Preço
-                          </Typography>
-                          <Input
-                            size="lg"
-                            placeholder="0.00"
-                            type="number"
-                            step="0.01"
-                            className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[90px]"
-                            labelProps={{
-                              className: "before:content-none after:content-none",
-                            }}
-                          />
+                        <Card className=" shadow-none flex flex-row">
+                          <CardBody className=" shadow-none flex flex-col sm:w-26">
+                            <Typography variant="h6" color="blue-gray" className="-mb-0">
+                              Estoque
+                            </Typography>
+                            <Input
+                              size="lg"
+                              placeholder="0"
+                              type="number"
+                              className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[90px]"
+                              labelProps={{
+                                className: "before:content-none after:content-none",
+                              }}
+                            />
+                          </CardBody>
+                          <CardBody className=" shadow-none flex flex-col sm:w-26">
+                            <Typography variant="h6" color="blue-gray" className="-mb-0">
+                              Preço
+                            </Typography>
+                            <Input
+                              size="lg"
+                              placeholder="0.00"
+                              type="number"
+                              step="0.01"
+                              className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[90px]"
+                              labelProps={{
+                                className: "before:content-none after:content-none",
+                              }}
+                            />
+                          </CardBody>
                         </Card>
                       </form>
                     </CardBody>
