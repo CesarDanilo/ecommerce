@@ -54,7 +54,7 @@ export function TabelaProdutos() {
             <CardBody className="  flex justify-center p-4">
               <Card className="  flex flex-col w-full max-w-screen-lg mr-4">
                 <CardBody>
-                  <Card className=" shadow-none">
+                  <Card className=" shadow-none flex-row">
                     <CardBody>
                       <form className=" shadow-none mt-2 flex flex-col lg:flex-col mb-1 w-full max-w-full">
                         <Card className=" shadow-none">
@@ -118,31 +118,33 @@ export function TabelaProdutos() {
                         </Card>
                       </form>
                     </CardBody>
-                  </Card>
-                  <Card className="shadow-none flex-row">
-                    <CardBody className="shadow-none mb-1 flex  flex-col gap-2  max-w-[290px]">
-                      <img
-                        className="h-48 mb-3 w-full rounded-lg object-cover object-center shadow-xl shadow-blue-gray-900/50"
-                        src="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
-                        alt="nature image"
-                      />
-                      <Input
-                        size="lg"
-                        type="file"
-                        className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[290px]"
-                        labelProps={{
-                          className: "before:content-none after:content-none",
-                        }}
-                      />
-                    </CardBody>
-                    <CardBody className="flex gap-1 flex-col lg:flex-row mb-2 w-full max-w-full">
-                      <Button className="flex items-center h-11 w-[100px] gap-2" variant="gradient">Gravar</Button>
-                      <Button className="flex items-center h-11 w-[100px] gap-2 justify-center bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 transition-all duration-300" variant="gradient">
-                        <IconButton className="p-2 bg-transparent text-white">
-                          <i className="fas fa-plus" />
-                        </IconButton>
-                        Novo
-                      </Button>
+                    <CardBody>
+                      <Card className="shadow-none">
+                        <CardBody className="shadow-none mb-1 flex  flex-col gap-2  max-w-[290px]">
+                          <img
+                            className="h-48 mb-3 w-full rounded-lg object-cover object-center shadow-xl shadow-blue-gray-900/50"
+                            src="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
+                            alt="nature image"
+                          />
+                          <Input
+                            size="lg"
+                            type="file"
+                            className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[290px]"
+                            labelProps={{
+                              className: "before:content-none after:content-none",
+                            }}
+                          />
+                        </CardBody>
+                        <CardBody className="flex gap-6 flex-col lg:flex-row mb-2 w-full max-w-full">
+                          <Button className="flex items-center h-11 w-[110px] gap-2" variant="gradient">Gravar</Button>
+                          <Button className="flex items-center h-11 w-[110px] gap-2 justify-center bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 transition-all duration-300" variant="gradient">
+                            <IconButton className="p-2 bg-transparent text-white">
+                              <i className="fas fa-plus" />
+                            </IconButton>
+                            Novo
+                          </Button>
+                        </CardBody>
+                      </Card>
                     </CardBody>
                   </Card>
                 </CardBody>
