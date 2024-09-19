@@ -23,6 +23,13 @@ export function TabelaProdutos() {
   const basedUrl = "http://localhost:3001/produto"
   const [dadosProdutos, setDadosProdutos] = useState([]);
 
+  const [nome, setNome] = useState();
+  const [descricao, setDescricao] = useState();
+  const [estoque, setEstoque] = useState();
+  const [preco, setPreco] = useState();
+  const [imagem, setImagem] = useState();
+
+
   const buscarProdutosCadastrados = async () => {
     try {
       const response = await axios.get(basedUrl);
@@ -33,6 +40,29 @@ export function TabelaProdutos() {
       console.log("Não foi possivel buscar os dados: ", error);
     }
   }
+
+  const enviarNovoProduto = async () => {
+    const url = "http://localhost:3001/produto/";
+    const formData = new FormData();
+    formData.append("nome", nome);
+    formData.append("descricao", descricao);
+    formData.append("preco", preco);
+    formData.append("estoque", estoque);
+    formData.append("imagem", imagem); // Certifique-se de que 'imagem' é um arquivo
+
+    try {
+      console.log({ nome, descricao, preco, imagem });
+      const response = await axios.post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
+      console.log("Dados enviados com sucesso: ", response.status);
+    } catch (erro) {
+      console.log("Não foi possível cadastrar o produto: ", erro);
+    }
+  };
+
 
   useEffect(() => {
     buscarProdutosCadastrados();
@@ -63,6 +93,7 @@ export function TabelaProdutos() {
                             </Typography>
                             <Input
                               size="lg"
+                              onChange={(e) => { setNome(e.target.value) }}
                               placeholder="Produto"
                               className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[600px]"
                               labelProps={{
@@ -77,6 +108,7 @@ export function TabelaProdutos() {
                             <Input
                               size="lg"
                               placeholder="Descrição"
+                              onChange={(e) => { setDescricao(e.target.value) }}
                               className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[600px]"
                               labelProps={{
                                 className: "before:content-none after:content-none",
@@ -92,6 +124,7 @@ export function TabelaProdutos() {
                             <Input
                               size="lg"
                               placeholder="0"
+                              onChange={(e) => { setEstoque(e.target.value) }}
                               type="number"
                               className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[90px]"
                               labelProps={{
@@ -106,6 +139,7 @@ export function TabelaProdutos() {
                             <Input
                               size="lg"
                               placeholder="0.00"
+                              onChange={(e) => { setPreco(e.target.value) }}
                               type="number"
                               step="0.01"
                               className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[90px]"
@@ -128,6 +162,7 @@ export function TabelaProdutos() {
                           <Input
                             size="lg"
                             type="file"
+                            onChange={(e) => { setImagem(e.target.files[0]) }}
                             className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[290px]"
                             labelProps={{
                               className: "before:content-none after:content-none",
@@ -135,7 +170,7 @@ export function TabelaProdutos() {
                           />
                         </CardBody>
                         <CardBody className="flex gap-6 flex-row lg:flex-row mb-2 w-full max-w-full">
-                          <Button className="flex items-center h-11 w-[90px] gap-2" variant="gradient">Gravar</Button>
+                          <Button onClick={enviarNovoProduto} className="flex items-center h-11 w-[90px] gap-2" variant="gradient">Gravar</Button>
                           <Button className="flex items-center h-11 w-[90px] gap-2 justify-center bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 transition-all duration-300" variant="gradient">
                             <IconButton className="p-2 bg-transparent text-white">
                               <i className="fas fa-plus" />
