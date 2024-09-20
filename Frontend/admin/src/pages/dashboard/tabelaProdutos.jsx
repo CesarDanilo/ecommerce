@@ -164,7 +164,7 @@ export function TabelaProdutos() {
                         <CardBody className="shadow-none mb-1 flex  flex-col gap-2  max-w-[250px]">
                           <img
                             className="h-48 mb-3 w-full rounded-lg object-cover object-center shadow-xl shadow-blue-gray-900/50"
-                            src={previewUrl}
+                            src={imagem? previewUrl : "http://localhost:3001/uploads/imgs.png"}
                             alt="nature image"
                           />
                           <Input
