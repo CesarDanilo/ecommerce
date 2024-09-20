@@ -12,7 +12,8 @@ import {
   Tooltip,
   Button,
   Input,
-  IconButton
+  IconButton,
+  Alert
 } from "@material-tailwind/react";
 
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
@@ -31,6 +32,9 @@ export function TabelaProdutos() {
   const [preco, setPreco] = useState();
   const [imagem, setImagem] = useState();
   const [previewUrl, setPreviewUrl] = useState();
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [color, setColor] = useState('');
 
   const buscarProdutosCadastrados = async () => {
     try {
@@ -59,6 +63,10 @@ export function TabelaProdutos() {
           "Content-Type": "multipart/form-data"
         }
       });
+      buscarProdutosCadastrados();
+      setAlertMessage('Produto cadastrado com sucesso!');
+      setColor("green")
+      setShowAlert(true);
       console.log("Dados enviados com sucesso: ", response.status);
     } catch (erro) {
       console.log("Não foi possível cadastrar o produto: ", erro);
@@ -84,10 +92,31 @@ export function TabelaProdutos() {
     }
   }
 
+  const limparCadastroUsuarios = () => {
+    setId('');
+    setNome('');
+    setDescricao('');
+    setEstoque('');
+    setPreco('');
+    setImagem('');
+  };
+
 
   useEffect(() => {
     buscarProdutosCadastrados();
   }, [])
+
+
+  useEffect(() => {
+    if (showAlert) {
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
+
 
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
@@ -115,6 +144,7 @@ export function TabelaProdutos() {
                             <Input
                               size="lg"
                               onChange={(e) => { setNome(e.target.value) }}
+                              value={nome}
                               placeholder="Produto"
                               className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[600px]"
                               labelProps={{
@@ -129,6 +159,7 @@ export function TabelaProdutos() {
                             <Input
                               size="lg"
                               placeholder="Descrição"
+                              value={descricao}
                               onChange={(e) => { setDescricao(e.target.value) }}
                               className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[600px]"
                               labelProps={{
@@ -145,6 +176,7 @@ export function TabelaProdutos() {
                             <Input
                               size="lg"
                               placeholder="0"
+                              value={estoque}
                               onChange={(e) => { setEstoque(e.target.value) }}
                               type="number"
                               className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[90px]"
@@ -160,6 +192,7 @@ export function TabelaProdutos() {
                             <Input
                               size="lg"
                               placeholder="0.00"
+                              value={preco}
                               onChange={(e) => { setPreco(e.target.value) }}
                               type="number"
                               step="0.01"
@@ -183,6 +216,7 @@ export function TabelaProdutos() {
                           <Input
                             size="lg"
                             type="file"
+                            value={imagem}
                             onChange={handleImageChange}
                             className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[290px]"
                             labelProps={{
@@ -192,7 +226,7 @@ export function TabelaProdutos() {
                         </CardBody>
                         <CardBody className="flex gap-6 flex-row lg:flex-row mb-2 w-full max-w-full">
                           <Button onClick={enviarNovoProduto} className="flex items-center h-11 w-[90px] gap-2" variant="gradient">Gravar</Button>
-                          <Button className="flex items-center h-11 w-[90px] gap-2 justify-center bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 transition-all duration-300" variant="gradient">
+                          <Button onClick={limparCadastroUsuarios} className="flex items-center h-11 w-[90px] gap-2 justify-center bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 transition-all duration-300" variant="gradient">
                             <IconButton className="p-2 bg-transparent text-white">
                               <i className="fas fa-plus" />
                             </IconButton>
@@ -311,6 +345,15 @@ export function TabelaProdutos() {
           </CardBody>
         </Card>
       </Card>
+      {
+        showAlert && (
+          <div className="fixed bottom-4 right-4 z-50">
+            <Alert color={color} size={16} className="w-80">
+              {alertMessage}
+            </Alert>
+          </div>
+        )
+      }
     </div>
   );
 }
