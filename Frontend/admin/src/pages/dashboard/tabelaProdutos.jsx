@@ -28,7 +28,7 @@ export function TabelaProdutos() {
   const [estoque, setEstoque] = useState();
   const [preco, setPreco] = useState();
   const [imagem, setImagem] = useState();
-
+  const [previewUrl, setPreviewUrl] = useState();
 
   const buscarProdutosCadastrados = async () => {
     try {
@@ -60,6 +60,14 @@ export function TabelaProdutos() {
       console.log("Dados enviados com sucesso: ", response.status);
     } catch (erro) {
       console.log("Não foi possível cadastrar o produto: ", erro);
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImagem(file);
+      setPreviewUrl(URL.createObjectURL(file)); // Gerar URL de pré-visualização
     }
   };
 
@@ -156,13 +164,13 @@ export function TabelaProdutos() {
                         <CardBody className="shadow-none mb-1 flex  flex-col gap-2  max-w-[250px]">
                           <img
                             className="h-48 mb-3 w-full rounded-lg object-cover object-center shadow-xl shadow-blue-gray-900/50"
-                            src="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
+                            src={previewUrl}
                             alt="nature image"
                           />
                           <Input
                             size="lg"
                             type="file"
-                            onChange={(e) => { setImagem(e.target.files[0]) }}
+                            onChange={handleImageChange}
                             className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[290px]"
                             labelProps={{
                               className: "before:content-none after:content-none",
@@ -216,14 +224,14 @@ export function TabelaProdutos() {
               </thead>
               <tbody>
                 {dadosProdutos.map(
-                  ({ nome, descricao, preco, estoque, imagem }, key) => {
+                  ({ id, nome, descricao, preco, estoque, imagem }, key) => {
                     const className = `py-3 px-5 ${key === authorsTableData.length - 1
                       ? ""
                       : "border-b border-blue-gray-50"
                       }`;
 
                     return (
-                      <tr key={nome}>
+                      <tr key={id}>
                         <td className={className}>
                           <div className="flex items-center gap-4">
                             <Avatar src={`http://localhost:3001/uploads/${imagem}`} alt={nome} size="xl" variant="rounded" />
