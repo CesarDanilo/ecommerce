@@ -15,12 +15,14 @@ import {
   IconButton
 } from "@material-tailwind/react";
 
+import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
+
 import { authorsTableData, projectsTableData } from "@/data";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 export function TabelaProdutos() {
-  const basedUrl = "http://localhost:3001/produto"
+  const basedUrl = "http://localhost:3001/produto/"
   const [dadosProdutos, setDadosProdutos] = useState([]);
 
   const [nome, setNome] = useState();
@@ -70,6 +72,17 @@ export function TabelaProdutos() {
       setPreviewUrl(URL.createObjectURL(file)); // Gerar URL de pré-visualização
     }
   };
+
+  const deletarProduto = async (id) => {
+    try {
+      const response = await axios.delete(basedUrl + id);
+      console.log(basedUrl + id);
+      console.log("Excluído com sucesso:", response.status);
+      buscarProdutosCadastrados(); // Atualiza a lista após excluir o usuário
+    } catch (error) {
+      console.log("Não foi possível excluir", error.response);
+    }
+  }
 
 
   useEffect(() => {
@@ -164,7 +177,7 @@ export function TabelaProdutos() {
                         <CardBody className="shadow-none mb-1 flex  flex-col gap-2  max-w-[250px]">
                           <img
                             className="h-48 mb-3 w-full rounded-lg object-cover object-center shadow-xl shadow-blue-gray-900/50"
-                            src={imagem? previewUrl : "http://localhost:3001/uploads/imgs.png"}
+                            src={imagem ? previewUrl : "http://localhost:3001/uploads/upload.png"}
                             alt="nature image"
                           />
                           <Input
@@ -279,6 +292,15 @@ export function TabelaProdutos() {
                           >
                             {preco}
                           </Typography>
+                        </td>
+
+                        <td className={className}>
+                          <IconButton onClick={() => { editarDadosUsuario(id) }} className="flex-row mr-1">
+                            <PencilIcon className="h-5 w-5 mr-1 text-white" />
+                          </IconButton>
+                          <IconButton onClick={() => { deletarProduto(id) }} className="flex-row mr-1">
+                            <TrashIcon className="h-5 w-5 mr-1 text-white" />
+                          </IconButton>
                         </td>
                       </tr>
                     );
