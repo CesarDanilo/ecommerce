@@ -25,7 +25,7 @@ export function TabelaProdutos() {
   const basedUrl = "http://localhost:3001/produto/"
   const [dadosProdutos, setDadosProdutos] = useState([]);
 
-  const [id, setId] = useState();
+  const [id, setId] = useState("");
   const [nome, setNome] = useState();
   const [descricao, setDescricao] = useState();
   const [estoque, setEstoque] = useState();
@@ -37,8 +37,11 @@ export function TabelaProdutos() {
   const [color, setColor] = useState('');
   const [open, setOpen] = useState(false);
   const [deletar, setDeletar] = useState(false);
+  const [produtoADeletar, setProdutoADeletar] = useState(null);
 
-  const handleOpen = () => {
+
+  const handleOpen = (id) => {
+    setProdutoADeletar(id);
     setOpen(!open);
   };
 
@@ -50,12 +53,12 @@ export function TabelaProdutos() {
       setColor("green");
       setShowAlert(true);
       setDeletar(false);
+      setOpen(false);  // Fechar o modal após excluir
     } catch (error) {
       setAlertMessage("Erro ao tentar deletar Produto!");
       setColor("red");
       setShowAlert(true);
     }
-    setOpen(false);
   };
 
   const buscarProdutosCadastrados = async () => {
@@ -355,7 +358,7 @@ export function TabelaProdutos() {
                           <IconButton onClick={() => { handleOpen(id) }} className="flex-row mr-1">
                             <TrashIcon className="h-5 w-5 mr-1 text-white" />
                           </IconButton>
-                          <DialogCondition open={open} handleOpen={handleOpen} titleName={"Usuario"} setDeletar={() => handleDelete(id)} />
+                          <DialogCondition open={open} handleOpen={handleOpen} titleName={"Produto"} setDeletar={() => handleDelete(produtoADeletar)} />
                         </td>
                       </tr>
                     );
