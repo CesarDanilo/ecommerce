@@ -12,7 +12,7 @@ import {
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import axios from "axios";
 import { authorsTableData } from "@/data";
-import DialogSimple from "@/components/dialogSimple";
+import DialogCondition from "@/components/dialogCondition";
 
 export function Usuarios() {
   const basedUrl = "http://localhost:3001/users/";
@@ -28,11 +28,24 @@ export function Usuarios() {
   const [open, setOpen] = useState(false);
   const [deletar, setDeletar] = useState(false);
 
-  const handleOpen = (id) => {
-    setOpen(!open)
-    if (deletar) {
-      deletarUsuarios(id)
+  const handleOpen = () => {
+    setOpen(!open);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await deletarUsuarios(id);
+      await buscarUsuariosCadastrados();
+      setAlertMessage('Usuário deletado com sucesso!');
+      setColor("green");
+      setShowAlert(true);
+      setDeletar(false); // Reseta o estado de exclusão
+    } catch (error) {
+      setAlertMessage('Erro ao deletar o usuário!');
+      setColor("red");
+      setShowAlert(true);
     }
+    setOpen(false);
   };
 
   const buscarUsuariosCadastrados = async () => {
@@ -105,7 +118,6 @@ export function Usuarios() {
     }
   };
 
-
   const atualizarDadosUsuario = async (id) => {
     try {
 
@@ -165,7 +177,6 @@ export function Usuarios() {
               <Typography className="mt-5 ml-5" variant="h4" color="blue-gray">
                 Cadastro de Usuário
               </Typography>
-              <DialogSimple open={open} handleOpen={handleOpen} titleName={"Usuario"} deletar={setDeletar}/>
               <form className="mt-8 flex flex-col lg:flex-row gap-4 mb-2 w-full">
                 {/* Nome */}
                 <div className="flex flex-col gap-4 w-full lg:w-[100%] mb-4">
@@ -298,6 +309,7 @@ export function Usuarios() {
                           <IconButton onClick={() => { handleOpen(id) }} className="flex-row mr-1">
                             <TrashIcon className="h-5 w-5 mr-1 text-white" />
                           </IconButton>
+                          <DialogCondition open={open} handleOpen={handleOpen} titleName={"Usuario"} setDeletar={() => handleDelete(id)} />
                         </td>
                       </tr>
                     );
@@ -308,6 +320,7 @@ export function Usuarios() {
           </Card>
         </div >
       </Card >
+
 
       {/* Alerta */}
       {

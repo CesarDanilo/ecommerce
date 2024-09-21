@@ -50,6 +50,7 @@ export function TabelaProdutos() {
   const enviarNovoProduto = async () => {
     const url = "http://localhost:3001/produto/";
     const formData = new FormData();
+
     formData.append("nome", nome);
     formData.append("descricao", descricao);
     formData.append("preco", preco);
@@ -101,7 +102,6 @@ export function TabelaProdutos() {
     setImagem('');
   };
 
-
   useEffect(() => {
     buscarProdutosCadastrados();
   }, [])
@@ -116,7 +116,6 @@ export function TabelaProdutos() {
       return () => clearTimeout(timer);
     }
   }, [showAlert]);
-
 
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
@@ -210,7 +209,7 @@ export function TabelaProdutos() {
                         <CardBody className="shadow-none mb-1 flex  flex-col gap-2  max-w-[250px]">
                           <img
                             className="h-48 mb-3 w-full rounded-lg object-cover object-center shadow-xl shadow-blue-gray-900/50"
-                            src={imagem ? previewUrl : "http://localhost:3001/uploads/upload.png"}
+                            src={imagem ? previewUrl : "http://localhost:3001/uploads/imgs.png"}
                             alt="nature image"
                           />
                           <Input
