@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import {
   Card,
   CardBody,
@@ -15,17 +17,15 @@ import {
   IconButton,
   Alert
 } from "@material-tailwind/react";
-
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
-
 import { authorsTableData, projectsTableData } from "@/data";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import DialogCondition from "@/components/dialogCondition";
 
 export function TabelaProdutos() {
   const basedUrl = "http://localhost:3001/produto/"
   const [dadosProdutos, setDadosProdutos] = useState([]);
 
+  const [id, setId] = useState();
   const [nome, setNome] = useState();
   const [descricao, setDescricao] = useState();
   const [estoque, setEstoque] = useState();
@@ -35,6 +35,28 @@ export function TabelaProdutos() {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [color, setColor] = useState('');
+  const [open, setOpen] = useState(false);
+  const [deletar, setDeletar] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(!open);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await deletarProduto(id);
+      await buscarProdutosCadastrados();
+      setAlertMessage('Produto deletado com sucesso!');
+      setColor("green");
+      setShowAlert(true);
+      setDeletar(false);
+    } catch (error) {
+      setAlertMessage("Erro ao tentar deletar Produto!");
+      setColor("red");
+      setShowAlert(true);
+    }
+    setOpen(false);
+  };
 
   const buscarProdutosCadastrados = async () => {
     try {
@@ -215,7 +237,6 @@ export function TabelaProdutos() {
                           <Input
                             size="lg"
                             type="file"
-                            value={imagem}
                             onChange={handleImageChange}
                             className="!border-t-blue-gray-200 focus:!border-t-gray-900 w-full max-w-[290px]"
                             labelProps={{
@@ -331,9 +352,10 @@ export function TabelaProdutos() {
                           <IconButton onClick={() => { editarDadosUsuario(id) }} className="flex-row mr-1">
                             <PencilIcon className="h-5 w-5 mr-1 text-white" />
                           </IconButton>
-                          <IconButton onClick={() => { deletarProduto(id) }} className="flex-row mr-1">
+                          <IconButton onClick={() => { handleOpen(id) }} className="flex-row mr-1">
                             <TrashIcon className="h-5 w-5 mr-1 text-white" />
                           </IconButton>
+                          <DialogCondition open={open} handleOpen={handleOpen} titleName={"Usuario"} setDeletar={() => handleDelete(id)} />
                         </td>
                       </tr>
                     );

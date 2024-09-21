@@ -29,7 +29,7 @@ export function Usuarios() {
   const [deletar, setDeletar] = useState(false);
 
   const handleOpen = () => {
-    setOpen(!open);
+    setOpen(!open); 
   };
 
   const handleDelete = async (id) => {
