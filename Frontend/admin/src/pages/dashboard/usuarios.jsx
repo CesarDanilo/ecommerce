@@ -12,6 +12,7 @@ import {
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import axios from "axios";
 import { authorsTableData } from "@/data";
+import DialogSimple from "@/components/dialogSimple";
 
 export function Usuarios() {
   const basedUrl = "http://localhost:3001/users/";
@@ -24,6 +25,15 @@ export function Usuarios() {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [color, setColor] = useState('');
+  const [open, setOpen] = useState(false);
+  const [deletar, setDeletar] = useState(false);
+
+  const handleOpen = (id) => {
+    setOpen(!open)
+    if (deletar) {
+      deletarUsuarios(id)
+    }
+  };
 
   const buscarUsuariosCadastrados = async () => {
     try {
@@ -155,6 +165,7 @@ export function Usuarios() {
               <Typography className="mt-5 ml-5" variant="h4" color="blue-gray">
                 Cadastro de Usuário
               </Typography>
+              <DialogSimple open={open} handleOpen={handleOpen} titleName={"Usuario"} deletar={setDeletar}/>
               <form className="mt-8 flex flex-col lg:flex-row gap-4 mb-2 w-full">
                 {/* Nome */}
                 <div className="flex flex-col gap-4 w-full lg:w-[100%] mb-4">
@@ -284,7 +295,7 @@ export function Usuarios() {
                           <IconButton onClick={() => { editarDadosUsuario(id) }} className="flex-row mr-1">
                             <PencilIcon className="h-5 w-5 mr-1 text-white" />
                           </IconButton>
-                          <IconButton onClick={() => { deletarUsuarios(id) }} className="flex-row mr-1">
+                          <IconButton onClick={() => { handleOpen(id) }} className="flex-row mr-1">
                             <TrashIcon className="h-5 w-5 mr-1 text-white" />
                           </IconButton>
                         </td>
