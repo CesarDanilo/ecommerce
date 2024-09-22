@@ -39,7 +39,6 @@ export function TabelaProdutos() {
   const [deletar, setDeletar] = useState(false);
   const [produtoADeletar, setProdutoADeletar] = useState(null);
 
-
   const handleOpen = (id) => {
     setProdutoADeletar(id);
     setOpen(!open);
@@ -103,7 +102,7 @@ export function TabelaProdutos() {
     const file = e.target.files[0];
     if (file) {
       setImagem(file);
-      setPreviewUrl(URL.createObjectURL(file)); // Gerar URL de pré-visualização
+      setPreviewUrl(URL.createObjectURL(file));
     }
   };
 
@@ -118,6 +117,10 @@ export function TabelaProdutos() {
     }
   }
 
+  const handleUpdateProduto = async () => {
+
+  }
+
   const limparCadastroUsuarios = () => {
     setId('');
     setNome('');
@@ -130,7 +133,6 @@ export function TabelaProdutos() {
   useEffect(() => {
     buscarProdutosCadastrados();
   }, [])
-
 
   useEffect(() => {
     if (showAlert) {
