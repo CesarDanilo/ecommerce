@@ -118,7 +118,11 @@ export function TabelaProdutos() {
   }
 
   const handleUpdateProduto = async () => {
+    try {
 
+    } catch (error) {
+      console.log("Não foi possivel editar: ", error)
+    }
   }
 
   const limparCadastroUsuarios = () => {
