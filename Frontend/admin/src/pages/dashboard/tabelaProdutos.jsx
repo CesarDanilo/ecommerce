@@ -139,6 +139,8 @@ export function TabelaProdutos() {
       return Object.values(dadosRecebidos).every(campo => campo !== "");
     };
 
+    // verificar formData se mudando para um objeto normal o bug que não esta aparecendo a imagem e resolvido
+
     const formData = new FormData();
     formData.append("nome", nome);
     formData.append("descricao", descricao);
