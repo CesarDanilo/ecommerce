@@ -55,7 +55,7 @@ const Cards = ({ titulo }) => {
                 {data.map((i, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
                         <Link to={`/produto/${i.id}`} style={{ textDecoration: 'none', color: 'black' }}>
-                            <Card sx={{ maxWidth: '100%', margin: 'auto' }}>
+                            <Card className={"box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);"} sx={{ maxWidth: '100%', margin: 'auto' }}>
                                 <CardActionArea>
                                     <CardMedia
                                         component="img"
