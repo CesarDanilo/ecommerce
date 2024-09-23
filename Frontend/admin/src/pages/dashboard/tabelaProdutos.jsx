@@ -117,15 +117,48 @@ export function TabelaProdutos() {
     }
   }
 
-  const handleUpdateProduto = async () => {
+  const handleUpdateProduto = async (id) => {
     try {
+      const response = await axios.get(`${basedUrl}?id=${id}`);
+      const { data } = response.data;
+      setId(data[0].id)
+      setNome(data[0].nome)
+      setDescricao(data[0].descricao)
+      setEstoque(data[0].estoque)
+      setPreco(data[0].preco)
+      setPreviewUrl(`http://localhost:3001/uploads/${data[0].imagem}`)
+      console.log("Return response data: ", data[0].nome);
+
+
 
     } catch (error) {
       console.log("Não foi possivel editar: ", error)
     }
   }
 
-  const limparCadastroUsuarios = () => {
+  const atualizarDadosProduto = async (id) => {
+    try {
+
+      const dadosRecebidos = {
+        "nome": nome,
+        "email": descricao,
+        "senha": estoque,
+        "preco": preco,
+        "imagem": imagem
+      };
+
+      const response = await axios.put(`${basedUrl}${id}`, dadosRecebidos);
+      buscarProdutosCadastrados()
+      setId('')
+      console.log("dados salvos com sucesso: ", response.status)
+      limparCadastroProdutos();
+
+    } catch (error) {
+      console.log("Não foi possivel altualizar os dados: ", error)
+    }
+  };
+
+  const limparCadastroProdutos = () => {
     setId('');
     setNome('');
     setDescricao('');
@@ -240,7 +273,7 @@ export function TabelaProdutos() {
                         <CardBody className="shadow-none mb-1 flex  flex-col gap-2  max-w-[250px]">
                           <img
                             className="h-48 mb-3 w-full rounded-lg object-cover object-center shadow-xl shadow-blue-gray-900/50"
-                            src={imagem ? previewUrl : "http://localhost:3001/uploads/imgs.png"}
+                            src={imagem ? previewUrl : "http://localhost:3001/uploads/upload.png"}
                             alt="nature image"
                           />
                           <Input
@@ -254,8 +287,16 @@ export function TabelaProdutos() {
                           />
                         </CardBody>
                         <CardBody className="flex gap-6 flex-row lg:flex-row mb-2 w-full max-w-full">
-                          <Button onClick={enviarNovoProduto} className="flex items-center h-11 w-[90px] gap-2" variant="gradient">Gravar</Button>
-                          <Button onClick={limparCadastroUsuarios} className="flex items-center h-11 w-[90px] gap-2 justify-center bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 transition-all duration-300" variant="gradient">
+                          <Button
+                            onClick={() => {
+                              if (id > 0) {
+                                atualizarDadosProduto(id)
+                              } else {
+                                enviarDadosUsuario();
+                              }
+                            }}
+                            className="flex items-center h-11 w-[90px] gap-2" variant="gradient">Gravar</Button>
+                          <Button onClick={limparCadastroProdutos} className="flex items-center h-11 w-[90px] gap-2 justify-center bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-blue-800 transition-all duration-300" variant="gradient">
                             <IconButton className="p-2 bg-transparent text-white">
                               <i className="fas fa-plus" />
                             </IconButton>
@@ -358,7 +399,7 @@ export function TabelaProdutos() {
                         </td>
 
                         <td className={className}>
-                          <IconButton onClick={() => { editarDadosUsuario(id) }} className="flex-row mr-1">
+                          <IconButton onClick={() => { handleUpdateProduto(id) }} className="flex-row mr-1">
                             <PencilIcon className="h-5 w-5 mr-1 text-white" />
                           </IconButton>
                           <IconButton onClick={() => { handleOpen(id) }} className="flex-row mr-1">
