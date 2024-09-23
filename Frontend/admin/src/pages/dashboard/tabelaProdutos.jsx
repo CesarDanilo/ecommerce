@@ -129,8 +129,6 @@ export function TabelaProdutos() {
       setPreviewUrl(`http://localhost:3001/uploads/${data[0].imagem}`)
       console.log("Return response data: ", data[0].nome);
 
-
-
     } catch (error) {
       console.log("Não foi possivel editar: ", error)
     }
