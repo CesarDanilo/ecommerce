@@ -26,12 +26,12 @@ export function TabelaProdutos() {
   const [dadosProdutos, setDadosProdutos] = useState([]);
 
   const [id, setId] = useState("");
-  const [nome, setNome] = useState();
-  const [descricao, setDescricao] = useState();
-  const [estoque, setEstoque] = useState();
-  const [preco, setPreco] = useState();
-  const [imagem, setImagem] = useState();
-  const [previewUrl, setPreviewUrl] = useState();
+  const [nome, setNome] = useState('');
+  const [descricao, setDescricao] = useState('');
+  const [estoque, setEstoque] = useState('');
+  const [preco, setPreco] = useState('');
+  const [imagem, setImagem] = useState('');
+  const [previewUrl, setPreviewUrl] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [color, setColor] = useState('');
@@ -137,26 +137,48 @@ export function TabelaProdutos() {
   }
 
   const atualizarDadosProduto = async (id) => {
-    try {
+    const validateEmptyFields = (dadosRecebidos) => {
+      return Object.values(dadosRecebidos).every(campo => campo !== "");
+    };
 
-      const dadosRecebidos = {
-        "nome": nome,
-        "email": descricao,
-        "senha": estoque,
-        "preco": preco,
-        "imagem": imagem
-      };
+    const formData = new FormData();
+    formData.append("nome", nome);
+    formData.append("descricao", descricao);
+    formData.append("estoque", estoque);
+    formData.append("preco", preco);
 
-      const response = await axios.put(`${basedUrl}${id}`, dadosRecebidos);
-      buscarProdutosCadastrados()
-      setId('')
-      console.log("dados salvos com sucesso: ", response.status)
-      limparCadastroProdutos();
+    // Adicione a imagem apenas se ela foi alterada
+    if (imagem) {
+      formData.append("imagem", imagem);
+    }
 
-    } catch (error) {
-      console.log("Não foi possivel altualizar os dados: ", error)
+    const dadosRecebidos = {
+      nome,
+      descricao,
+      estoque,
+      preco
+    };
+
+    if (validateEmptyFields(dadosRecebidos)) {
+      try {
+        const response = await axios.put(`${basedUrl}${id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        });
+        buscarProdutosCadastrados();
+        setId('');
+        console.log("Dados salvos com sucesso: ", response.status);
+        limparCadastroProdutos();
+      } catch (error) {
+        console.log("Não foi possível atualizar os dados: ", error);
+      }
+    } else {
+      console.log("Existem campos vazios.");
+      window.alert("Campos vazios!");
     }
   };
+
 
   const limparCadastroProdutos = () => {
     setId('');
@@ -292,7 +314,7 @@ export function TabelaProdutos() {
                               if (id > 0) {
                                 atualizarDadosProduto(id)
                               } else {
-                                enviarDadosUsuario();
+                                enviarNovoProduto();
                               }
                             }}
                             className="flex items-center h-11 w-[90px] gap-2" variant="gradient">Gravar</Button>
