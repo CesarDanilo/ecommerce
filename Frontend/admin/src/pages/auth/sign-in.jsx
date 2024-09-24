@@ -5,10 +5,33 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { Link, redirect } from "react-router-dom";
 
 
 export function SignIn() {
+
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+
+  const basedUrl = "http://localhost:3001/users/auth/login";
+
+  const userData = {
+    "email": userName,
+    "senha": password
+  }
+
+  const singIn = async () => {
+    try {
+      const response = await axios.post(basedUrl, userData);
+      console.log("Login feito com sucesso: ", response.status);
+
+    } catch (error) {
+      console.log("Não foi possivel fazer o login: ", error)
+    }
+  }
+
   return (
     <section className="m-8 flex gap-4">
       <div className="w-full lg:w-3/5 mt-24">
@@ -24,6 +47,7 @@ export function SignIn() {
             <Input
               size="lg"
               placeholder="name@mail.com"
+              onChange={(e) => { setUserName(e.target.value) }}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
@@ -36,6 +60,7 @@ export function SignIn() {
               type="password"
               size="lg"
               placeholder="********"
+              onChange={(e) => { setPassword(e.target.value) }}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
@@ -60,7 +85,7 @@ export function SignIn() {
             }
             containerProps={{ className: "-ml-2.5" }}
           />
-          <Button className="mt-6" fullWidth>
+          <Button className="mt-6" onClick={singIn} fullWidth>
             Sign In
           </Button>
 
