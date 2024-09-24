@@ -5,13 +5,28 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 
 export function SignUp() {
+
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+
+  const createNewUser = async () => {
+    try {
+
+      window.alert(userName, password);
+
+    } catch (error) {
+      console.log("Não foi possivel criar usuario: ", error)
+    }
+  }
+
   return (
     <section className="m-8 flex">
-            <div className="w-2/5 h-full hidden lg:block">
+      <div className="w-2/5 h-full hidden lg:block">
         <img
           src="/img/pattern.png"
           className="h-full w-full object-cover rounded-3xl"
@@ -30,6 +45,22 @@ export function SignUp() {
             <Input
               size="lg"
               placeholder="name@mail.com"
+              onChange={(e) => { setUserName(e.target.value) }}
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+          </div>
+          <div className="mb-1 flex flex-col gap-6">
+            <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
+              Password
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="***********"
+              type="password"
+              onChange={(e) => { setPassword(e.target.value) }}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
@@ -54,7 +85,7 @@ export function SignUp() {
             }
             containerProps={{ className: "-ml-2.5" }}
           />
-          <Button className="mt-6" fullWidth>
+          <Button className="mt-6" onClick={createNewUser} fullWidth>
             Register Now
           </Button>
 
