@@ -51,42 +51,30 @@ const Cards = ({ titulo }) => {
             >
                 {titulo}
             </Typography>
-            <Grid container spacing={3}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 {data.map((i, index) => (
-                    <Grid item xs={12} sm={6} md={4} key={index}>
-                        <Link to={`/produto/${i.id}`} style={{ textDecoration: 'none', color: 'black' }}>
-                            <Card className={"box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);"} sx={{ maxWidth: '100%', margin: 'auto' }}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        component="img"
-                                        height="190"
-                                        image={`http://localhost:3001/uploads/${i.imagem}`}
+                    <div key={index} className="w-full rounded-lg">
+                        <Link to={`/produto/${i.id}`} className="block text-black no-underline">
+                            <div className="bg-slate-50 shadow-lg shadow-cyan-950/25 rounded-lg max-w-full mx-auto transition-transform duration-200 transform hover:scale-105">
+                                <div className="relative">
+                                    <img
+                                        className="w-full h-48 object-cover rounded-t-lg"
+                                        src={`http://localhost:3001/uploads/${i.imagem}`}
                                         alt="mouse pad"
                                     />
-                                    <CardContent
-                                        sx={{
-                                            textAlign: 'left',
-                                            padding: '15px',
-                                            display: 'flex',
-                                            flexDirection: 'column'
-                                        }}
-                                    >
-                                        <Typography gutterBottom component="div" fontWeight="bold" mt={'2px'}>
-                                            {i.nome}
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary" mt={'1px'}>
-                                            {i.descricao}
-                                        </Typography>
-                                        <Typography variant="body2" color="text.primary" fontWeight="bold" mt={'2px'}>
-                                            {`R$ ${i.preco}`}
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
+                                </div>
+                                <div className="p-4 text-left flex flex-col space-y-1">
+                                    <h3 className="font-semibold text-base text-gray-900">{i.nome}</h3>
+                                    <p className="text-gray-600 text-sm">{i.descricao}</p>
+                                    <p className="text-black font-bold text-lg">{`R$ ${i.preco}`}</p>
+                                </div>
+                            </div>
                         </Link>
-                    </Grid>
+                    </div>
                 ))}
-            </Grid>
+            </div>
+
+
         </Box>
     );
 }
