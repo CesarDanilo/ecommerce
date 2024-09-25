@@ -90,36 +90,34 @@ const NavBar = ({ qntProd }) => {
             </Link>
 
             <div className="flex-grow flex justify-center space-x-6 md:space-x-12 mx-4">
-                <Link href="/" className="text-black font-bold hover:text-gray-700 no-underline">
+                <a href="/" className="text-black font-bold hover:text-gray-700 no-underline">
                     <h5 className="text-lg text-slate-950 font-semibold no-underline">
                         HOME
                     </h5>
-                </Link>
-                <Link href="http://localhost:5173/" className="text-black font-bold hover:text-gray-700 no-underline">
+                </a>
+                <a href="http://localhost:5173/" className="text-black font-bold hover:text-gray-700 no-underline">
                     <h5 className="text-lg text-slate-950 font-semibold">
                         DASHBOARD
                     </h5>
-                </Link>
-                <Link href="#" className="text-black font-bold hover:text-gray-700 no-underline">
+                </a>
+                <a href="#" className="text-black font-bold hover:text-gray-700 no-underline">
                     <h5 className="text-lg text-slate-950 font-semibold">
                         CONTATO
                     </h5>
-                </Link>
+                </a>
             </div>
-
-
             <div className="flex items-center space-x-4">
-                <Link href="#" className="flex items-center">
+                <a href="#" className="flex items-center">
                     <Avatar className="bg-deepPurple-500">C</Avatar>
-                </Link>
+                </a>
 
-                <Link href="/carrinho" className="flex items-center">
+                <a href="/carrinho" className="flex items-center">
                     <IconButton aria-label="cart">
                         <StyledBadge badgeContent={qntProd} color="secondary">
                             <ShoppingCartIcon />
                         </StyledBadge>
                     </IconButton>
-                </Link>
+                </a>
             </div>
         </div>
     );
