@@ -49,48 +49,41 @@ const ProdutosRelacionados = () => {
             >
                 Produtos Relacionados
             </Typography>
-            <Grid container spacing={3}>
-                {data.length > 0 ? (
-                    data.slice(0, maxProducts).map((i, index) => (
-                        <Grid item xs={12} sm={6} md={4} key={index}>
-                            <Link to={`/produto/${i.id}`} underline="none" color="black" fontWeight="bold">
-                                <Card sx={{ maxWidth: '100%', margin: 'auto' }}>
-                                    <CardActionArea>
-                                        <CardMedia
-                                            component="img"
-                                            height="190"
-                                            image={`http://localhost:3001/uploads/${i.imagem}`}
-                                            alt="mouse pad"
-                                        />
-                                        <CardContent
-                                            sx={{
-                                                textAlign: 'left',
-                                                padding: '15px',
-                                                display: 'flex',
-                                                flexDirection: 'column'
-                                            }}
-                                        >
-                                            <Typography gutterBottom component="div" fontWeight="bold" mt={'2px'}>
-                                                {i.nome}
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary" mt={'1px'}>
-                                                {i.descricao}
-                                            </Typography>
-                                            <Typography variant="body2" color="text.primary" fontWeight="bold" mt={'2px'}>
-                                                {`R$ ${i.preco}`}
-                                            </Typography>
-                                        </CardContent>
-                                    </CardActionArea>
-                                </Card>
-                            </Link>
-                        </Grid>
-                    ))
-                ) : (
-                    <Typography variant="body1" color="text.secondary">
-                        Nenhum produto relacionado encontrado.
-                    </Typography>
-                )}
-            </Grid>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                {data.map((i, index) => (
+                    <div key={index} className="w-full rounded-lg">
+                        <Link to={`/produto/${i.id}`} className="block text-black no-underline">
+                            <div className="bg-slate-50 shadow-lg shadow-cyan-950/25 rounded-lg max-w-full mx-auto transition-transform duration-200 transform hover:scale-105">
+                                <div className="relative">
+                                    <img
+                                        className="w-full h-48 object-cover rounded-t-lg"
+                                        src={`http://localhost:3001/uploads/${i.imagem}`}
+                                        alt="mouse pad"
+                                    />
+                                </div>
+                                <div className="p-4 text-left flex flex-col space-y-1">
+                                    <h3 className="font-semibold text-base text-gray-900">{i.nome}</h3>
+                                    <p className="text-gray-600 text-sm">{i.descricao}</p>
+                                    <div className="flex space-x-1 mt-1">
+                                        {[...Array(5)].map((_, starIndex) => (
+                                            <svg
+                                                key={starIndex}
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                className={`h-5 w-5 ${starIndex < i.avaliacao ? 'text-yellow-400' : 'text-gray-300'}`}
+                                                fill="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path d="M12 .587l3.668 7.431 8.197 1.188-5.916 5.788 1.396 8.173L12 18.896l-7.345 3.858 1.396-8.173-5.916-5.788 8.197-1.188z" />
+                                            </svg>
+                                        ))}
+                                    </div>
+                                    <p className="text-black font-bold text-lg">{`R$ ${i.preco}`}</p>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+                ))}
+            </div>
         </Box>
     )
 }
