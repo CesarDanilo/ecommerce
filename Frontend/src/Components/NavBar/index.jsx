@@ -91,21 +91,22 @@ const NavBar = ({ qntProd }) => {
 
             <div className="flex-grow flex justify-center space-x-6 md:space-x-12 mx-4">
                 <Link href="/" className="text-black font-bold hover:text-gray-700 no-underline">
-                    <h5 className='text-lg no-underline'>
+                    <h5 className="text-lg text-slate-950 font-semibold no-underline">
                         HOME
                     </h5>
                 </Link>
                 <Link href="http://localhost:5173/" className="text-black font-bold hover:text-gray-700 no-underline">
-                    <h5 className='text-lg no-underline	'>
+                    <h5 className="text-lg text-slate-950 font-semibold">
                         DASHBOARD
                     </h5>
                 </Link>
                 <Link href="#" className="text-black font-bold hover:text-gray-700 no-underline">
-                    <h5 className='text-lg no-underline	'>
+                    <h5 className="text-lg text-slate-950 font-semibold">
                         CONTATO
                     </h5>
                 </Link>
             </div>
+
 
             <div className="flex items-center space-x-4">
                 <Link href="#" className="flex items-center">
