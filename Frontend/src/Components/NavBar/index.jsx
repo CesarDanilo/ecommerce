@@ -15,6 +15,15 @@ import Logo from '../../img/Logo/padpalace.png';
 
 const NavBar = ({ qntProd }) => {
 
+
+    // const verificarSessao = () => {
+    //     if (localStorage.getItem) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
+
+
     // ICONE CARRINHO 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
@@ -49,16 +58,21 @@ const NavBar = ({ qntProd }) => {
                 </a>
             </div>
             <div className="flex items-center space-x-4">
-                <a href="#" className="flex items-center">
-                    <Avatar className="bg-deepPurple-500">C</Avatar>
-                </a>
-
                 <a href="/carrinho" className="flex items-center">
                     <IconButton aria-label="cart">
                         <StyledBadge badgeContent={qntProd} color="secondary">
                             <ShoppingCartIcon />
                         </StyledBadge>
                     </IconButton>
+                </a>
+                <a href="#" className="flex items-center">
+                    {
+                        localStorage.getItem("") ?
+                            <Avatar className="bg-deepPurple-500">C</Avatar> :
+                            <a href="/login" className="flex items-center">
+                                <h5 className="text-lg text-slate-950 font-semibold">LOGIN</h5>
+                            </a>
+                    }
                 </a>
             </div>
         </div>
