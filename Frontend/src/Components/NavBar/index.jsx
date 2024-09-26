@@ -12,17 +12,20 @@ import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import Logo from '../../img/Logo/padpalace.png';
+import { useEffect, useState } from 'react';
 
 const NavBar = ({ qntProd }) => {
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
+    const checkUserSession = () => {
+        const user = JSON.parse(localStorage.getItem("user"));
+        return user && user.id ? true : false;
+    };
 
-    // const verificarSessao = () => {
-    //     if (localStorage.getItem) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
-
+    useEffect(() => {
+        const loggedIn = checkUserSession();
+        setIsUserLoggedIn(loggedIn);
+    }, []);
 
     // ICONE CARRINHO 
     const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -67,7 +70,7 @@ const NavBar = ({ qntProd }) => {
                 </a>
                 <a href="#" className="flex items-center">
                     {
-                        localStorage.getItem("") ?
+                        isUserLoggedIn ?
                             <Avatar className="bg-deepPurple-500">C</Avatar> :
                             <a href="/login" className="flex items-center">
                                 <h5 className="text-lg text-slate-950 font-semibold">LOGIN</h5>
