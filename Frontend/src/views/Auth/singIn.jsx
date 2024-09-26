@@ -1,28 +1,35 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";  // Importa o hook useNavigate
 
 const SignIn = () => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();  // Hook para navegação
 
     const basedUrl = "http://localhost:3001/users/auth/login";
 
     const userData = {
         "email": userName,
         "senha": password
-    }
+    };
 
-    const singIn = async () => {
+    const signIn = async () => {  // Corrigido o nome da função para 'signIn'
         try {
             const response = await axios.post(basedUrl, userData);
             console.log("Login feito com sucesso: ", response.status);
-            
 
+            if (response.status === 200 && response.data) {
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('user', JSON.stringify(response.data.dados));
+
+                console.log("Dados gravados no localStorage");
+                navigate("/");  // Redireciona para a página Home
+            }
         } catch (error) {
             console.log("Não foi possível fazer o login: ", error);
         }
-    }
+    };
 
     return (
         <section className="m-8 flex gap-4">
@@ -38,14 +45,14 @@ const SignIn = () => {
                             type="email"
                             placeholder="name@mail.com"
                             className="border border-blue-gray-200 p-3 rounded-lg focus:border-gray-900 focus:outline-none"
-                            onChange={(e) => { setUserName(e.target.value) }}
+                            onChange={(e) => { setUserName(e.target.value); }}
                         />
                         <label className="text-sm font-medium text-blue-gray-600">Password</label>
                         <input
                             type="password"
                             placeholder="********"
                             className="border border-blue-gray-200 p-3 rounded-lg focus:border-gray-900 focus:outline-none"
-                            onChange={(e) => { setPassword(e.target.value) }}
+                            onChange={(e) => { setPassword(e.target.value); }}
                         />
                     </div>
                     <div className="mt-4">
@@ -57,7 +64,7 @@ const SignIn = () => {
                     </div>
                     <button
                         type="button"
-                        onClick={singIn}
+                        onClick={signIn}  // Corrigido para chamar a função correta
                         className="mt-6 w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition-colors"
                     >
                         Sign In
@@ -83,7 +90,6 @@ const SignIn = () => {
                             </svg>
                             <span className="ml-2">Sign in With Google</span>
                         </button>
-
                     </div>
                     <p className="text-center text-blue-gray-500 font-medium mt-4">
                         Not registered?
