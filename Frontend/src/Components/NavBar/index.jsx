@@ -13,14 +13,45 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import Logo from '../../img/Logo/padpalace.png';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const NavBar = ({ qntProd }) => {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+    const [userAdmin, setUserAdmin] = useState(false);
+
+    const url = "http://localhost:3001/users/?id=";
 
     const checkUserSession = () => {
         const user = JSON.parse(localStorage.getItem("user"));
-        return user && user.id ? true : false;
+        if (user && user.id) {
+            checkUserAdmin(user.id);
+            return true;
+        }
+        return false;
     };
+
+    const checkUserAdmin = async (id) => {
+        try {
+            const response = await axios.get(url + id);
+            const { data } = response.data;
+
+            // Atualiza o estado de userAdmin
+            setUserAdmin(data[0]?.admin); // Usando optional chaining para evitar erro se data[0] for undefined
+
+            return data[0]?.admin || false; // Retorna o valor de admin ou false se não houver dados
+        } catch (error) {
+            console.error("Erro ao verificar admin:", error);
+            setUserAdmin(false); // Define como false em caso de erro
+        }
+    };
+
+    const clearLocalStorageUser = () => {
+        try {
+            localStorage.clear();
+        } catch (error) {
+            console.log("não foi possivel sair da conta!");
+        }
+    }
 
     useEffect(() => {
         const loggedIn = checkUserSession();
@@ -49,11 +80,15 @@ const NavBar = ({ qntProd }) => {
                         HOME
                     </h5>
                 </a>
-                <a href="http://localhost:5173/" className="text-black font-bold hover:text-gray-700 no-underline">
-                    <h5 className="text-lg text-slate-950 font-semibold">
-                        DASHBOARD
-                    </h5>
-                </a>
+
+                {userAdmin && (
+                    <a href="http://localhost:5173/" className="text-black font-bold hover:text-gray-700 no-underline">
+                        <h5 className="text-lg text-slate-950 font-semibold">
+                            DASHBOARD
+                        </h5>
+                    </a>
+                )}
+
                 <a href="#" className="text-black font-bold hover:text-gray-700 no-underline">
                     <h5 className="text-lg text-slate-950 font-semibold">
                         CONTATO
@@ -70,12 +105,19 @@ const NavBar = ({ qntProd }) => {
                 </a>
                 <a href="#" className="flex items-center">
                     {
-                        isUserLoggedIn ?
-                            <Avatar className="bg-deepPurple-500">C</Avatar> :
+                        isUserLoggedIn ? (
+                            <Avatar className="bg-deepPurple-500">C</Avatar>
+                        ) : (
                             <a href="/login" className="flex items-center">
                                 <h5 className="text-lg text-slate-950 font-semibold">LOGIN</h5>
                             </a>
+                        )
                     }
+                </a>
+                <a href="#" onClick={clearLocalStorageUser} className="text-black font-bold hover:text-gray-700 no-underline">
+                    <h5 className="text-lg text-slate-950 font-semibold">
+                        Sair
+                    </h5>
                 </a>
             </div>
         </div>

@@ -56,7 +56,7 @@ const Main = () => {
                         fontSize: { xs: '1.5rem', sm: '2rem', md: '3rem' }, // Responsivo
                     }}
                 >
-                    Palace Pads 
+                    MousePads 
                 </Typography>
                 <Typography
                     component="div"
