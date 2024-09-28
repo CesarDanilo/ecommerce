@@ -48,6 +48,7 @@ const NavBar = ({ qntProd }) => {
     const clearLocalStorageUser = () => {
         try {
             localStorage.clear();
+            window.location.reload(true);
         } catch (error) {
             console.log("não foi possivel sair da conta!");
         }
