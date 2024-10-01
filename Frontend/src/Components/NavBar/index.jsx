@@ -77,21 +77,21 @@ const NavBar = ({ qntProd }) => {
 
             <div className="flex-grow flex justify-center space-x-6 md:space-x-12 mx-4">
                 <a href="/" className="text-black font-bold hover:text-gray-700 no-underline">
-                    <h5 className="text-lg text-slate-950 font-semibold no-underline">
+                    <h5 className="text-sm text-slate-950 font-semibold no-underline">
                         HOME
                     </h5>
                 </a>
 
                 {userAdmin && (
                     <a href="http://localhost:5173/" className="text-black font-bold hover:text-gray-700 no-underline">
-                        <h5 className="text-lg text-slate-950 font-semibold">
+                        <h5 className="text-sm text-slate-950 font-semibold">
                             DASHBOARD
                         </h5>
                     </a>
                 )}
 
                 <a href="#" className="text-black font-bold hover:text-gray-700 no-underline">
-                    <h5 className="text-lg text-slate-950 font-semibold">
+                    <h5 className="text-sm text-slate-950 font-semibold">
                         CONTATO
                     </h5>
                 </a>
@@ -110,14 +110,17 @@ const NavBar = ({ qntProd }) => {
                             <Avatar className="bg-deepPurple-500">C</Avatar>
                         ) : (
                             <a href="/login" className="flex items-center">
-                                <h5 className="text-lg text-slate-950 font-semibold">LOGIN</h5>
+                                <h3 className="text-sm text-slate-950 font-semibold">LOGIN</h3>
                             </a>
                         )
                     }
                 </a>
+                <a href="/register" className="flex items-center">
+                    <h3 className="text-sm text-slate-950 font-semibold">REGISTER</h3>
+                </a>
                 <a href="#" onClick={clearLocalStorageUser} className="text-black font-bold hover:text-gray-700 no-underline">
-                    <h5 className="text-lg text-slate-950 font-semibold">
-                        Sair
+                    <h5 className="text-sm text-slate-950 font-semibold">
+                        SAIR
                     </h5>
                 </a>
             </div>
