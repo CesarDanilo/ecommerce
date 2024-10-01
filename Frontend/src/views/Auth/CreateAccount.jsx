@@ -1,17 +1,35 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export function CreateAccount() {
+    const [userEmail, setUserEmail] = useState('');
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate(); // Use useNavigate to handle redirects
+    const url = "http://localhost:3001/users/auth/createuser/";
 
     const createNewUser = async () => {
         try {
-            window.alert(userName, password);
+            const dataUser = {
+                email: userEmail,
+                nome: userName,
+                senha: password
+            };
+
+            // Make the POST request to create the user
+            const response = await axios.post(url, dataUser);
+
+            // Redirect after a successful response
+            if (response.status === 200) {
+                navigate('/login'); // Use navigate to redirect
+            } else {
+                console.error("Erro ao criar usuário: ", response.data);
+            }
         } catch (error) {
             console.log("Não foi possível criar usuário: ", error);
         }
-    }
+    };
 
     return (
         <section className="m-8 flex">
@@ -26,6 +44,15 @@ export function CreateAccount() {
                 <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2">
                     <div className="mb-6">
                         <label className="block text-gray-700 mb-1">Your email</label>
+                        <input
+                            type="email"
+                            placeholder="name@mail.com"
+                            onChange={(e) => setUserEmail(e.target.value)}
+                            className="border border-gray-300 rounded-lg p-2 w-full focus:border-gray-900"
+                        />
+                    </div>
+                    <div className="mb-6">
+                        <label className="block text-gray-700 mb-1">Your name</label>
                         <input
                             type="email"
                             placeholder="name@mail.com"
