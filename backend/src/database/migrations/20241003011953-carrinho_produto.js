@@ -24,24 +24,25 @@ module.exports = {
         references: {
           model: 'Carrinho',
           key: 'id',
-        },
-        quantidade: {
-          type: Sequelize.INTEGER,
-          allowNull: false
-        },
-        preco_unitario: {
-          type: Sequelize.FLOAT,
-          allowNull: false
-        },
-        createdAt: {
-          type: Sequelize.DATE
-        },
-        updatedAt: {
-          type: Sequelize.DATE
         }
-
+      },
+      quantidade: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      preco_unitario: {
+        type: Sequelize.FLOAT,
+        allowNull: false
+      },
+      createdAt: {
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        type: Sequelize.DATE
       }
+
     }
+
     );
 
   },
