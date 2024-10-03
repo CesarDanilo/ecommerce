@@ -5,7 +5,7 @@ require('dotenv').config({
 const logdb = process.env.DB_LOG === 'false' ? false : console.log;
 
 let folderconfseeders = process.env.NODE_ENV === "test" ? 'test' : (process.env.NODE_ENV === "development") ? 'dev' : 'production';
-const seederStoragePath = `./src/database/seeders/conf/${folderconfseeders}/seeder.json`;
+const seederStoragePath = `./src/database/seeders/dev/${folderconfseeders}/`;
 
 module.exports =
 {
