@@ -18,8 +18,13 @@ import axios from 'axios';
 const NavBar = ({ qntProd }) => {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
     const [userAdmin, setUserAdmin] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const url = "http://localhost:3001/users/?id=";
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
 
     const checkUserSession = () => {
         const user = JSON.parse(localStorage.getItem("user"));
@@ -104,7 +109,7 @@ const NavBar = ({ qntProd }) => {
                         </StyledBadge>
                     </IconButton>
                 </a>
-                <a href="#" className="flex items-center">
+                {/* <a href="#" className="flex items-center">
                     {
                         isUserLoggedIn ? (
                             <Avatar className="bg-deepPurple-500">C</Avatar>
@@ -122,7 +127,47 @@ const NavBar = ({ qntProd }) => {
                     <h5 className="text-sm text-slate-950 font-semibold">
                         SAIR
                     </h5>
-                </a>
+                </a> */}
+                <div className="relative">
+                    <div className="relative">
+                        <a href="#" className="flex items-center space-x-2">
+                            {
+                                isUserLoggedIn ? (
+                                    <div className="relative">
+                                        <Avatar
+                                            className="bg-deepPurple-500 cursor-pointer"
+                                            onClick={toggleMenu} // Ação para abrir/fechar o menu ao clicar
+                                        >
+                                            C
+                                        </Avatar>
+                                        {/* Menu dropdown ao clicar no Avatar */}
+                                        {isMenuOpen && (
+                                            <div className="absolute bg-white shadow-md right-0 mt-2 py-2 w-32 rounded-md">
+                                                <a
+                                                    href="#"
+                                                    onClick={clearLocalStorageUser}
+                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                >
+                                                    SAIR
+                                                </a>
+                                            </div>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <div className="flex space-x-4">
+                                        <a href="/login" className="text-sm text-slate-950 font-semibold hover:underline">
+                                            LOGIN
+                                        </a>
+                                        <a href="/register" className="text-sm text-slate-950 font-semibold hover:underline">
+                                            REGISTER
+                                        </a>
+                                    </div>
+                                )
+                            }
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </div>
     );
