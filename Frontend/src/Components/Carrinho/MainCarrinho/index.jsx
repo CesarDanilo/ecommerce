@@ -54,8 +54,8 @@ const MainCarrinho = () => {
                                 <Grid item xs={12} sm={5}>
                                     <Box sx={{ padding: 1 }}>
                                         <img
-                                            src={produto.url}
-                                            alt={produto.title}
+                                            src={`http://localhost:3001/uploads/${produto.Produto.imagem}`}
+                                            alt={produto.Produto.descricao}
                                             style={{ width: '100%', borderRadius: 10 }}
                                         />
                                     </Box>
@@ -72,15 +72,15 @@ const MainCarrinho = () => {
                                         }}
                                     >
                                         <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                                            {produto.title}
+                                            {produto.Produto.nome}
                                         </Typography>
 
                                         <Typography variant="body1" sx={{ color: 'darkgrey', marginTop: 1 }}>
-                                            {produto.description}
+                                            {produto.Produto.descricao}
                                         </Typography>
 
                                         <Typography variant="body1" sx={{ marginTop: 1 }}>
-                                            R$ {produto.preco}
+                                            R$ {produto.Produto.preco}
                                         </Typography>
 
                                         <Box
