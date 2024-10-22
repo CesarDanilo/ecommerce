@@ -36,8 +36,26 @@ const MainProduto = () => {
         }
     };
 
-    const adicionarProdutoAoCarrinho = () => {
-        window.alert("Ola")
+    const adicionarProdutoAoCarrinho = async () => {
+        const usuarioString = localStorage.getItem("user");
+        const baseUrl = "http://localhost:3001/carrinho/";
+
+        if (usuarioString) {
+            const usuario = JSON.parse(usuarioString); // Converte a string em objeto
+
+            const dados = {
+                "usuario_id": usuario.id,
+                "produto_id": id,
+                "quantidade": quantidade
+            }
+
+            try {
+                const response = await axios.post(baseUrl, dados);
+                console.log("Adiconado no carrinho!")
+            } catch (error) {
+                console.log("não foi possivel adicionar ao carrinho!", error)
+            }
+        }
     }
 
     useEffect(() => {
