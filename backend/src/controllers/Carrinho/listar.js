@@ -1,8 +1,8 @@
-const { Carrinho } = require('../../database/models');
+const { Carrinho, Produto } = require('../../database/models');
 const { Op } = require('sequelize');
 
 const listarCarrinho = async (req, resp) => {
-    const { offset, order, direction, id } = req.query;
+    const { offset, order, direction, usuario_id } = req.query;
     let { limit } = req.query;
     limit = limit ? parseInt(limit) : 15;
 
@@ -22,23 +22,27 @@ const listarCarrinho = async (req, resp) => {
             orderOptions.push([order, direction ? direction.toUpperCase() : 'ASC']);
         }
 
-        // Preparando o Objeto Where de acordo com os parâmetros que vieram na requisição
+        // Preparando o Objeto Where para filtrar pelo id do usuário
         let where = {};
-
-        if (id) {
-            where.id = parseInt(id);
+        if (usuario_id) {
+            where.usuario_id = parseInt(usuario_id); // Assumindo que a coluna para usuário é 'usuario_id'
         }
 
-
-        // Contando sem o limit e offset para poder criar a paginação
+        // Contando sem o limit e offset para paginação
         const countAll = await Carrinho.count({ where });
 
-        // Chamada find com where e os parâmetros de offset, limit, e order
+        // Chamada find com where, join com Produto e parâmetros de offset, limit e order
         const result = await Carrinho.findAll({
             ...options,
             order: orderOptions,
             where,
-            attributes: ['id'] // Incluindo apenas os atributos necessários
+            include: [
+                {
+                    model: Produto,
+                    attributes: ['id', 'nome', 'descricao', 'preco', 'estoque', 'imagem'], // Atributos da tabela Produto que deseja trazer
+                }
+            ],
+            attributes: ['id'] // Incluindo apenas os atributos necessários do Carrinho
         });
 
         return resp.status(200).json({

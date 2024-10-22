@@ -7,33 +7,46 @@ module.exports = (sequelize) => {
     static associate(models) {
       // Exemplo de associação, se aplicável:
       Carrinho.belongsTo(models.Users, { foreignKey: 'usuario_id' });
+      Carrinho.belongsTo(models.Produto, { foreignKey: 'produto_id' });
     }
   };
 
   Carrinho.init({
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
+      allowNull: false
     },
     usuario_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Users',  // Certifique-se de que o nome do modelo está correto
-        key: 'id',
+        model: 'Users', // Nome da tabela de usuários
+        key: 'id'
       },
       onUpdate: 'CASCADE',
-      onDelete: 'SET NULL'
+      onDelete: 'CASCADE'
+    },
+    produto_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Produto', // Nome da tabela de produtos
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
+    },
+    quantidade: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
     createdAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
+      type: DataTypes.DATE
     },
     updatedAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
+      type: DataTypes.DATE
     }
   }, {
     sequelize,
