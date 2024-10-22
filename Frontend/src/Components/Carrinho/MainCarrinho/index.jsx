@@ -6,15 +6,15 @@ import axios from "axios";
 
 const MainCarrinho = () => {
     const baseUrl = "http://localhost:3001/carrinho/";
-    const [produtos, setProdutos] = useState([]);  // Inicializando como array
+    const [produtos, setProdutos] = useState([]);
 
     const buscarIdDeUsuario = () => {
         const usuarioString = localStorage.getItem("user");
         if (usuarioString) {
-            const usuario = JSON.parse(usuarioString); // Converte a string em objeto
-            return usuario.id; // Retorna o campo 'id'
+            const usuario = JSON.parse(usuarioString);
+            return usuario.id;
         }
-        return null; // Caso não encontre o usuário
+        return null;
     };
 
     const buscarDadosDoCarrinho = async () => {
@@ -27,46 +27,36 @@ const MainCarrinho = () => {
 
             const response = await axios.get(`${baseUrl}?usuario_id=${idUsuario}`);
 
-            // Verifica se response.data é um array, caso contrário, define como vazio
-            if (Array.isArray(response.data[0])) {
-                setProdutos(response.data); // Se for um array, atualiza o estado
-            } else {
-                setProdutos([]); // Caso contrário, define como array vazio
-            }
+            // Verifica se response.data é um array
+            const { data } = response.data;
+            setProdutos(data); // Atualiza o estado com os produtos
+            console.log("Produtos do Carrinho:", data);
 
-            console.log("Produtos do Carrinho:", response.data);
 
         } catch (error) {
             console.log("Aconteceu alguma coisa de errado: ", error);
         }
     };
 
+    console.log(produtos)
+
     useEffect(() => {
         buscarDadosDoCarrinho();
-    }, []); // Chamando a função quando o componente for montado
+    }, []);
 
     return (
-        <Box
-            sx={{
-                maxWidth: 1000,
-                margin: '0 auto',
-                padding: '16px',
-            }}
-        >
+        <Box sx={{ maxWidth: 1000, margin: '0 auto', padding: '16px' }}>
             <Grid container spacing={4}>
                 <Grid item xs={12} sm={6}>
-                    {produtos.length > 0 ? ( // Verifica se há produtos no array
+                    {produtos.length > 0 ? (
                         produtos.map((produto, index) => (
                             <Grid container spacing={2} key={index}>
                                 <Grid item xs={12} sm={5}>
                                     <Box sx={{ padding: 1 }}>
                                         <img
-                                            src={produto.url} // Suponho que seja a URL da imagem do produto
-                                            alt={produto.title} // Título do produto
-                                            style={{
-                                                width: '100%',
-                                                borderRadius: 10,
-                                            }}
+                                            src={produto.url}
+                                            alt={produto.title}
+                                            style={{ width: '100%', borderRadius: 10 }}
                                         />
                                     </Box>
                                 </Grid>
@@ -105,7 +95,7 @@ const MainCarrinho = () => {
                                             </Button>
 
                                             <Typography variant="body1" sx={{ marginLeft: 2 }}>
-                                                {produto.quantidade} {/* Quantidade do produto no carrinho */}
+                                                {produto.quantidade}
                                             </Typography>
 
                                             <Button size="small">
@@ -117,7 +107,7 @@ const MainCarrinho = () => {
                             </Grid>
                         ))
                     ) : (
-                        <Typography variant="body1">Carrinho vazio.</Typography> // Exibe mensagem se não houver produtos
+                        <Typography variant="body1">Carrinho vazio.</Typography>
                     )}
                 </Grid>
             </Grid>

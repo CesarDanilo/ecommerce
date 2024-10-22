@@ -42,7 +42,7 @@ const listarCarrinho = async (req, resp) => {
                     attributes: ['id', 'nome', 'descricao', 'preco', 'estoque', 'imagem'], // Atributos da tabela Produto que deseja trazer
                 }
             ],
-            attributes: ['id'] // Incluindo apenas os atributos necessários do Carrinho
+            attributes: ['id', 'quantidade'] // Incluindo apenas os atributos necessários do Carrinho
         });
 
         return resp.status(200).json({
