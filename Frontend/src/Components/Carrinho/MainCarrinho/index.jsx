@@ -5,7 +5,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import axios from "axios";
 
 const MainCarrinho = () => {
-    const baseUrl = "http://localhost:3001/carrinho";
+    const baseUrl = "http://localhost:3001/carrinho/";
     const [produtos, setProdutos] = useState([]);  // Inicializando como array
 
     const buscarIdDeUsuario = () => {
@@ -25,7 +25,7 @@ const MainCarrinho = () => {
                 return;
             }
 
-            const response = await axios.get(`${baseUrl}?usuario_id=1`);
+            const response = await axios.get(`${baseUrl}?usuario_id=${idUsuario}`);
 
             // Verifica se response.data é um array, caso contrário, define como vazio
             if (Array.isArray(response.data[0])) {

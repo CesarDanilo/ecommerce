@@ -36,6 +36,10 @@ const MainProduto = () => {
         }
     };
 
+    const adicionarProdutoAoCarrinho = () => {
+        window.alert("Ola")
+    }
+
     useEffect(() => {
         BuscarDadosProduto();
     }, [id]);
@@ -98,7 +102,7 @@ const MainProduto = () => {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'start', alignItems: "center", paddingLeft: 40, marginTop: 10 }}>
                         <Stack spacing={2} direction="row">
-                            <Button variant="contained" style={{ backgroundColor: 'black' }}>Adicionar ao carrinho</Button>
+                            <Button onClick={adicionarProdutoAoCarrinho} variant="contained" style={{ backgroundColor: 'black' }} >Adicionar ao carrinho</Button>
                             <Button color="inherit"><FavoriteBorderIcon /></Button>
                         </Stack>
                     </div>
