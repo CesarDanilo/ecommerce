@@ -71,11 +71,11 @@ const MainCarrinho = () => {
                                             padding: 1,
                                         }}
                                     >
-                                        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                                        <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: 18 }}>
                                             {produto.Produto.nome}
                                         </Typography>
 
-                                        <Typography variant="body1" sx={{ color: 'darkgrey', marginTop: 1 }}>
+                                        <Typography variant="body1" sx={{ color: 'darkgrey', marginTop: 1, fontSize: 14 }}>
                                             {produto.Produto.descricao}
                                         </Typography>
 
