@@ -8,6 +8,7 @@ import axios from "axios";
 const MainCarrinho = () => {
     const baseUrl = "http://localhost:3001/carrinho/";
     const [produtos, setProdutos] = useState([]);
+    const [evento, setEvento] = useState(false);
 
     const buscarIdDeUsuario = () => {
         const usuarioString = localStorage.getItem("user");
@@ -42,6 +43,7 @@ const MainCarrinho = () => {
     const handleDeleteProdutos = async (id) => {
         try {
             const response = await axios.delete("http://localhost:3001/carrinho/" + id);
+            setEvento(true);
         } catch (error) {
             console.log("Não foi possivel deletar o produto")
         }
@@ -50,6 +52,13 @@ const MainCarrinho = () => {
     useEffect(() => {
         buscarDadosDoCarrinho();
     }, []);
+
+    useEffect(() => {
+        buscarDadosDoCarrinho();
+        if (evento) {
+            setEvento(!evento);
+        }
+    }, [evento])
 
     return (
         <Box sx={{ maxWidth: 1000, margin: '0 auto', padding: '16px' }}>
