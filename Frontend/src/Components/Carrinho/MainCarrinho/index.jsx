@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Box, Typography, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
 import RemoveIcon from '@mui/icons-material/Remove';
 import axios from "axios";
 
@@ -38,7 +39,13 @@ const MainCarrinho = () => {
         }
     };
 
-    console.log(produtos)
+    const handleDeleteProdutos = async (id) => {
+        try {
+            const response = await axios.delete("http://localhost:3001/carrinho/" + id);
+        } catch (error) {
+            console.log("Não foi possivel deletar o produto")
+        }
+    }
 
     useEffect(() => {
         buscarDadosDoCarrinho();
@@ -101,9 +108,14 @@ const MainCarrinho = () => {
                                             <Button size="small">
                                                 <AddIcon />
                                             </Button>
+
+                                            <Button onClick={() => { handleDeleteProdutos(produto.id) }} size="small">
+                                                <DeleteIcon />
+                                            </Button>
                                         </Box>
                                     </Box>
                                 </Grid>
+
                             </Grid>
                         ))
                     ) : (
