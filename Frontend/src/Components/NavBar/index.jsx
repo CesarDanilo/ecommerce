@@ -14,11 +14,13 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Logo from '../../img/Logo/padpalace.png';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { ConstructionOutlined } from '@mui/icons-material';
 
 const NavBar = ({ qntProd }) => {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
     const [userAdmin, setUserAdmin] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [quantidadeProdutocarrinho, setQuantidadeProdutocarrinho] = useState(0);
 
     const url = "http://localhost:3001/users/?id=";
 
@@ -59,10 +61,26 @@ const NavBar = ({ qntProd }) => {
         }
     }
 
+    const buscarQuantidadeDeProdutos = async () => {
+        try {
+            const response = await axios.get("http://localhost:3001/carrinho/");
+            const { count } = response.data;
+            setQuantidadeProdutocarrinho(count);
+            console.log("devolvendo carrinho", count);
+        } catch (error) {
+            console.log("Não foi possivel trazer a quantidade de produtos do carrinho: ", error)
+        }
+    }
+
     useEffect(() => {
         const loggedIn = checkUserSession();
         setIsUserLoggedIn(loggedIn);
+        buscarQuantidadeDeProdutos();
     }, []);
+
+    useEffect(() => {
+        buscarQuantidadeDeProdutos();
+    }, [quantidadeProdutocarrinho])
 
     // ICONE CARRINHO 
     const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -104,7 +122,7 @@ const NavBar = ({ qntProd }) => {
             <div className="flex items-center space-x-4">
                 <a href="/carrinho" className="flex items-center">
                     <IconButton aria-label="cart">
-                        <StyledBadge badgeContent={qntProd} color="secondary">
+                        <StyledBadge badgeContent={quantidadeProdutocarrinho} color="secondary">
                             <ShoppingCartIcon />
                         </StyledBadge>
                     </IconButton>
