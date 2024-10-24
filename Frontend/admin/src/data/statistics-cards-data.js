@@ -4,13 +4,26 @@ import {
   UsersIcon,
   ChartBarIcon,
 } from "@heroicons/react/24/solid";
+import axios from "axios";
+let usuarios = 0;
+const buscarDadosUsuariosCadastrados = async () => {
+  try {
+    const response = await axios.get("http://localhost:3001/users");
+    const { count } = response.data;
+    usuarios(count);
+  } catch (error) {
+    console.log("Não foi possivel trazer os dados!")
+  }
+}
+
+buscarDadosUsuariosCadastrados();
 
 export const statisticsCardsData = [
   {
     color: "gray",
     icon: BanknotesIcon,
     title: "Today's Money",
-    value: "$53k",
+    value: "$51k",
     footer: {
       color: "text-green-500",
       value: "+55%",
@@ -20,7 +33,7 @@ export const statisticsCardsData = [
   {
     color: "gray",
     icon: UsersIcon,
-    title: "Today's Users",
+    title: "Usuarios",
     value: "2,300",
     footer: {
       color: "text-green-500",
