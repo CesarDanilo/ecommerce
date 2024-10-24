@@ -8,7 +8,6 @@ import axios from "axios";
 const MainCarrinho = () => {
     const baseUrl = "http://localhost:3001/carrinho/";
     const [produtos, setProdutos] = useState([]);
-    const [evento, setEvento] = useState(false);
 
     const buscarIdDeUsuario = () => {
         const usuarioString = localStorage.getItem("user");
@@ -28,13 +27,8 @@ const MainCarrinho = () => {
             }
 
             const response = await axios.get(`${baseUrl}?usuario_id=${idUsuario}`);
-
-            // Verifica se response.data é um array
-            const { data } = response.data;
-            setProdutos(data); // Atualiza o estado com os produtos
-            console.log("Produtos do Carrinho:", data);
-
-
+            setProdutos(response.data.data); // Atualiza o estado com os produtos
+            console.log("Produtos do Carrinho:", response.data.data);
         } catch (error) {
             console.log("Aconteceu alguma coisa de errado: ", error);
         }
@@ -42,31 +36,34 @@ const MainCarrinho = () => {
 
     const handleDeleteProdutos = async (id) => {
         try {
-            const response = await axios.delete("http://localhost:3001/carrinho/" + id);
-            setEvento(true);
+            await axios.delete(`${baseUrl}${id}`);
+            buscarDadosDoCarrinho(); // Atualiza a lista de produtos
         } catch (error) {
-            console.log("Não foi possivel deletar o produto")
+            console.log("Não foi possível deletar o produto");
         }
-    }
+    };
+
+    const handleQuantidadeChange = (id, type) => {
+        setProdutos((prevProdutos) =>
+            prevProdutos.map((produto) =>
+                produto.id === id
+                    ? { ...produto, quantidade: type === 'increase' ? produto.quantidade + 1 : Math.max(produto.quantidade - 1, 1) }
+                    : produto
+            )
+        );
+    };
 
     useEffect(() => {
         buscarDadosDoCarrinho();
     }, []);
-
-    useEffect(() => {
-        buscarDadosDoCarrinho();
-        if (evento) {
-            setEvento(!evento);
-        }
-    }, [evento])
 
     return (
         <Box sx={{ maxWidth: 1000, margin: '0 auto', padding: '16px' }}>
             <Grid container spacing={4}>
                 <Grid item xs={12} sm={6}>
                     {produtos.length > 0 ? (
-                        produtos.map((produto, index) => (
-                            <Grid container spacing={2} key={index}>
+                        produtos.map((produto) => (
+                            <Grid container spacing={2} key={produto.id}>
                                 <Grid item xs={12} sm={5}>
                                     <Box sx={{ padding: 1 }}>
                                         <img
@@ -78,15 +75,13 @@ const MainCarrinho = () => {
                                 </Grid>
 
                                 <Grid item xs={12} sm={7}>
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            justifyContent: 'flex-start',
-                                            alignItems: 'flex-start',
-                                            padding: 1,
-                                        }}
-                                    >
+                                    <Box sx={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'flex-start',
+                                        alignItems: 'flex-start',
+                                        padding: 1,
+                                    }}>
                                         <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: 18 }}>
                                             {produto.Produto.nome}
                                         </Typography>
@@ -99,14 +94,12 @@ const MainCarrinho = () => {
                                             R$ {produto.Produto.preco}
                                         </Typography>
 
-                                        <Box
-                                            sx={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                marginTop: 2,
-                                            }}
-                                        >
-                                            <Button size="small">
+                                        <Box sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            marginTop: 2,
+                                        }}>
+                                            <Button onClick={() => handleQuantidadeChange(produto.id, 'decrease')} size="small">
                                                 <RemoveIcon />
                                             </Button>
 
@@ -114,17 +107,16 @@ const MainCarrinho = () => {
                                                 {produto.quantidade}
                                             </Typography>
 
-                                            <Button size="small">
+                                            <Button onClick={() => handleQuantidadeChange(produto.id, 'increase')} size="small">
                                                 <AddIcon />
                                             </Button>
 
-                                            <Button onClick={() => { handleDeleteProdutos(produto.id) }} size="small">
+                                            <Button onClick={() => handleDeleteProdutos(produto.id)} size="small">
                                                 <DeleteIcon />
                                             </Button>
                                         </Box>
                                     </Box>
                                 </Grid>
-
                             </Grid>
                         ))
                     ) : (
