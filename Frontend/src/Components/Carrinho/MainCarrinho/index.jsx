@@ -53,6 +53,10 @@ const MainCarrinho = () => {
         );
     };
 
+    const calularSubtotaisDosProdutos = () => {
+        
+    }
+
     useEffect(() => {
         buscarDadosDoCarrinho();
     }, []);
@@ -153,7 +157,7 @@ const MainCarrinho = () => {
                             R$00,00
                         </Typography>
                     </Grid>
-                    <Button variant="contained" color="success" sx={{width: '290px'}}>comprar</Button>
+                    <Button variant="contained" color="success" sx={{ width: '290px' }}>comprar</Button>
                 </Grid>
             </Grid>
 
