@@ -58,8 +58,8 @@ const MainCarrinho = () => {
     }, []);
 
     return (
-        <Box sx={{ maxWidth: 1000, margin: '0 auto', padding: '16px' }}>
-            <Grid container spacing={4}>
+        <Box sx={{ maxWidth: 1000, margin: '0 auto', padding: '16px', display: 'flex' }}>
+            <Grid container spacing={6}>
                 <Grid item xs={12} sm={6}>
                     {produtos.length > 0 ? (
                         produtos.map((produto) => (
@@ -123,7 +123,40 @@ const MainCarrinho = () => {
                         <Typography variant="body1">Carrinho vazio.</Typography>
                     )}
                 </Grid>
+                <Grid item xs={12} sm={4}>
+                    <Grid>
+                        <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: 26 }}>
+                            Total
+                        </Typography>
+                    </Grid>
+                    <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                            Sub-total
+                        </Typography>
+                        <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16, display: 'flex' }}>
+                            R$00,00
+                        </Typography>
+                    </Grid>
+                    <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                            Frete
+                        </Typography>
+                        <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16, display: 'flex' }}>
+                            R$00,00
+                        </Typography>
+                    </Grid>
+                    <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                            Total estimado
+                        </Typography>
+                        <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16, display: 'flex' }}>
+                            R$00,00
+                        </Typography>
+                    </Grid>
+                    <Button variant="contained" color="success" sx={{width: '290px'}}>comprar</Button>
+                </Grid>
             </Grid>
+
         </Box>
     );
 };
