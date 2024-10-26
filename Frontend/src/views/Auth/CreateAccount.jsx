@@ -6,28 +6,40 @@ export function CreateAccount() {
     const [userEmail, setUserEmail] = useState('');
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [alertMessage, setAlertMessage] = useState('');
+    const [color, setColor] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
     const navigate = useNavigate(); // Use useNavigate to handle redirects
-    const url = "http://localhost:3001/users/auth/createuser/";
 
-    const createNewUser = async () => {
+
+    const enviarDadosUsuario = async () => {
+        const url = "http://localhost:3001/users/auth/createuser";
+
         try {
-            const dataUser = {
-                email: userEmail,
-                nome: userName,
-                senha: password
+            const dadosRecebidos = {
+                "nome": userName,
+                "email": userEmail,
+                "senha": password,
+                "admin": false
             };
 
-            // Make the POST request to create the user
-            const response = await axios.post(url, dataUser);
+            console.log("Dados que seriam enviados: ", dadosRecebidos);
 
-            // Redirect after a successful response
-            if (response.status === 200) {
-                navigate('/login'); // Use navigate to redirect
-            } else {
-                console.error("Erro ao criar usuário: ", response.data);
-            }
+            const response = await axios.post(url, dadosRecebidos);
+            window.alert(alertMessage);
+            setColor("green")
+            setShowAlert(true);
+
+            navigate("/login"); 
+
         } catch (error) {
-            console.log("Não foi possível criar usuário: ", error);
+            if (error.response.status === 422) {
+                setColor("red")
+                setAlertMessage('Usurario já existe!');
+            } else {
+                setAlertMessage('Ops! Ocorreu um erro!');
+            }
+            setShowAlert(true);
         }
     };
 
@@ -75,7 +87,7 @@ export function CreateAccount() {
                             <a href="#" className="text-black hover:text-gray-900 underline">Terms and Conditions</a>
                         </span>
                     </div>
-                    <button type="button" className="mt-6 bg-blue-600 text-white py-2 px-4 rounded-lg w-full" onClick={createNewUser}>
+                    <button type="button" className="mt-6 bg-blue-600 text-white py-2 px-4 rounded-lg w-full" onClick={enviarDadosUsuario}>
                         Register Now
                     </button>
 
@@ -107,7 +119,9 @@ export function CreateAccount() {
                     </p>
                 </form>
             </div>
+
         </section>
+
     );
 }
 
