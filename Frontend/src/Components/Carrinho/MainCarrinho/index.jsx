@@ -8,6 +8,7 @@ import axios from "axios";
 const MainCarrinho = () => {
     const baseUrl = "http://localhost:3001/carrinho/";
     const [produtos, setProdutos] = useState([]);
+    const [totalProdutos, setTotalProdutos] = useState(0);
 
     const buscarIdDeUsuario = () => {
         const usuarioString = localStorage.getItem("user");
@@ -54,12 +55,18 @@ const MainCarrinho = () => {
     };
 
     const calularSubtotaisDosProdutos = () => {
-        
+        produtos.map((produto) => {
+            setTotalProdutos((produto.Produto.preco * produto.quantidade));
+        })
     }
 
     useEffect(() => {
         buscarDadosDoCarrinho();
     }, []);
+
+    useEffect(() => {
+        calularSubtotaisDosProdutos();
+    }, [totalProdutos])
 
     return (
         <Box sx={{ maxWidth: 1000, margin: '0 auto', padding: '16px', display: 'flex' }}>
@@ -138,7 +145,7 @@ const MainCarrinho = () => {
                             Sub-total
                         </Typography>
                         <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16, display: 'flex' }}>
-                            R$00,00
+                            R${totalProdutos}
                         </Typography>
                     </Grid>
                     <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
