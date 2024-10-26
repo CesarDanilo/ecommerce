@@ -49,16 +49,17 @@ const ProdutosRelacionados = () => {
             >
                 Produtos Relacionados
             </Typography>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 {data.map((i, index) => (
-                    <div key={index} className="w-full rounded-lg">
+                    <div key={index} className="w-full h-80 max-w-xs mx-auto rounded-lg">
                         <Link to={`/produto/${i.id}`} className="block text-black no-underline">
-                            <div className="bg-slate-50 shadow-lg shadow-cyan-950/25 rounded-lg max-w-full mx-auto transition-transform duration-200 transform hover:scale-105">
-                                <div className="relative">
+                            <div className="bg-slate-50 shadow-lg shadow-cyan-950/25 rounded-lg h-full transition-transform duration-200 transform hover:scale-105">
+                                <div className="relative p-3 flex justify-center items-center h-48">
                                     <img
-                                        className="w-full h-48 object-cover rounded-t-lg"
+                                        className="h-full object-cover rounded-md"
                                         src={`http://localhost:3001/uploads/${i.imagem}`}
-                                        alt="mouse pad"
+                                        alt={i.nome}
                                     />
                                 </div>
                                 <div className="p-4 text-left flex flex-col space-y-1">
@@ -84,6 +85,7 @@ const ProdutosRelacionados = () => {
                     </div>
                 ))}
             </div>
+
         </Box>
     )
 }
