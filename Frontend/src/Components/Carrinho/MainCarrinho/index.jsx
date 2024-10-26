@@ -68,7 +68,7 @@ const MainCarrinho = () => {
 
     useEffect(() => {
         calcularSubtotaisDosProdutos();
-    }, [produtos]); // Mudei para 'produtos' como dependência
+    }, [produtos]);
 
     return (
         <Box sx={{ maxWidth: 1000, margin: '0 auto', padding: '16px', display: 'flex' }}>
@@ -137,36 +137,36 @@ const MainCarrinho = () => {
                     )}
                 </Grid>
                 <Grid item xs={12} sm={4}>
-                    <Grid>
+                    <Grid sx={{ border: '1px solid #ccc', padding: 2, borderRadius: 2, height: 'fit-content', width: '380px' }}>
                         <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: 26 }}>
                             Total
                         </Typography>
+                        <Grid sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 1 }}>
+                            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                                Sub-total
+                            </Typography>
+                            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16, display: 'flex' }}>
+                                R$ {totalProdutos > 0 ? totalProdutos.toFixed(2) : '0,00'}
+                            </Typography>
+                        </Grid>
+                        <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                                Frete
+                            </Typography>
+                            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16, display: 'flex' }}>
+                                R$00,00
+                            </Typography>
+                        </Grid>
+                        <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                                Total estimado
+                            </Typography>
+                            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16, display: 'flex' }}>
+                                R$ {totalProdutos > 0 ? totalProdutos.toFixed(2) : '0,00'}
+                            </Typography>
+                        </Grid>
+                        <Button variant="contained" color="success" sx={{ width: '290px', marginTop: 2 }}>comprar</Button>
                     </Grid>
-                    <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
-                            Sub-total
-                        </Typography>
-                        <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16, display: 'flex' }}>
-                            R$ {totalProdutos.toFixed(2)} {/* Formatação para duas casas decimais */}
-                        </Typography>
-                    </Grid>
-                    <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
-                            Frete
-                        </Typography>
-                        <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16, display: 'flex' }}>
-                            R$00,00
-                        </Typography>
-                    </Grid>
-                    <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
-                            Total estimado
-                        </Typography>
-                        <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16, display: 'flex' }}>
-                            R$ {totalProdutos.toFixed(2)} {/* Total estimado igual ao subtotal */}
-                        </Typography>
-                    </Grid>
-                    <Button variant="contained" color="success" sx={{ width: '290px' }}>comprar</Button>
                 </Grid>
             </Grid>
         </Box>
