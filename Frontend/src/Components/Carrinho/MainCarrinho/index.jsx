@@ -54,19 +54,21 @@ const MainCarrinho = () => {
         );
     };
 
-    const calularSubtotaisDosProdutos = () => {
-        produtos.map((produto) => {
-            setTotalProdutos((produto.Produto.preco * produto.quantidade));
-        })
-    }
+    const calcularSubtotaisDosProdutos = () => {
+        const total = produtos.reduce((acc, produto) => {
+            return acc + (produto.Produto.preco * produto.quantidade);
+        }, 0);
+
+        setTotalProdutos(total);
+    };
 
     useEffect(() => {
         buscarDadosDoCarrinho();
     }, []);
 
     useEffect(() => {
-        calularSubtotaisDosProdutos();
-    }, [totalProdutos])
+        calcularSubtotaisDosProdutos();
+    }, [produtos]); // Mudei para 'produtos' como dependência
 
     return (
         <Box sx={{ maxWidth: 1000, margin: '0 auto', padding: '16px', display: 'flex' }}>
@@ -145,7 +147,7 @@ const MainCarrinho = () => {
                             Sub-total
                         </Typography>
                         <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16, display: 'flex' }}>
-                            R${totalProdutos}
+                            R$ {totalProdutos.toFixed(2)} {/* Formatação para duas casas decimais */}
                         </Typography>
                     </Grid>
                     <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -161,13 +163,12 @@ const MainCarrinho = () => {
                             Total estimado
                         </Typography>
                         <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16, display: 'flex' }}>
-                            R$00,00
+                            R$ {totalProdutos.toFixed(2)} {/* Total estimado igual ao subtotal */}
                         </Typography>
                     </Grid>
                     <Button variant="contained" color="success" sx={{ width: '290px' }}>comprar</Button>
                 </Grid>
             </Grid>
-
         </Box>
     );
 };
