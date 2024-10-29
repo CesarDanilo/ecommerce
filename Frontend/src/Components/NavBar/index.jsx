@@ -72,6 +72,14 @@ const NavBar = ({ qntProd }) => {
         }
     }
 
+    const adicionarIconeUsuarioNome = () => {
+        try {
+
+        } catch (error) {
+            console.log("Erro Ao buscar nome!!!")
+        }
+    }
+
     useEffect(() => {
         const loggedIn = checkUserSession();
         setIsUserLoggedIn(loggedIn);
