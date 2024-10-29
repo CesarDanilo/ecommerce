@@ -167,17 +167,18 @@ const NavBar = ({ qntProd }) => {
                                             className="bg-deepPurple-500 cursor-pointer"
                                             onClick={toggleMenu} // Ação para abrir/fechar o menu ao clicar
                                         >
-                                            {nameForIcon[0]}
+
                                         </Avatar>
                                         {/* Menu dropdown ao clicar no Avatar */}
                                         {isMenuOpen && (
                                             <div className="absolute bg-white shadow-md right-0 mt-2 py-2 w-32 rounded-md">
+                                                <a>{nameForIcon}</a>
                                                 <a
                                                     href="#"
                                                     onClick={clearLocalStorageUser}
                                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                 >
-                                                    SAIR
+                                                    SAIR 
                                                 </a>
                                             </div>
                                         )}
