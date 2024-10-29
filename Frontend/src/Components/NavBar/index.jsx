@@ -21,6 +21,7 @@ const NavBar = ({ qntProd }) => {
     const [userAdmin, setUserAdmin] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [quantidadeProdutocarrinho, setQuantidadeProdutocarrinho] = useState(0);
+    const [nameForIcon, setNameForIcon] = useState();
 
     const url = "http://localhost:3001/users/?id=";
 
@@ -32,9 +33,10 @@ const NavBar = ({ qntProd }) => {
         const user = JSON.parse(localStorage.getItem("user"));
         if (user && user.id) {
             checkUserAdmin(user.id);
+            setNameForIcon(user.nome)
             return true;
         }
-        return false;
+        return false
     };
 
     const checkUserAdmin = async (id) => {
@@ -72,13 +74,14 @@ const NavBar = ({ qntProd }) => {
         }
     }
 
-    const adicionarIconeUsuarioNome = () => {
-        try {
+    // const adicionarIconeUsuarioNome = async() => {
+    //     try {
 
-        } catch (error) {
-            console.log("Erro Ao buscar nome!!!")
-        }
-    }
+
+    //     } catch (error) {
+    //         console.log("Erro Ao buscar nome!!!")
+    //     }
+    // }
 
     useEffect(() => {
         const loggedIn = checkUserSession();
@@ -164,7 +167,7 @@ const NavBar = ({ qntProd }) => {
                                             className="bg-deepPurple-500 cursor-pointer"
                                             onClick={toggleMenu} // Ação para abrir/fechar o menu ao clicar
                                         >
-                                            C
+                                            {nameForIcon[0]}
                                         </Avatar>
                                         {/* Menu dropdown ao clicar no Avatar */}
                                         {isMenuOpen && (
