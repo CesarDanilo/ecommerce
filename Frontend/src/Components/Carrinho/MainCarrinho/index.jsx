@@ -165,6 +165,14 @@ const MainCarrinho = () => {
                                 R$ {totalProdutos > 0 ? totalProdutos.toFixed(2) : '0,00'}
                             </Typography>
                         </Grid>
+                        <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                                Metodo de pagamento
+                            </Typography>
+                            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16, display: 'flex' }}>
+                                PIX/QCODE
+                            </Typography>
+                        </Grid>
                         <Button variant="contained" color="success" sx={{ width: '290px', marginTop: 2 }}>comprar</Button>
                     </Grid>
                 </Grid>
