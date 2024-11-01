@@ -173,7 +173,9 @@ const MainCarrinho = () => {
                                 PIX/QCODE
                             </Typography>
                         </Grid>
-                        <Button variant="contained" color="success" sx={{ width: '290px', marginTop: 2 }}>comprar</Button>
+                        <a href="/checkout">
+                            <Button variant="contained" color="success" sx={{ width: '290px', marginTop: 2 }}>comprar</Button>
+                        </a>
                     </Grid>
                 </Grid>
             </Grid>
