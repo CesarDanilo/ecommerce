@@ -127,11 +127,12 @@ const MainProduto = () => {
                 </Grid>
             </Grid>
 
-            <div className="w-1/3 bg-green-400 p-3 rounded-lg">
-                <Typography className="" >
+            <div className="fixed bottom-4 right-4 w-1/4 bg-green-400 p-3 rounded-lg">
+                <Typography className="font-bold"> 
                     Produto adicionado ao carrinho!
                 </Typography>
             </div>
+
         </Box>
     );
 };
