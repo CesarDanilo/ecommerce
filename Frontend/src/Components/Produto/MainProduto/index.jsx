@@ -126,6 +126,12 @@ const MainProduto = () => {
                     </div>
                 </Grid>
             </Grid>
+
+            <div className="w-1/3 bg-green-400 p-3 rounded-lg">
+                <Typography className="" >
+                    Produto adicionado ao carrinho!
+                </Typography>
+            </div>
         </Box>
     );
 };
