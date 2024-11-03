@@ -6,7 +6,6 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -19,6 +18,7 @@ const MainProduto = () => {
     const [img, setImg] = useState(null);
     const [quantidade, setQuantidade] = useState(1);
     const { id } = useParams();
+    const [ativo, setAtivo] = useState(false);
 
     const baseUrl = "http://localhost:3001/produto/?id=";
 
@@ -41,22 +41,28 @@ const MainProduto = () => {
         const baseUrl = "http://localhost:3001/carrinho/";
 
         if (usuarioString) {
-            const usuario = JSON.parse(usuarioString); // Converte a string em objeto
+            const usuario = JSON.parse(usuarioString);
 
             const dados = {
                 "usuario_id": usuario.id,
                 "produto_id": id,
                 "quantidade": quantidade
-            }
+            };
 
             try {
-                const response = await axios.post(baseUrl, dados);
-                console.log("Adiconado no carrinho!")
+                await axios.post(baseUrl, dados);
+                console.log("Adicionado ao carrinho!");
+
+                // Exibe a notificação e a oculta após 3 segundos
+                setAtivo(true);
+                setTimeout(() => {
+                    setAtivo(false);
+                }, 3000);
             } catch (error) {
-                console.log("não foi possivel adicionar ao carrinho!", error)
+                console.log("Não foi possível adicionar ao carrinho!", error);
             }
         }
-    }
+    };
 
     useEffect(() => {
         BuscarDadosProduto();
@@ -77,7 +83,6 @@ const MainProduto = () => {
         }}>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6} style={{ maxWidth: '1000px', padding: 10 }}>
-                    {/* IMAGEM DO PRODUTO */}
                     <div>
                         {img ? (
                             <img
@@ -95,7 +100,6 @@ const MainProduto = () => {
                     flexDirection: 'column',
                     justifyContent: 'start'
                 }}>
-                    {/* DESCRIÇÃO E PREÇO DO PRODUTO */}
                     <div style={{ paddingLeft: 50 }}>
                         <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: "bold", textAlign: 'start' }}>
                             {nome.toUpperCase()}
@@ -127,12 +131,24 @@ const MainProduto = () => {
                 </Grid>
             </Grid>
 
-            <div className="fixed bottom-4 right-4 w-1/4 bg-green-400 p-3 rounded-lg">
-                <Typography className="font-bold"> 
-                    Produto adicionado ao carrinho!
-                </Typography>
-            </div>
-
+            {ativo && (
+                <div style={{
+                    position: 'fixed',
+                    bottom: '20px',
+                    right: '20px',
+                    backgroundColor: '#4CAF50', // Cor verde
+                    color: 'white',
+                    padding: '10px 20px',
+                    borderRadius: '8px',
+                    boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
+                    transition: 'opacity 0.5s ease',
+                    zIndex: 1000,
+                }}>
+                    <Typography className="font-bold">
+                        Produto adicionado ao carrinho!
+                    </Typography>
+                </div>
+            )}
         </Box>
     );
 };
