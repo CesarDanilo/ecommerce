@@ -53,15 +53,15 @@ const MainProduto = () => {
                 await axios.post(baseUrl, dados);
                 console.log("Adicionado ao carrinho!");
 
-                // Exibe a notificação e a oculta após 3 segundos
-                setAtivo(true);
-                setTimeout(() => {
-                    setAtivo(false);
-                }, 3000);
             } catch (error) {
                 console.log("Não foi possível adicionar ao carrinho!", error);
             }
         }
+
+        setAtivo(true);
+        setTimeout(() => {
+            setAtivo(false);
+        }, 3000);
     };
 
     useEffect(() => {
