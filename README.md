@@ -66,8 +66,6 @@ npm run dev
 npm start
 ```
 
-#### Explore: Visite http://localhost:3000 para ver o frontend em ação.
-
 ## 🌟 Contribuições
 Contribuições são bem-vindas! Se você está interessado em melhorar este projeto ou adicionar novas funcionalidades, sinta-se à vontade para fazer um fork do repositório e enviar um pull request.
 
