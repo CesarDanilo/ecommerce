@@ -45,6 +45,13 @@ cd frontend
 npm install
 ```
 
+### Admin:
+
+```bash
+cd frontend/admin
+npm install
+```
+
 ### Configure as variáveis de ambiente: Crie um arquivo .env na pasta backend com as seguintes variáveis:
 
 ```bash
@@ -64,6 +71,10 @@ npm run dev
 
 ```bash
 npm start
+```
+### Admin
+```bash
+npm run dev
 ```
 
 ## 🌟 Contribuições
