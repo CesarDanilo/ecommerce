@@ -11,7 +11,7 @@ Bem-vindo ao repositório do meu projeto de e-commerce, onde estou desenvolvendo
 - **Axios**: Cliente HTTP baseado em Promises para fazer requisições API ao backend.
 - **API**: Arquitetura RESTful para manipular operações CRUD e muito mais.
 - **Padrão MVC**: A aplicação está estruturada seguindo o padrão de design Model-View-Controller, garantindo separação de responsabilidades e organização limpa do código.
-
+- **Tailwind CSS**: Framework CSS utilitário que facilita a criação de interfaces modernas, responsivas e estilizadas de maneira eficiente
 ## 🎯 Funcionalidades
 
 - **Autenticação de Usuário**: Login e registro de usuários seguros usando JWT.
