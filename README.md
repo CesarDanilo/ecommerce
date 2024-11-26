@@ -12,8 +12,16 @@ Bem-vindo ao repositório do meu projeto de e-commerce, onde estou desenvolvendo
 - **API**: Arquitetura RESTful para manipular operações CRUD e muito mais.
 - **Padrão MVC**: A aplicação está estruturada seguindo o padrão de design Model-View-Controller, garantindo separação de responsabilidades e organização limpa do código.
 - **Tailwind CSS**: Framework CSS utilitário que facilita a criação de interfaces modernas, responsivas e estilizadas de maneira eficiente
-## 🎯 Funcionalidades
 
+<p align="left">
+<!-- <a href="" target="_blank" rel="noreferrer"><img src="https://ulsesifcfgmgsvjcuvqs.supabase.co/storage/v1/object/public/skills-icons/typescript.svg?sanitize=true" width="36" height="36" alt="TypeScript" /></a> -->
+<a href="" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/react-colored.svg" width="36" height="36" alt="react" /></a><a href="" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nodejs-colored.svg" width="36" height="36" alt="nodejs" /></a>
+<a href="https://expressjs.com/pt-br/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/express-colored.svg" width="36" height="36" alt="express" /></a>
+<a href="" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg" width="36" height="36" alt="javascript" /></a>
+<a href="https://www.postgresql.org/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/postgresql-colored.svg" width="36" height="36" alt="PostGreSql" /></a>  
+</p>
+
+## 🎯 Funcionalidades
 - **Autenticação de Usuário**: Login e registro de usuários seguros usando JWT.
 - **Gerenciamento de Produtos**: Operações completas de CRUD para produtos, incluindo upload de imagens.
 - **Design Responsivo**: Otimizado para dispositivos desktop e móveis.
