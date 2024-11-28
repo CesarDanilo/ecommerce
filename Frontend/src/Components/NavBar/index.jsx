@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ConstructionOutlined } from '@mui/icons-material';
 
-const NavBar = ({ qntProd }) => {
+const NavBar = () => {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
     const [userAdmin, setUserAdmin] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -58,6 +58,7 @@ const NavBar = ({ qntProd }) => {
         try {
             localStorage.clear();
             window.location.reload(true);
+            setQuantidadeProdutocarrinho(0)
         } catch (error) {
             console.log("não foi possivel sair da conta!");
         }
@@ -67,6 +68,7 @@ const NavBar = ({ qntProd }) => {
         try {
             const response = await axios.get("http://localhost:3001/carrinho/");
             const { count } = response.data;
+            console.log("Resposta da API:", response.data); 
             setQuantidadeProdutocarrinho(count);
             console.log("devolvendo carrinho", count);
         } catch (error) {
@@ -74,24 +76,17 @@ const NavBar = ({ qntProd }) => {
         }
     }
 
-    // const adicionarIconeUsuarioNome = async() => {
-    //     try {
-
-
-    //     } catch (error) {
-    //         console.log("Erro Ao buscar nome!!!")
-    //     }
-    // }
-
     useEffect(() => {
         const loggedIn = checkUserSession();
         setIsUserLoggedIn(loggedIn);
+        setQuantidadeProdutocarrinho(0)
         buscarQuantidadeDeProdutos();
     }, []);
 
     useEffect(() => {
         buscarQuantidadeDeProdutos();
     }, [quantidadeProdutocarrinho])
+
 
     // ICONE CARRINHO 
     const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -178,7 +173,7 @@ const NavBar = ({ qntProd }) => {
                                                     onClick={clearLocalStorageUser}
                                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                 >
-                                                    SAIR 
+                                                    SAIR
                                                 </a>
                                             </div>
                                         )}

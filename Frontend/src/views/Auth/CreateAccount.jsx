@@ -67,7 +67,7 @@ export function CreateAccount() {
                         <label className="block text-gray-700 mb-1">Your name</label>
                         <input
                             type="email"
-                            placeholder="name@mail.com"
+                            placeholder="name"
                             onChange={(e) => setUserName(e.target.value)}
                             className="border border-gray-300 rounded-lg p-2 w-full focus:border-gray-900"
                         />
