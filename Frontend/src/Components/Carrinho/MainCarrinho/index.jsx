@@ -10,6 +10,7 @@ const MainCarrinho = () => {
     const [produtos, setProdutos] = useState([]);
     const [totalProdutos, setTotalProdutos] = useState(0);
 
+    // Função para buscar ID do usuário no localStorage
     const buscarIdDeUsuario = () => {
         const usuarioString = localStorage.getItem("user");
         if (usuarioString) {
@@ -19,31 +20,41 @@ const MainCarrinho = () => {
         return null;
     };
 
+    // Formatação para valores monetários
+    const formataMoeda = (valor) => {
+        return valor.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+        });
+    };
+
+    // Buscar dados do carrinho para o usuário
     const buscarDadosDoCarrinho = async () => {
         try {
             const idUsuario = buscarIdDeUsuario();
             if (!idUsuario) {
-                console.log("Usuário não encontrado no localStorage");
+                console.error("Usuário não encontrado no localStorage");
                 return;
             }
 
             const response = await axios.get(`${baseUrl}?usuario_id=${idUsuario}`);
-            setProdutos(response.data.data); // Atualiza o estado com os produtos
-            console.log("Produtos do Carrinho:", response.data.data);
+            setProdutos(response.data.data || []);
         } catch (error) {
-            console.log("Aconteceu alguma coisa de errado: ", error);
+            console.error("Erro ao buscar dados do carrinho: ", error);
         }
     };
 
-    const handleDeleteProdutos = async (id) => {
+    // Excluir produto do carrinho
+    const handleDeleteProduto = async (id) => {
         try {
             await axios.delete(`${baseUrl}${id}`);
             buscarDadosDoCarrinho(); // Atualiza a lista de produtos
         } catch (error) {
-            console.log("Não foi possível deletar o produto");
+            console.error("Erro ao excluir produto: ", error);
         }
     };
 
+    // Alterar quantidade do produto
     const handleQuantidadeChange = (id, type) => {
         setProdutos((prevProdutos) =>
             prevProdutos.map((produto) =>
@@ -54,9 +65,10 @@ const MainCarrinho = () => {
         );
     };
 
-    const calcularSubtotaisDosProdutos = () => {
+    // Calcular o total dos produtos no carrinho
+    const calcularTotalProdutos = () => {
         const total = produtos.reduce((acc, produto) => {
-            return acc + (produto.Produto.preco * produto.quantidade);
+            return acc + produto.Produto.preco * produto.quantidade;
         }, 0);
 
         setTotalProdutos(total);
@@ -67,7 +79,7 @@ const MainCarrinho = () => {
     }, []);
 
     useEffect(() => {
-        calcularSubtotaisDosProdutos();
+        calcularTotalProdutos();
     }, [produtos]);
 
     return (
@@ -104,7 +116,7 @@ const MainCarrinho = () => {
                                         </Typography>
 
                                         <Typography variant="body1" sx={{ marginTop: 1 }}>
-                                            R$ {produto.Produto.preco}
+                                            {formataMoeda(produto.Produto.preco)}
                                         </Typography>
 
                                         <Box sx={{
@@ -124,7 +136,7 @@ const MainCarrinho = () => {
                                                 <AddIcon />
                                             </Button>
 
-                                            <Button onClick={() => handleDeleteProdutos(produto.id)} size="small">
+                                            <Button onClick={() => handleDeleteProduto(produto.id)} size="small">
                                                 <DeleteIcon />
                                             </Button>
                                         </Box>
@@ -137,46 +149,46 @@ const MainCarrinho = () => {
                     )}
                 </Grid>
                 <Grid item xs={12} sm={4}>
-                    <Grid sx={{ border: '1px solid #ccc', padding: 2, borderRadius: 2, height: 'fit-content', width: '380px' }}>
+                    <Box sx={{ border: '1px solid #ccc', padding: 2, borderRadius: 2, height: 'fit-content', width: '380px' }}>
                         <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: 26 }}>
                             Total
                         </Typography>
-                        <Grid sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 1 }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 1 }}>
                             <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
                                 Sub-total
                             </Typography>
-                            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16, display: 'flex' }}>
-                                R$ {totalProdutos > 0 ? totalProdutos.toFixed(2) : '0,00'}
+                            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                                {formataMoeda(totalProdutos)}
                             </Typography>
-                        </Grid>
-                        <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        </Box>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                             <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
                                 Frete
                             </Typography>
-                            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16, display: 'flex' }}>
-                                R$00,00
+                            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                                R$ 0,00
                             </Typography>
-                        </Grid>
-                        <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        </Box>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                             <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
                                 Total estimado
                             </Typography>
-                            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16, display: 'flex' }}>
-                                R$ {totalProdutos > 0 ? totalProdutos.toFixed(2) : '0,00'}
-                            </Typography>
-                        </Grid>
-                        <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
                             <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
-                                Metodo de pagamento
+                                {formataMoeda(totalProdutos)}
                             </Typography>
-                            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16, display: 'flex' }}>
-                                PIX/QCODE
+                        </Box>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                                Método de pagamento
                             </Typography>
-                        </Grid>
+                            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                                PIX/QRCODE
+                            </Typography>
+                        </Box>
                         <a href="/checkout">
-                            <Button variant="contained" color="success" sx={{ width: '290px', marginTop: 2 }}>comprar</Button>
+                            <Button variant="contained" color="success" sx={{ width: '290px', marginTop: 2 }}>Comprar</Button>
                         </a>
-                    </Grid>
+                    </Box>
                 </Grid>
             </Grid>
         </Box>

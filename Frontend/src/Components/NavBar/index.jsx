@@ -59,7 +59,7 @@ const NavBar = () => {
     const fetchCartItemCount = async () => {
         if (user) {
             try {
-                const response = await axios.get(`${apiBaseURL}/carrinho`);
+                const response = await axios.get(`${apiBaseURL}/carrinho/?usuario_id=${user.id}`);
                 setCartItemCount(response.data?.count || 0);
             } catch (error) {
                 console.error("Erro ao buscar quantidade de produtos no carrinho:", error);

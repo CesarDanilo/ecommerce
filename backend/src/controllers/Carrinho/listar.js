@@ -2,7 +2,7 @@ const { Carrinho, Produto } = require('../../database/models');
 const { Op } = require('sequelize');
 
 const listarCarrinho = async (req, resp) => {
-    const { offset, order, direction, id } = req.query;
+    const { offset, order, direction, usuario_id } = req.query;
     let { limit } = req.query;
     limit = limit ? parseInt(limit) : 15;
 
@@ -22,10 +22,10 @@ const listarCarrinho = async (req, resp) => {
             orderOptions.push([order, direction ? direction.toUpperCase() : 'ASC']);
         }
 
-        // Preparando o Objeto Where para filtrar pelo id do usuário
+        // Preparando o Objeto Where para filtrar pelo usuario_id do usuário
         let where = {};
-        if (id) {
-            where.id = parseInt(id); // Assumindo que a coluna para usuário é 'id'
+        if (usuario_id) {
+            where.usuario_id = parseInt(usuario_id); // Assumindo que a coluna para usuário é 'usuario_id'
         }
 
         // Contando sem o limit e offset para paginação
