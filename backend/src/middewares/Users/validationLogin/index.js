@@ -34,8 +34,8 @@ const validationLogin = async (req, res, next) => {
         }
 
         const token = jwt.sign({ id: user.id }, secret, { expiresIn: '1h' }); // Define an expiration time for the token
-        const dados = { "email": user.email, "id": user.id }
-        return res.status(200).json({ msg: "Autenticação realizada com sucesso!", token, dados});
+        const dados = { "email": user.email, "id": user.id, "nome": user.nome }
+        return res.status(200).json({ msg: "Autenticação realizada com sucesso!", token, dados });
         next()
 
     } catch (error) {
