@@ -31,10 +31,10 @@ const Main = () => {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '500px', 
-                maxWidth: '100%', 
+                height: '500px',
+                maxWidth: '100%',
                 p: 0,
-                m: 10 
+                m: "0 10 0 10"
             }}
         >
             <Box
@@ -42,7 +42,7 @@ const Main = () => {
                     position: 'relative',
                     width: '100%',
                     maxWidth: '1300px',
-                    height: '500px',
+                    height: '500px', // Ajuste a altura para acomodar as imagens menores
                     overflow: 'hidden',
                     borderRadius: '10px'
                 }}
@@ -54,10 +54,12 @@ const Main = () => {
                                 src={image}
                                 alt={`mousepad-${index + 1}`}
                                 style={{
-                                    height: '100%',
-                                    width: '100%',
+                                    height: 'auto', // Ajuste a altura da imagem para se manter proporcional
+                                    width: '45%', // Deixe a largura 100% do contêiner, mas a altura será proporcional
+                                    maxHeight: '100%', // Garante que a imagem não ultrapasse a altura do contêiner
+                                    objectFit: 'contain', // Ajuste para garantir que a imagem seja exibida inteira sem cortar
                                     borderRadius: '10px',
-                                    objectFit: 'cover'
+                                    margin: 'auto' // Centraliza a imagem
                                 }}
                             />
                             <Box
@@ -86,27 +88,29 @@ const Main = () => {
                                         mb: 1 // margem inferior para espaçar o texto do botão
                                     }}
                                 >
-                                    MousePads 
+                                    MousePads
                                 </Typography>
                                 <Typography
                                     component="div"
                                     sx={{
-                                        fontSize: { xs: '0.875rem', sm: '1rem', md: '1.25rem' },
+                                        fontSize: { xs: '0.7875rem', sm: '0.9rem', md: '1.125rem' },
                                         mb: 2 // margem inferior para espaçar o texto do botão
                                     }}
                                 >
                                     Máxima precisão e conforto em cada movimento
                                 </Typography>
+
                                 <Stack spacing={2} direction="row">
                                     <Button variant="contained"
                                         sx={{
                                             color: 'white',
                                             backgroundColor: '#262626',
-                                            fontSize: { xs: '0.75rem', sm: '0.875rem', md: '1rem' },
+                                            fontSize: { xs: '0.675rem', sm: '0.7875rem', md: '0.9rem' },
                                         }}>
                                         Ver mais
                                     </Button>
                                 </Stack>
+
                             </Box>
                         </Box>
                     ))}
