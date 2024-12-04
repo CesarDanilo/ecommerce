@@ -1,5 +1,6 @@
 import CreditCard3D from "Components/CreditCard3D";
 import React, { useState } from "react";
+import { useEffect } from "react";
 
 const ProfilePage = () => {
     const [user, setUser] = useState({
@@ -23,13 +24,32 @@ const ProfilePage = () => {
     // Função para atualizar o estado do formulário
     const handleChange = (e, category, field) => {
         const value = e.target.value;
-        setUser(prevState => ({
-            ...prevState,
-            [category]: {
-                ...prevState[category],
-                [field]: value
+
+        // Garantir que apenas números sejam aceitos para o número do cartão
+        if (field === "cardNumber") {
+            // Substitui qualquer caractere que não seja número
+            const numericValue = value.replace(/\D/g, "");
+
+            // Limita a 16 dígitos para o número do cartão
+            if (numericValue.length <= 16) {
+                setUser(prevState => ({
+                    ...prevState,
+                    [category]: {
+                        ...prevState[category],
+                        [field]: numericValue
+                    }
+                }));
             }
-        }));
+        } else {
+            // Para os outros campos, atualizar normalmente
+            setUser(prevState => ({
+                ...prevState,
+                [category]: {
+                    ...prevState[category],
+                    [field]: value
+                }
+            }));
+        }
     };
 
     // Função para salvar as alterações
@@ -53,7 +73,7 @@ const ProfilePage = () => {
                     </div>
                 </div>
                 <div>
-                    <CreditCard3D />
+                    <CreditCard3D cardNumber={user.paymentMethod.cardNumber} />
                 </div>
 
                 {/* Formulário de pagamento */}
@@ -64,6 +84,8 @@ const ProfilePage = () => {
                             <label className="block text-gray-700">Número do Cartão</label>
                             <input
                                 type="text"
+                                maxLength="16" // Limita a 16 caracteres
+                                inputMode="numeric" // Aceita apenas números
                                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                                 value={user.paymentMethod.cardNumber}
                                 onChange={(e) => handleChange(e, "paymentMethod", "cardNumber")}

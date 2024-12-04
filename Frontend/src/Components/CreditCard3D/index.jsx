@@ -1,6 +1,8 @@
 import React from "react";
+import { useEffect } from "react";
 
 const CreditCard3D = ({ cardNumber, expiryDate, cardholderName }) => {
+
     return (
         <div className="flex justify-center items-center h-auto mb-10">
             <div className="perspective-1000">
