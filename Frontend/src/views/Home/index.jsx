@@ -17,13 +17,14 @@ const Home = () => {
     }, [])
 
     return (
-
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} >
-            <NavBar qntProd={5} />
-            <Main />
-            <Cards titulo={'MOUSE PAD SPEED'} />
-            <Article />
-            <Footer />
+        <div>
+            <NavBar />
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} >
+                <Main />
+                <Cards titulo={'MOUSE PAD SPEED'} />
+                <Article />
+                <Footer />
+            </div>
         </div>
     );
 }

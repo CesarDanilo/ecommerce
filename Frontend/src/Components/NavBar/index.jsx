@@ -103,7 +103,7 @@ const NavBar = () => {
                         <h5 className="text-sm text-slate-950 font-semibold">DASHBOARD</h5>
                     </a>
                 )}
-                <a href="#contact" className="text-black font-bold hover:text-gray-700 no-underline">
+                <a href="/contato" className="text-black font-bold hover:text-gray-700 no-underline">
                     <h5 className="text-sm text-slate-950 font-semibold">CONTATO</h5>
                 </a>
             </div>

@@ -5,6 +5,7 @@ import Carrinho from './views/Carrinho';
 import SingIn from 'views/Auth/singIn';
 import CreateAccount from 'views/Auth/CreateAccount';
 import Checkout from 'views/Checkout';
+import ContactPage from 'views/Contato';
 
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
@@ -19,6 +20,8 @@ function App() {
           <Route path="/login" element={<SingIn />} />
           <Route path="/register" element={<CreateAccount />} />
           <Route path='/checkout' element={<Checkout />} />
+          <Route path='/contato' element={<ContactPage />} />
+
           {/* <Route path="*" element={<Navigate to="/admin/index" replace />} /> */}
         </Routes>
       </BrowserRouter>
