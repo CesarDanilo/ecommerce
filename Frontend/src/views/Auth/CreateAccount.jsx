@@ -11,7 +11,6 @@ export function CreateAccount() {
     const [showAlert, setShowAlert] = useState(false);
     const navigate = useNavigate(); // Use useNavigate to handle redirects
 
-
     const enviarDadosUsuario = async () => {
         const url = "http://localhost:3001/users/auth/createuser";
 
@@ -26,16 +25,19 @@ export function CreateAccount() {
             console.log("Dados que seriam enviados: ", dadosRecebidos);
 
             const response = await axios.post(url, dadosRecebidos);
-            window.alert(alertMessage);
-            setColor("green")
+
+            setColor("green");
+            setAlertMessage('Conta criada com sucesso! Você será redirecionado para login.');
             setShowAlert(true);
 
-            navigate("/login"); 
+            // Redirecionar para a página de login
+            setTimeout(() => navigate("/login"), 2000); // Redireciona após 2 segundos
 
         } catch (error) {
             if (error.response.status === 422) {
-                setColor("red")
-                setAlertMessage('Usurario já existe!');
+                // Alerta se o usuário já existe, incluindo o email
+                setColor("red");
+                setAlertMessage(`Usuário com o email ${userEmail} já existe!`);
             } else {
                 setAlertMessage('Ops! Ocorreu um erro!');
             }
@@ -66,7 +68,7 @@ export function CreateAccount() {
                     <div className="mb-6">
                         <label className="block text-gray-700 mb-1">Your name</label>
                         <input
-                            type="email"
+                            type="text"
                             placeholder="name"
                             onChange={(e) => setUserName(e.target.value)}
                             className="border border-gray-300 rounded-lg p-2 w-full focus:border-gray-900"
@@ -90,6 +92,13 @@ export function CreateAccount() {
                     <button type="button" className="mt-6 bg-blue-600 text-white py-2 px-4 rounded-lg w-full" onClick={enviarDadosUsuario}>
                         Register Now
                     </button>
+
+                    {/* Alert Notification */}
+                    {showAlert && (
+                        <div className={`mt-4 p-4 text-white ${color === 'green' ? 'bg-green-500' : 'bg-red-500'} rounded-lg`}>
+                            {alertMessage}
+                        </div>
+                    )}
 
                     <div className="space-y-4 mt-8">
                         <button className="flex items-center gap-2 justify-center bg-white shadow-md py-2 px-4 rounded-lg w-full">
@@ -119,9 +128,7 @@ export function CreateAccount() {
                     </p>
                 </form>
             </div>
-
         </section>
-
     );
 }
 
