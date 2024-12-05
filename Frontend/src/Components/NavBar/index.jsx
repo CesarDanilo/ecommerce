@@ -99,7 +99,7 @@ const NavBar = () => {
                     <h5 className="text-sm text-slate-950 font-semibold">HOME</h5>
                 </a>
                 {userAdmin && (
-                    <a href="/dashboard" className="text-black font-bold hover:text-gray-700 no-underline">
+                    <a href="http://localhost:5173/dashboard/home" className="text-black font-bold hover:text-gray-700 no-underline">
                         <h5 className="text-sm text-slate-950 font-semibold">DASHBOARD</h5>
                     </a>
                 )}
