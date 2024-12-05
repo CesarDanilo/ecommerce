@@ -24,12 +24,14 @@ const MainCarrinho = () => {
     };
 
     // Formatação para valores monetários
+    // Função para formatação de moeda com vírgula como separador decimal
     const formataMoeda = (valor) => {
         return valor.toLocaleString("pt-BR", {
             style: "currency",
             currency: "BRL",
-        });
+        }).replace("R$", "R$ ").replace(".", ",");
     };
+
 
     // Buscar dados do carrinho para o usuário
     const buscarDadosDoCarrinho = async () => {
@@ -108,7 +110,7 @@ const MainCarrinho = () => {
                 if (res.data && Array.isArray(res.data) && res.data.length > 0) {
                     const melhorOpcao = res.data.sort((a, b) => a.price - b.price)[0];
                     setFrete({
-                        valor: melhorOpcao.price,
+                        valor: melhorOpcao.custom_price,
                         prazo: melhorOpcao.delivery_time,
                         empresa: melhorOpcao.company.name
                     });
@@ -263,7 +265,7 @@ const MainCarrinho = () => {
                                 Total estimado
                             </Typography>
                             <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
-                                {formataMoeda(totalProdutos + frete.valor)}
+                                {formataMoeda(totalProdutos + parseFloat(frete.valor))}
                             </Typography>
                         </Box>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
