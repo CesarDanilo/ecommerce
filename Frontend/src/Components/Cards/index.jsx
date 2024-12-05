@@ -29,8 +29,8 @@ const Cards = ({ titulo }) => {
             sx={{
                 maxWidth: 1000,
                 margin: '0 auto',
-                padding: '0 16px',
-                width: '100%'
+                padding: '20 16px',
+                width: '100%',
             }}
         >
             <Typography
@@ -46,34 +46,36 @@ const Cards = ({ titulo }) => {
             >
                 {titulo}
             </Typography>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
                 {data.map((i, index) => (
                     <div
                         key={index}
                         className="w-full rounded-lg"
                         style={{
                             height: '420px', // Altura fixa do card
+                            display: 'flex', // Usando flexbox para garantir que o conteúdo se ajuste
+                            flexDirection: 'column', // Garantir que os itens dentro do card se alinhem verticalmente
                             overflow: 'hidden', // Garante que o conteúdo não ultrapasse o card
                         }}
                     >
                         <Link to={`/produto/${i.id}`} className="block text-black no-underline">
-                            <div className="bg-slate-50 shadow-lg shadow-cyan-950/25 rounded-lg max-w-full mx-auto transition-transform duration-200 transform hover:scale-105"
+                            <div className="bg-slate-50 rounded-lg max-w-full mx-auto transition-transform duration-200 transform hover:scale-105"
                                 style={{ height: '100%' }}
                             >
                                 <div
                                     className="relative"
                                     style={{
-                                        height: '250px', // Define altura fixa para a imagem
+                                        height: '200px', // Define altura fixa para a imagem
                                         overflow: 'hidden',
                                     }}
                                 >
                                     <img
                                         className="w-full h-full object-cover rounded-t-lg"
                                         src={`http://localhost:3001/uploads/${i.imagem}`}
-                                        alt="mouse pad"
+                                        alt="Produto"
                                     />
                                 </div>
-                                <div className="p-4 text-left flex flex-col space-y-1" style={{ height: '250px' }}>
+                                <div className="p-4 text-left flex flex-col justify-between flex-grow">
                                     <h3 className="font-semibold text-base text-gray-900">{i.nome}</h3>
                                     <p className="text-gray-600 text-sm">{i.descricao}</p>
                                     <div className="flex space-x-1 mt-1">
@@ -98,6 +100,6 @@ const Cards = ({ titulo }) => {
             </div>
         </Box>
     );
-}
+};
 
 export default Cards;
