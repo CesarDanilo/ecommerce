@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Box, Typography, Button } from '@mui/material';
+import { Grid, Box, Typography, Button, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -9,6 +9,9 @@ const MainCarrinho = () => {
     const baseUrl = "http://localhost:3001/carrinho/";
     const [produtos, setProdutos] = useState([]);
     const [totalProdutos, setTotalProdutos] = useState(0);
+    const [frete, setFrete] = useState({ valor: 0, prazo: 0, empresa: "" });
+    const [cepDestino, setCepDestino] = useState("");
+    const [erroFrete, setErroFrete] = useState(""); // Estado para erro no cálculo do frete
 
     // Função para buscar ID do usuário no localStorage
     const buscarIdDeUsuario = () => {
@@ -72,6 +75,52 @@ const MainCarrinho = () => {
         }, 0);
 
         setTotalProdutos(total);
+    };
+
+    // Calcular frete
+    const calcularFrete = () => {
+        if (!cepDestino || cepDestino.length !== 8 || isNaN(cepDestino)) {
+            setErroFrete("Por favor, informe um CEP válido com 8 dígitos.");
+            return;
+        }
+
+        const options = {
+            method: 'POST',
+            url: 'http://localhost:3001/calculate-shipment',
+            data: {
+                from: { postal_code: '96020360' },
+                to: { postal_code: cepDestino },
+                products: produtos.map((produto) => ({
+                    id: produto.id,
+                    width: produto.Produto.largura,
+                    height: produto.Produto.altura,
+                    length: produto.Produto.comprimento,
+                    weight: produto.Produto.peso,
+                    insurance_value: produto.Produto.preco,
+                    quantity: produto.quantidade
+                }))
+            }
+        };
+
+        axios.request(options)
+            .then(res => {
+                console.log("Resposta da API de frete:", res.data);
+                if (res.data && Array.isArray(res.data) && res.data.length > 0) {
+                    const melhorOpcao = res.data.sort((a, b) => a.price - b.price)[0];
+                    setFrete({
+                        valor: melhorOpcao.price,
+                        prazo: melhorOpcao.delivery_time,
+                        empresa: melhorOpcao.company.name
+                    });
+                    setErroFrete(""); // Limpa erros caso o cálculo seja bem-sucedido
+                } else {
+                    setErroFrete("Não foi possível calcular o frete para o CEP informado.");
+                }
+            })
+            .catch(err => {
+                console.error("Erro ao calcular frete:", err);
+                setErroFrete("Erro ao calcular o frete. Tente novamente mais tarde.");
+            });
     };
 
     useEffect(() => {
@@ -161,20 +210,60 @@ const MainCarrinho = () => {
                                 {formataMoeda(totalProdutos)}
                             </Typography>
                         </Box>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 1 }}>
                             <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
                                 Frete
                             </Typography>
-                            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
-                                R$ 0,00
-                            </Typography>
+                            <TextField
+                                size="small"
+                                value={cepDestino}
+                                onChange={(e) => setCepDestino(e.target.value)}
+                                placeholder="Digite o CEP"
+                                sx={{ width: '150px' }}
+                            />
+                            <Button variant="contained" color="success" onClick={calcularFrete}>
+                                Calcular
+                            </Button>
                         </Box>
+                        {erroFrete && (
+                            <Typography variant="body2" sx={{ color: 'red', marginTop: 1 }}>
+                                {erroFrete}
+                            </Typography>
+                        )}
+                        {frete.valor > 0 && (
+                            <>
+                                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                                        Valor do Frete
+                                    </Typography>
+                                    <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                                        {formataMoeda(frete.valor)}
+                                    </Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                                        Prazo de Entrega
+                                    </Typography>
+                                    <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                                        {frete.prazo} dias
+                                    </Typography>
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                                        Transportadora
+                                    </Typography>
+                                    <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
+                                        {frete.empresa}
+                                    </Typography>
+                                </Box>
+                            </>
+                        )}
                         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                             <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
                                 Total estimado
                             </Typography>
                             <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: 16 }}>
-                                {formataMoeda(totalProdutos)}
+                                {formataMoeda(totalProdutos + frete.valor)}
                             </Typography>
                         </Box>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>

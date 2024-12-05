@@ -4,11 +4,13 @@ import MainCarrinho from "../../Components/Carrinho/MainCarrinho";
 import ProdutosRelacionados from "../../Components/Produto/ProdutosRelacionados";
 const Carrinho = () => {
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <div>
             <NavBar />
-            <MainCarrinho />
-            <ProdutosRelacionados />
-            <Footer />
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <MainCarrinho />
+                <ProdutosRelacionados />
+                <Footer />
+            </div>
         </div>
     )
 }
