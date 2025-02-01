@@ -2,6 +2,8 @@
 
 Bem-vindo ao repositório do meu projeto de e-commerce, onde estou desenvolvendo uma aplicação web full-stack que demonstra a integração de tecnologias modernas de desenvolvimento web. Este projeto é uma demonstração das minhas habilidades em desenvolvimento backend e frontend, com foco em escalabilidade, manutenibilidade e experiência do usuário.
 
+![01 E-Commerce Site](https://github.com/user-attachments/assets/ff33b57c-0cc7-4e6b-a5d8-e2002068c859)
+
 ## 🚀 Tecnologias Utilizadas
 
 - **Node.js**: Ambiente de execução backend que alimenta a lógica do lado do servidor.
