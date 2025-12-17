@@ -23,7 +23,6 @@ Este projeto reflete minha experiência prática em **frontend, backend, banco d
 
 ### **Banco de Dados**
 - **PostgreSQL** → sistema robusto e confiável para persistência de dados.  
-
 ---
 
 <p align="left">
